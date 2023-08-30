@@ -1,7 +1,7 @@
-const isDark = ref(true);
+const isDark = ref(true)
 
 const changeTheme = () => {
-  isDark.value = !isDark.value;
-};
+  isDark.value = !isDark.value
+}
 
-export { changeTheme, isDark };
+export { changeTheme, isDark }

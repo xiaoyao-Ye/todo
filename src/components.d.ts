@@ -7,10 +7,10 @@ export {}
 
 declare module "vue" {
   export interface GlobalComponents {
-    NButton: (typeof import("naive-ui"))["NButton"];
-    NConfigProvider: (typeof import("naive-ui"))["NConfigProvider"];
-    NGlobalStyle: (typeof import("naive-ui"))["NGlobalStyle"];
-    RouterLink: (typeof import("vue-router"))["RouterLink"];
-    RouterView: (typeof import("vue-router"))["RouterView"];
+    NButton: (typeof import("naive-ui"))["NButton"]
+    NConfigProvider: (typeof import("naive-ui"))["NConfigProvider"]
+    NGlobalStyle: (typeof import("naive-ui"))["NGlobalStyle"]
+    RouterLink: (typeof import("vue-router"))["RouterLink"]
+    RouterView: (typeof import("vue-router"))["RouterView"]
   }
 }

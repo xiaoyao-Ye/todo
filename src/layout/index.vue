@@ -8,12 +8,12 @@
 </template>
 
 <script setup lang="ts">
-import NavBar from "./components/NavBar.vue";
+import NavBar from "./components/NavBar.vue"
 
-const router = useRouter();
+const router = useRouter()
 const to = (path: string) => {
-  router.push(path);
-};
+  router.push(path)
+}
 </script>
 
 <style scoped></style>

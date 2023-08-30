@@ -6,11 +6,11 @@
 </template>
 
 <script setup lang="ts">
-const router = useRouter();
+const router = useRouter()
 
 const back = () => {
-  router.back();
-};
+  router.back()
+}
 </script>
 
 <style scoped></style>

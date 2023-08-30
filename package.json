@@ -24,7 +24,7 @@
     "preview": "vite preview",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "simple-git-hooks",
-    "lint": "prettier --write",
+    "lint": "prettier --write .",
     "commit": "git-cz",
     "commit:origin": "git pull && git add . && git-cz && git push"
   },

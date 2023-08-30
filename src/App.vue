@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { darkTheme, lightTheme } from "naive-ui";
-import { isDark } from "@/stores";
+import { darkTheme, lightTheme } from "naive-ui"
+import { isDark } from "@/stores"
 </script>
 
 <template>
