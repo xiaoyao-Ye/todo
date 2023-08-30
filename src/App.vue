@@ -1,7 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { darkTheme, lightTheme } from "naive-ui";
+import { isDark } from "@/stores";
+</script>
 
 <template>
-  <router-view></router-view>
+  <n-config-provider :theme="isDark ? darkTheme : lightTheme">
+    <router-view></router-view>
+    <n-global-style />
+  </n-config-provider>
 </template>
 
 <style>

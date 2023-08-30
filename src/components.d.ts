@@ -5,10 +5,12 @@
 // Read more: https://github.com/vuejs/core/pull/3399
 export {}
 
-declare module 'vue' {
+declare module "vue" {
   export interface GlobalComponents {
-    NButton: typeof import('naive-ui')['NButton']
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
+    NButton: (typeof import("naive-ui"))["NButton"];
+    NConfigProvider: (typeof import("naive-ui"))["NConfigProvider"];
+    NGlobalStyle: (typeof import("naive-ui"))["NGlobalStyle"];
+    RouterLink: (typeof import("vue-router"))["RouterLink"];
+    RouterView: (typeof import("vue-router"))["RouterView"];
   }
 }
