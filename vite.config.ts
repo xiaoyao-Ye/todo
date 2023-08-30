@@ -7,7 +7,7 @@ import renderer from "vite-plugin-electron-renderer"
 import pkg from "./package.json"
 import AutoImport from "unplugin-auto-import/vite"
 import Components from "unplugin-vue-components/vite"
-import { NaiveUiResolver } from "unplugin-vue-components/resolvers"
+import { AntDesignVueResolver } from "unplugin-vue-components/resolvers"
 
 const resolve = (PATH: string) => {
   return path.resolve(__dirname, PATH)
@@ -41,7 +41,11 @@ export default defineConfig(({ command }) => {
       }),
       Components({
         dts: "./src/components.d.ts",
-        resolvers: [NaiveUiResolver()],
+        resolvers: [
+          AntDesignVueResolver({
+            importStyle: false,
+          }),
+        ],
       }),
       electron([
         {

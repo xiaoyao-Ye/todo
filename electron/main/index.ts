@@ -42,6 +42,22 @@ async function createWindow() {
   win = new BrowserWindow({
     title: "Ghosteye todo",
     icon: join(process.env.VITE_PUBLIC, "favicon.ico"),
+    width: 1280,
+    height: 720,
+    minHeight: 400,
+    minWidth: 360,
+    // backgroundColor: "#00000000",
+    transparent: true,
+    frame: false,
+    // opacity: 0.9,
+    // titleBarStyle: "hidden",
+    // fullscreen: true,
+    // titleBarOverlay: true,
+    // titleBarOverlay: {
+    //   color: "#2f3241",
+    //   symbolColor: "#74b1be",
+    //   height: 40,
+    // },
     webPreferences: {
       preload,
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production

@@ -1,12 +1,12 @@
 <template>
   <div>
     nav
-    <n-button @click="changeTheme">changeTheme</n-button>
+    <!-- <a-button @click="changeTheme">changeTheme</a-button> -->
   </div>
 </template>
 
 <script setup lang="ts">
-import { changeTheme } from "@/stores"
+// import { changeTheme } from "@/stores"
 </script>
 
 <style scoped></style>

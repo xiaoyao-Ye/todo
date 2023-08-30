@@ -7,9 +7,8 @@ export {}
 
 declare module "vue" {
   export interface GlobalComponents {
-    NButton: (typeof import("naive-ui"))["NButton"]
-    NConfigProvider: (typeof import("naive-ui"))["NConfigProvider"]
-    NGlobalStyle: (typeof import("naive-ui"))["NGlobalStyle"]
+    AButton: (typeof import("ant-design-vue/es"))["Button"]
+    AConfigProvider: (typeof import("ant-design-vue/es"))["ConfigProvider"]
     RouterLink: (typeof import("vue-router"))["RouterLink"]
     RouterView: (typeof import("vue-router"))["RouterView"]
   }

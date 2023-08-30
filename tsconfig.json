@@ -13,7 +13,6 @@
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "noEmit": true,
-    "types": ["naive-ui/volar"],
     "paths": {
       "@/*": ["src/*"]
     }

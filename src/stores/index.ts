@@ -1,7 +1,11 @@
-const isDark = ref(true)
+// import { darkTheme, lightTheme } from "naive-ui"
 
-const changeTheme = () => {
-  isDark.value = !isDark.value
-}
+// const theme = ref(darkTheme)
+// const isDark = ref(true)
 
-export { changeTheme, isDark }
+// const changeTheme = () => {
+//   isDark.value = !isDark.value
+//   theme.value = isDark.value ? darkTheme : lightTheme
+// }
+
+// export { changeTheme, theme }

@@ -1,16 +1,27 @@
 <script setup lang="ts">
-import { darkTheme, lightTheme } from "naive-ui"
-import { isDark } from "@/stores"
+import { theme } from "ant-design-vue"
+console.log(theme)
+
+// import { theme } from "@/stores"
 </script>
 
 <template>
-  <n-config-provider :theme="isDark ? darkTheme : lightTheme">
+  <a-config-provider :theme="theme">
+    <!-- <n-config-provider :inline-theme-disabled="true" :theme="theme"> -->
     <router-view></router-view>
-    <n-global-style />
-  </n-config-provider>
+  </a-config-provider>
 </template>
 
-<style>
+<style lang="scss">
+body {
+  background-color: transparent !important;
+}
+#app {
+  min-height: 100vh;
+  border-radius: 8px;
+  overflow: hidden;
+  // background-color: var(--n-color);
+}
 ::root {
   /* font-family: v-sans, v-mono, other-fallbacks; */
 }

@@ -1,7 +1,7 @@
 <template>
   <div>
     login
-    <n-button @click="back">back</n-button>
+    <a-button @click="back">back</a-button>
   </div>
 </template>
 
@@ -13,4 +13,8 @@ const back = () => {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+div {
+  background-color: var(--n-color);
+}
+</style>

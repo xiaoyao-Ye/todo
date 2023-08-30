@@ -1,8 +1,8 @@
 <template>
   <div>
     <NavBar />
-    <n-button @click="to('/settings')">settings</n-button>
-    <n-button @click="to('/login')">login</n-button>
+    <a-button @click="to('/settings')">settings</a-button>
+    <a-button @click="to('/login')">login</a-button>
     <router-view></router-view>
   </div>
 </template>
