@@ -1,7 +1,9 @@
 <template>
-  <div class="navBar flex items-center justify-between">
-    <div class="flex-1">left</div>
-    <div>center</div>
+  <div class="navBar flex items-center justify-between b-b">
+    <div class="flex-1 pl-4">
+      <n-avatar round src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
+    </div>
+    <div>I'm hungry.</div>
     <n-space class="h-full flex-1" justify="end" align="center">
       <UserInfo />
       <ToolButton />

@@ -23,7 +23,9 @@ const style = computed(() => {
 <template>
   <div id="variable" :style="style">
     <n-config-provider :inline-theme-disabled="true" :theme="theme">
-      <router-view></router-view>
+      <n-message-provider>
+        <router-view></router-view>
+      </n-message-provider>
       <!-- <n-global-style /> -->
     </n-config-provider>
   </div>

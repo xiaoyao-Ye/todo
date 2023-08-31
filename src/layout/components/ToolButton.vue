@@ -4,7 +4,7 @@
     <!-- <ButtonIcon v-if="!isMax" icon="i-carbon:maximize" class="font-size-4" @click="isMax = !isMax" /> -->
     <!-- <ButtonIcon v-if="!isMax" icon="i-carbon:stop" class="font-size-4" @click="isMax = !isMax" /> -->
     <!-- <ButtonIcon v-else icon="i-carbon:minimize" class="font-size-4" @click="isMax = !isMax" /> -->
-    <ButtonIcon :icon="isMax ? 'i-carbon:stop' : 'i-carbon:minimize'" class="font-size-4" @click="onChangeWinSize" />
+    <ButtonIcon :icon="isMax ? 'i-carbon:minimize' : 'i-carbon:stop'" class="font-size-4" @click="onChangeWinSize" />
     <ButtonIcon icon="i-carbon:close" class="font-size-5" @click="onClose" />
   </n-space>
 </template>
@@ -14,8 +14,6 @@ import { ipcRenderer } from "electron"
 
 const isMax = ref(false)
 ipcRenderer.on("window.maximized", (e: any, arg: boolean) => {
-  console.log(arg)
-
   isMax.value = arg
 })
 
