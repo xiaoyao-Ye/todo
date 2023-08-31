@@ -1,7 +1,7 @@
 <template>
   <div>
     settings
-    <a-button @click="back">back</a-button>
+    <n-button @click="back">back</n-button>
   </div>
 </template>
 

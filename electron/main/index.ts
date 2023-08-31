@@ -114,19 +114,53 @@ app.on("activate", () => {
   }
 })
 
-// New window example arg: new windows url
-ipcMain.handle("open-win", (_, arg) => {
-  const childWindow = new BrowserWindow({
-    webPreferences: {
-      preload,
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  })
+// 任务栏右键菜单
+// app.setUserTasks([
+//   {
+//     program: process.execPath,
+//     arguments: "--new-window",
+//     iconPath: process.execPath,
+//     iconIndex: 0,
+//     title: "New Window",
+//     description: "Create a new window",
+//   },
+// ])
 
-  if (process.env.VITE_DEV_SERVER_URL) {
-    childWindow.loadURL(`${url}#${arg}`)
+// New window example arg: new windows url
+// ipcMain.handle("open-win", (_, arg) => {
+//   const childWindow = new BrowserWindow({
+//     webPreferences: {
+//       preload,
+//       nodeIntegration: true,
+//       contextIsolation: false,
+//     },
+//   })
+
+//   if (process.env.VITE_DEV_SERVER_URL) {
+//     childWindow.loadURL(`${url}#${arg}`)
+//   } else {
+//     childWindow.loadFile(indexHtml, { hash: arg })
+//   }
+// })
+
+// 最大化/恢复正常
+ipcMain.on("win.changeWinSize", event => {
+  if (win.isMaximized()) {
+    win.unmaximize()
+    event.reply("window.maximized", false)
   } else {
-    childWindow.loadFile(indexHtml, { hash: arg })
+    win.maximize()
+    event.reply("window.maximized", true)
   }
+})
+
+// 最小化
+ipcMain.on("win.minimize", () => {
+  win.minimize()
+})
+
+// 关闭
+ipcMain.on("win.close", () => {
+  win.close()
+  // app.quit()
 })

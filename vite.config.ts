@@ -7,7 +7,8 @@ import renderer from "vite-plugin-electron-renderer"
 import pkg from "./package.json"
 import AutoImport from "unplugin-auto-import/vite"
 import Components from "unplugin-vue-components/vite"
-import { AntDesignVueResolver } from "unplugin-vue-components/resolvers"
+import { NaiveUiResolver } from "unplugin-vue-components/resolvers"
+import UnoCSS from "unocss/vite"
 
 const resolve = (PATH: string) => {
   return path.resolve(__dirname, PATH)
@@ -28,6 +29,7 @@ export default defineConfig(({ command }) => {
       },
     },
     plugins: [
+      UnoCSS(),
       vue(),
       AutoImport({
         imports: [
@@ -42,9 +44,10 @@ export default defineConfig(({ command }) => {
       Components({
         dts: "./src/components.d.ts",
         resolvers: [
-          AntDesignVueResolver({
-            importStyle: false,
-          }),
+          NaiveUiResolver(),
+          // AntDesignVueResolver({s
+          //   importStyle: false,
+          // }),
         ],
       }),
       electron([
