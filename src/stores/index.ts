@@ -1,7 +1,12 @@
 const isDark = ref(true)
 
-const changeTheme = () => {
+const toggleTheme = () => {
   isDark.value = !isDark.value
 }
 
-export { changeTheme, isDark }
+const collapsed = ref(false)
+function toggleCollapse(e: boolean) {
+  collapsed.value = e
+}
+
+export { toggleTheme, isDark, collapsed, toggleCollapse }

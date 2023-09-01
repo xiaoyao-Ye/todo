@@ -4,7 +4,7 @@ import { isDark } from "@/stores"
 
 const theme = computed(() => (isDark.value ? darkTheme : lightTheme))
 const style = computed(() => {
-  // console.log(theme.value)
+  console.log(theme.value)
   return {
     // "--n-color": theme.value.common.baseColor,
     "--n-color": theme.value.common.bodyColor,
@@ -16,6 +16,8 @@ const style = computed(() => {
     "--n-box-shadow2": theme.value.common.boxShadow2,
     "--n-box-shadow3": theme.value.common.boxShadow3,
     "--n-primary": theme.value.common.primaryColor,
+    "--n-border-color": theme.value.common.dividerColor,
+    "box-shadow": `0 0 5px 1px ${isDark.value ? "#333" : "#ccc"}`,
   }
 })
 </script>
@@ -45,9 +47,12 @@ const style = computed(() => {
 .n-space > div > * {
   vertical-align: middle;
 }
+#app {
+  padding: 5px;
+}
 #variable {
   overflow: hidden;
-  min-height: 100vh;
+  height: calc(100vh - 10px);
   text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
   padding: 0px;
