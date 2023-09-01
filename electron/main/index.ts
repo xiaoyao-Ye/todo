@@ -88,6 +88,11 @@ async function createWindow() {
     return { action: "deny" }
   })
   // win.webContents.on('will-navigate', (event, url) => { }) #344
+
+  // 窗口大小变化
+  win.on("resize", event => {
+    // event.reply("window.maximized", false)
+  })
 }
 
 app.whenReady().then(createWindow)

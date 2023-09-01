@@ -1,10 +1,10 @@
 <template>
-  <div class="navBar flex items-center justify-between b-b">
-    <div class="flex-1 pl-4">
+  <div class="navBar flex items-center justify-between px-4 h-full">
+    <div class="flex-1 flex">
       <n-avatar round src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
     </div>
     <div>I'm hungry.</div>
-    <n-space class="h-full flex-1" justify="end" align="center">
+    <n-space class="flex-1" justify="end" align="center">
       <UserInfo />
       <ToolButton />
     </n-space>
@@ -18,8 +18,6 @@ import ToolButton from "./ToolButton.vue"
 
 <style scoped lang="scss">
 .navBar {
-  height: 40px;
-  // background-color: #fff;
   // 可以拖动
   -webkit-app-region: drag;
   // 禁用文本选择
