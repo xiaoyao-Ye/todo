@@ -1,7 +1,7 @@
 <template>
   <div class="navBar flex items-center justify-between px-4 h-full">
     <div class="flex-1 flex">
-      <n-avatar round src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
+      <n-avatar round size="small" src="/favicon.ico" />
     </div>
     <div>I'm hungry.</div>
     <n-space class="flex-1" justify="end" align="center">

@@ -90,8 +90,8 @@ async function createWindow() {
   // win.webContents.on('will-navigate', (event, url) => { }) #344
 
   // 窗口大小变化
-  win.on("resize", event => {
-    // event.reply("window.maximized", false)
+  win.on("resize", () => {
+    win.webContents.send("window.maximized", false)
   })
 }
 
