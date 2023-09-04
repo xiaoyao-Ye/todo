@@ -8,7 +8,7 @@
     </div>
 
     <div v-show="isAddStatus" class="px-4 w-full">
-      <n-input ref="inputRef" v-model:value="name" :placeholder="placeholder" @blur="onBlur" @keyup.enter="onAdd">
+      <n-input ref="inputRef" v-model:value="name" :placeholder="placeholder" @blur="onClose" @keyup="handleKeyup">
         <template #prefix>
           <ButtonIcon icon="i-carbon:task-add" />
         </template>
@@ -35,7 +35,7 @@ function handleFocus() {
     inputRef.value?.focus()
   })
 }
-function onBlur() {
+function onClose() {
   isAddStatus.value = undefined
 }
 
@@ -44,11 +44,19 @@ function toggleStatus(type: ListStatus) {
   handleFocus()
 }
 
+function handleKeyup(e: any) {
+  if (e.key === "Enter") {
+    onAdd()
+  } else if (e.key === "Escape") {
+    onClose()
+  }
+}
+
 function onAdd() {
   console.log(isAddStatus.value === "list" ? "list" : "group")
   // 添加列表/分类
 
-  isAddStatus.value = undefined
+  onClose()
   name.value = ""
 }
 </script>

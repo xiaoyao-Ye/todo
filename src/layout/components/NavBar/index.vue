@@ -4,7 +4,10 @@
       <n-avatar round size="small" src="/favicon.ico" />
     </div>
     <!-- 这里可以设置成可配置的，可以让用户自己配置显示内容，或者不显示 -->
-    <div>星期一9月4日. I'm hungry.</div>
+    <!-- 还可以设置成 search bar 参考钉钉 -->
+    <div>
+      <n-gradient-text type="success">星期一9月4日. I'm hungry.</n-gradient-text>
+    </div>
     <n-space class="flex-1" justify="end" align="center">
       <UserInfo />
       <ToolButton />
