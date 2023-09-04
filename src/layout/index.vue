@@ -21,7 +21,7 @@
           :collapsed="collapsed"
           @update:collapsed="toggleCollapse"
           class="h-[calc(100vh-40px)]">
-          <Sider />
+          <SideBar />
         </n-layout-sider>
         <n-layout>
           <router-view></router-view>
@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 import NavBar from "./components/NavBar/index.vue"
-import Sider from "./components/Sider/index.vue"
+import SideBar from "./components/SideBar/index.vue"
 import { collapsed, toggleCollapse } from "@/stores"
 </script>
 

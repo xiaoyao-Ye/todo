@@ -3,7 +3,8 @@
     <div class="flex-1 flex">
       <n-avatar round size="small" src="/favicon.ico" />
     </div>
-    <div>I'm hungry.</div>
+    <!-- 这里可以设置成可配置的，可以让用户自己配置显示内容，或者不显示 -->
+    <div>星期一9月4日. I'm hungry.</div>
     <n-space class="flex-1" justify="end" align="center">
       <UserInfo />
       <ToolButton />
