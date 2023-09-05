@@ -41,6 +41,7 @@ const indexHtml = join(process.env.DIST, "index.html")
 async function createWindow() {
   win = new BrowserWindow({
     title: "Ghosteye todo",
+    fullscreenable: false,
     icon: join(process.env.VITE_PUBLIC, "favicon.ico"),
     width: 1280,
     height: 720,

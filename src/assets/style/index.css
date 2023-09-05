@@ -1,0 +1,18 @@
+
+/* 一个设置了 display: inline-flex; 的标签（通常是一个容器元素）包裹在 img 标签中， */
+/* 而且外面的标签也设置了 display: inline-flex; 或者其他垂直对齐属性时，可能会出现额外的高度。 */
+/* 这是因为内部的 img 元素被视为基线元素，而 display: inline-flex; 的容器会在基线元素的基础上创建弹性容器。 */
+/* 默认情况下，弹性容器（display: inline-flex; 或 display: flex;）会尝试基于基线元素来对齐内容。 */
+/* 在这种情况下，如果容器内部的 img 元素的高度大于容器的基线，容器会在基线的基础上增加额外的空白空间 */
+/* 解决办法是设置 vertical-align: middle; 或者是将 display: inline-flex; 设置为 display: flex; */
+/* .n-avatar { */
+  /* vertical-align: middle; */
+/* } */
+/* 发现 naive-ui 很多组件都是用的 inline-flex, 目前 n-space 包裹的发现了这个问题, 那就先只解决 n-space 下的元素 */
+.n-space > div > * {
+  vertical-align: middle;
+}
+
+#app {
+  padding: 5px;
+}

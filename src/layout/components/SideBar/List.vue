@@ -8,7 +8,7 @@
     </div>
 
     <div v-show="isAddStatus" class="px-4 w-full">
-      <n-input ref="inputRef" v-model:value="name" :placeholder="placeholder" @blur="onClose" @keyup="handleKeyup">
+      <n-input ref="inputRef" round v-model:value="name" :placeholder="placeholder" @blur="onClose" @keyup="handleKeyup">
         <template #prefix>
           <ButtonIcon icon="i-carbon:task-add" />
         </template>

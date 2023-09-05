@@ -20,7 +20,7 @@
           :native-scrollbar="false"
           :collapsed="collapsed"
           @update:collapsed="toggleCollapse"
-          class="h-[calc(100vh-40px)]">
+          class="h-[calc(100vh-40px-10px)]">
           <SideBar />
         </n-layout-sider>
         <n-layout>

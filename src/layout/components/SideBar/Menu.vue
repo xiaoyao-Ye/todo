@@ -12,6 +12,7 @@
 </template>
 
 <script setup lang="ts">
+import { toggleCategory } from "@/stores/todo"
 import { MenuGroupOption, MenuMixedOption, MenuOption } from "naive-ui/es/menu/src/interface"
 
 const router = useRouter()
@@ -44,10 +45,20 @@ function handleContextMenu(e: MouseEvent) {
   })
 }
 
+function handleMenu(option: MenuOption | MenuGroupOption) {
+  if (option.path) return router.push(option.path as string)
+  if (option.category) {
+    toggleCategory(option.category as string)
+    if (!router.currentRoute.value.fullPath.includes("/todo")) {
+      router.push("/todo")
+    }
+  }
+}
+
 const renderNode: any = (option: MenuOption | MenuGroupOption) => {
   // console.log(option)
   return {
-    onClick: () => router.push(option.path as string),
+    onClick: () => handleMenu(option),
     onContextmenu: handleContextMenu,
   }
 }
@@ -56,45 +67,17 @@ function renderIcon(icon: string) {
   return () => h("div", { class: icon })
 }
 const menuOptions: MenuMixedOption[] = [
-  { label: "任务列表", key: "任务列表", icon: renderIcon("i-carbon:document-multiple-02"), path: "/" },
-  { label: "已完成", key: "已完成", icon: renderIcon("i-carbon:task-complete"), path: "/" },
-  { label: "今天做点什么呢", key: "今天做点什么呢", icon: renderIcon("i-carbon:task-view"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  { label: "这些比较重要", key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" },
-  {
-    label: "这些比较重要",
-    key: "这些比较重要",
-    icon: renderIcon("i-carbon:task-star"),
-    path: "/",
-    children: [{ key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" }],
-  },
+  { icon: renderIcon("i-carbon:document-multiple-02"), label: "任务列表", key: "任务列表", path: "/home" },
+  { icon: renderIcon("i-carbon:task-view"), label: "今天做点什么呢", key: "今天做点什么呢", category: "today" },
+  { icon: renderIcon("i-carbon:task-complete"), label: "已完成", key: "已完成", category: "complete" },
+  { icon: renderIcon("i-carbon:task-star"), label: "这些比较重要", key: "这些比较重要", category: "important" },
+  // {
+  //   label: "这些比较重要",
+  //   key: "这些比较重要",
+  //   icon: renderIcon("i-carbon:task-star"),
+  //   path: "/",
+  //   children: [{ key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" }],
+  // },
 ]
 </script>
 
