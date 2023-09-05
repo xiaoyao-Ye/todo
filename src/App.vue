@@ -12,12 +12,17 @@ const style = computed(() => {
     "--n-font-family": theme.value.common.fontFamily,
     "--n-line-height": theme.value.common.lineHeight,
     "--n-text-color": theme.value.common.textColor2,
+    "--n-text-color3": theme.value.common.textColor3,
     "--n-box-shadow1": theme.value.common.boxShadow1,
     "--n-box-shadow2": theme.value.common.boxShadow2,
     "--n-box-shadow3": theme.value.common.boxShadow3,
     "--n-primary": theme.value.common.primaryColor,
     "--n-border-color": theme.value.common.dividerColor,
     "box-shadow": `0 0 5px 1px ${isDark.value ? "#333" : "#ccc"}`,
+    // n-card
+    "--n-card-color": theme.value.Card.common?.cardColor,
+    "--n-divider-color": theme.value.Card.common?.dividerColor,
+    "--n-bezier": theme.value.Card.common?.cubicBezierEaseInOut,
   }
 })
 </script>

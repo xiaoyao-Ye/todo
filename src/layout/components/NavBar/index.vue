@@ -1,7 +1,11 @@
 <template>
   <div class="navBar flex items-center justify-between px-4 h-full">
     <div class="flex-1 flex">
-      <n-avatar round size="small" src="/favicon.ico" />
+      <!-- <n-avatar round size="small" src="/favicon.ico" /> -->
+      <span class="i-carbon:crop-growth text-xl text-orange-300"></span>
+      <!-- <span class="i-carbon:humidity text-xl"></span> -->
+      <!-- <span class="i-carbon:logo-keybase text-xl"></span> -->
+      <!-- <span class="i-carbon:palm-tree text-xl"></span> -->
     </div>
     <!-- 这里可以设置成可配置的，可以让用户自己配置显示内容，或者不显示 -->
     <!-- 还可以设置成 search bar 参考钉钉 -->
