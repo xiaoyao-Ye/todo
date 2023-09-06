@@ -1,5 +1,5 @@
 <template>
-  <n-menu :collapsed-width="64" :collapsed-icon-size="22" :options="menuOptions" :node-props="renderNode" />
+  <n-menu :collapsed-width="64" :collapsed-icon-size="22" :options="menuOptions" :node-props="renderNode" default-value="today" />
   <n-dropdown
     placement="bottom-start"
     trigger="manual"
@@ -69,10 +69,10 @@ function renderIcon(icon: string) {
 }
 // TODO: 整个菜单都应该放到 store 里面
 const menuOptions: MenuMixedOption[] = [
-  { icon: renderIcon("i-carbon:task-view"), label: "今天做点什么呢", key: "今天做点什么呢", category: "today" },
-  { icon: renderIcon("i-carbon:document-multiple-02"), label: "任务列表", key: "任务列表", category: "tasks" },
-  { icon: renderIcon("i-carbon:task-star"), label: "这些比较重要", key: "这些比较重要", category: "important" },
-  { icon: renderIcon("i-carbon:task-complete"), label: "已完成", key: "已完成", category: "done" },
+  { icon: renderIcon("i-carbon:task-view"), label: "今天做点什么呢", key: "today", category: "today" },
+  { icon: renderIcon("i-carbon:document-multiple-02"), label: "任务列表", key: "tasks", category: "tasks" },
+  { icon: renderIcon("i-carbon:task-star"), label: "这些比较重要", key: "important", category: "important" },
+  { icon: renderIcon("i-carbon:task-complete"), label: "已完成", key: "done", category: "done" },
   // { icon: renderIcon("i-carbon:document-multiple-02"), label: "home", key: "home", path: "/home" },
   // {
   //   label: "这些比较重要",

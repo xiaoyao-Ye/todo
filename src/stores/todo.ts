@@ -12,7 +12,7 @@ export interface Todo {
 }
 
 const setupStore = () => {
-  const category = ref<Category>("tasks")
+  const category = ref<Category>("today")
   function toggleCategory(targetCategory: string) {
     category.value = targetCategory
   }
