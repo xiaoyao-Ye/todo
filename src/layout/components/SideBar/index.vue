@@ -4,14 +4,15 @@
       <Menu />
     </n-scrollbar>
 
-    <List v-show="!collapsed" />
+    <List v-show="!globalStore.collapsed" />
   </div>
 </template>
 
 <script setup lang="ts">
 import Menu from "./Menu.vue"
 import List from "./List.vue"
-import { collapsed } from "@/stores"
+import { useGlobalStore } from "@/stores"
+const globalStore = useGlobalStore()
 </script>
 
 <style scoped></style>

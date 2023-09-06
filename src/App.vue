@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { darkTheme, lightTheme } from "naive-ui"
-import { isDark } from "@/stores"
+import { useGlobalStore } from "@/stores"
+const globalStore = useGlobalStore()
 
-const theme = computed(() => (isDark.value ? darkTheme : lightTheme))
+const theme = computed(() => (globalStore.isDark ? darkTheme : lightTheme))
 const style = computed(() => {
   console.log(theme.value)
   return {
@@ -18,7 +19,7 @@ const style = computed(() => {
     "--n-box-shadow3": theme.value.common.boxShadow3,
     "--n-primary": theme.value.common.primaryColor,
     "--n-border-color": theme.value.common.dividerColor,
-    "box-shadow": `0 0 5px 1px ${isDark.value ? "#333" : "#ccc"}`,
+    "box-shadow": `0 0 5px 1px ${globalStore.isDark ? "#333" : "#ccc"}`,
     // n-card
     "--n-card-color": theme.value.Card.common?.cardColor,
     "--n-divider-color": theme.value.Card.common?.dividerColor,

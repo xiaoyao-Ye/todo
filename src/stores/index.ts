@@ -1,12 +1,28 @@
-const isDark = ref(true)
+import { defineStore } from "pinia"
 
-const toggleTheme = () => {
-  isDark.value = !isDark.value
-}
+// export const useGlobalStore = defineStore("global", {
+//   state: () => {
+//     return { isDark: false, collapsed: false }
+//   },
+//   actions: {
+//     toggleTheme() {
+//       this.isDark = !this.isDark
+//     },
+//     toggleCollapse(e: boolean) {
+//       this.collapsed = e
+//     },
+//   },
+// })
+export const useGlobalStore = defineStore("global", () => {
+  const isDark = ref(true)
 
-const collapsed = ref(false)
-function toggleCollapse(e: boolean) {
-  collapsed.value = e
-}
+  const toggleTheme = () => {
+    isDark.value = !isDark.value
+  }
 
-export { toggleTheme, isDark, collapsed, toggleCollapse }
+  const collapsed = ref(false)
+  function toggleCollapse(e: boolean) {
+    collapsed.value = e
+  }
+  return { isDark, toggleTheme, collapsed, toggleCollapse }
+})
