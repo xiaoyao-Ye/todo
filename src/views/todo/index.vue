@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col p-4 h-[calc(100vh-40px-10px)]">
     <div class="flex items-center justify-between">
-      <div class="p-4 min-w-[200px] border border-dashed rd">{{ category }}</div>
+      <div class="p-4 min-w-[200px] border border-dashed rd">{{ todoStore.category }}</div>
       <n-space>
         <!-- 选择排序 -->
         <n-popselect v-model:value="sortCategory" :options="options" trigger="click">
@@ -16,12 +16,12 @@
     </div>
 
     <n-scrollbar class="flex-1 px-4 pt-4">
-      <Card />
+      <Card v-for="todo in todoStore.todoListFiltered" :key="todo.id" :todo="todo" />
     </n-scrollbar>
 
-    <div class="pt-4">
+    <div v-show="todoStore.category !== 'done'" class="pt-4">
       <!-- TODO: logic -->
-      <n-input v-model:value="value" round placeholder="输入内容按 Enter 添加代办事项">
+      <n-input v-model:value="title" round placeholder="输入内容按 Enter 添加代办事项" @keyup.enter="onAddTodo">
         <template #prefix>
           <ButtonIcon icon="i-carbon:task-add" />
         </template>
@@ -31,13 +31,12 @@
 </template>
 
 <script setup lang="ts">
-import Card from "./card.vue"
-import { category } from "@/stores/todo"
-
-const value = ref("")
+import Card from "./Card.vue"
+import { useTodoStore } from "@/stores/todo"
+const todoStore = useTodoStore()
 
 const sortIcon = {
-  "默认排序": "i-carbon:database-enterprisedb",
+  "默认排序": "",
   "按重要性排序": "i-carbon:star-filled",
   "按到期时间排序": "i-carbon:hourglass",
   "按字母排序": "i-carbon:character-sentence-case",
@@ -51,8 +50,15 @@ function toggleSort() {
 }
 
 watchEffect(() => {
-  console.log(category.value)
+  console.log(todoStore.category)
+  console.log(todoStore.todoListFiltered.length)
 })
+
+const title = ref("")
+function onAddTodo() {
+  todoStore.addTodo(title.value)
+  title.value = ""
+}
 </script>
 
 <style scoped></style>

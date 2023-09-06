@@ -12,8 +12,9 @@
 </template>
 
 <script setup lang="ts">
-import { toggleCategory } from "@/stores/todo"
 import { MenuGroupOption, MenuMixedOption, MenuOption } from "naive-ui/es/menu/src/interface"
+import { useTodoStore } from "@/stores/todo"
+const todoStore = useTodoStore()
 
 const router = useRouter()
 const message = useMessage()
@@ -48,7 +49,7 @@ function handleContextMenu(e: MouseEvent) {
 function handleMenu(option: MenuOption | MenuGroupOption) {
   if (option.path) return router.push(option.path as string)
   if (option.category) {
-    toggleCategory(option.category as string)
+    todoStore.toggleCategory(option.category as string)
     if (!router.currentRoute.value.fullPath.includes("/todo")) {
       router.push("/todo")
     }
@@ -66,11 +67,13 @@ const renderNode: any = (option: MenuOption | MenuGroupOption) => {
 function renderIcon(icon: string) {
   return () => h("div", { class: icon })
 }
+// TODO: 整个菜单都应该放到 store 里面
 const menuOptions: MenuMixedOption[] = [
-  { icon: renderIcon("i-carbon:document-multiple-02"), label: "任务列表", key: "任务列表", path: "/home" },
   { icon: renderIcon("i-carbon:task-view"), label: "今天做点什么呢", key: "今天做点什么呢", category: "today" },
-  { icon: renderIcon("i-carbon:task-complete"), label: "已完成", key: "已完成", category: "complete" },
+  { icon: renderIcon("i-carbon:document-multiple-02"), label: "任务列表", key: "任务列表", category: "tasks" },
   { icon: renderIcon("i-carbon:task-star"), label: "这些比较重要", key: "这些比较重要", category: "important" },
+  { icon: renderIcon("i-carbon:task-complete"), label: "已完成", key: "已完成", category: "done" },
+  // { icon: renderIcon("i-carbon:document-multiple-02"), label: "home", key: "home", path: "/home" },
   // {
   //   label: "这些比较重要",
   //   key: "这些比较重要",

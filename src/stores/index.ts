@@ -13,7 +13,8 @@ import { defineStore } from "pinia"
 //     },
 //   },
 // })
-export const useGlobalStore = defineStore("global", () => {
+
+const storeSetup = () => {
   const isDark = ref(true)
 
   const toggleTheme = () => {
@@ -24,5 +25,8 @@ export const useGlobalStore = defineStore("global", () => {
   function toggleCollapse(e: boolean) {
     collapsed.value = e
   }
+
   return { isDark, toggleTheme, collapsed, toggleCollapse }
-})
+}
+
+export const useGlobalStore = defineStore("global", storeSetup, { persist: true })

@@ -2,29 +2,37 @@
   <div class="card flex items-center mb-4 p-4 border rd">
     <ButtonIcon :icon="isCompleteIcon" @click="toggleComplete" />
     <!-- TODO: 双击编辑内容 -->
-    <span class="px-2 flex-1" :class="[isCompleted && 'completed']">今天没吃饭</span>
+    <span class="px-2 flex-1" :class="[todo.done && 'done']">{{ todo.title }}</span>
     <ButtonIcon :icon="isCollectIcon" class="justify-self-end" @click="toggleCollect" />
     <!-- TODO: 提醒是否确认删除 -->
-    <ButtonIcon icon="i-carbon:trash-can" class="justify-self-end ml-2" />
+    <ButtonIcon icon="i-carbon:trash-can" class="justify-self-end ml-2" @click="removeTodo" />
   </div>
 </template>
 
 <script setup lang="ts">
-const isCompleted = ref(false)
+import type { Todo } from "@/stores/todo"
+import { useTodoStore } from "@/stores/todo"
+const todoStore = useTodoStore()
+
+const props = defineProps<{ todo: Todo }>()
+
 function toggleComplete() {
-  isCompleted.value = !isCompleted.value
+  todoStore.updateTodo({ id: props.todo.id, done: !props.todo.done })
 }
 const isCompleteIcon = computed(() => {
-  return isCompleted.value ? "i-carbon:checkmark-outline" : "i-carbon:radio-button"
+  return props.todo.done ? "i-carbon:checkmark-outline" : "i-carbon:radio-button"
 })
 
-const isCollected = ref(false)
 function toggleCollect() {
-  isCollected.value = !isCollected.value
+  todoStore.updateTodo({ id: props.todo.id, important: !props.todo.important })
 }
 const isCollectIcon = computed(() => {
-  return isCollected.value ? "i-carbon:star-filled" : "i-carbon:star"
+  return props.todo.important ? "i-carbon:star-filled" : "i-carbon:star"
 })
+
+function removeTodo() {
+  todoStore.removeTodo(props.todo.id)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -37,7 +45,7 @@ const isCollectIcon = computed(() => {
     box-shadow 0.3s var(--n-bezier),
     border-color 0.3s var(--n-bezier);
 }
-.completed {
+.done {
   color: var(--n-text-color3);
   text-decoration: line-through;
 }
