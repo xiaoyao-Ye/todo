@@ -83,8 +83,8 @@ describe("todo", () => {
   it("should filter todo by category", () => {
     setActivePinia(createPinia())
     const todoStore = useTodoStore()
-    todoStore.addTodo("code") // 默认添加分类为 tasks
-    todoStore.toggleCategory("today")
+    todoStore.addTodo("code") // 默认添加分类为 today
+    todoStore.toggleCategory("important")
     todoStore.addTodo("code")
 
     expect(todoStore.todoListFiltered.length).toBe(1)
