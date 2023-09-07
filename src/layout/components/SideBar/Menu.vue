@@ -82,6 +82,10 @@ const menuOptions: MenuMixedOption[] = [
   //   children: [{ key: "这些比较重要", icon: renderIcon("i-carbon:task-star"), path: "/" }],
   // },
 ]
+
+onMounted(() => {
+  todoStore.toggleCategory("today")
+})
 </script>
 
 <style scoped></style>

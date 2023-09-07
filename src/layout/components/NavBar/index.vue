@@ -10,7 +10,7 @@
     <!-- 这里可以设置成可配置的，可以让用户自己配置显示内容，或者不显示 -->
     <!-- 还可以设置成 search bar 参考钉钉 -->
     <div>
-      <n-gradient-text type="success">星期一9月4日. I'm hungry.</n-gradient-text>
+      <n-gradient-text type="success">{{ title }}</n-gradient-text>
     </div>
     <n-space class="flex-1" justify="end" align="center">
       <UserInfo />
@@ -22,6 +22,14 @@
 <script setup lang="ts">
 import UserInfo from "./UserInfo.vue"
 import ToolButton from "./ToolButton.vue"
+
+// const date = new Date().toLocaleDateString()
+const date = new Date()
+const month = date.getMonth() + 1
+const day = date.getDate()
+const week = date.getDay()
+const dayOfWeekMap = ["日", "一", "二", "三", "四", "五", "六"]
+const title = `星期${dayOfWeekMap[week]} ${month}月${day}日. I'm hungry.`
 </script>
 
 <style scoped lang="scss">
