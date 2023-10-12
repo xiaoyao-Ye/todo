@@ -18,6 +18,14 @@
       "VITE_DEV_SERVER_URL": "http://127.0.0.1:3344/"
     }
   },
+  "build": {
+    "win": {
+      "icon": "/public/favicon.ico"
+    },
+    "mac": {
+      "icon": "/public/favicon.ico"
+    }
+  },
   "scripts": {
     "test": "vitest run",
     "dev": "vite",

@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell, ipcMain } from "electron"
+import { app, BrowserWindow, shell, ipcMain, Menu, Tray } from "electron"
 import { release } from "node:os"
 import { join } from "node:path"
 
@@ -37,6 +37,7 @@ let win: BrowserWindow | null = null
 const preload = join(__dirname, "../preload/index.js")
 const url = process.env.VITE_DEV_SERVER_URL
 const indexHtml = join(process.env.DIST, "index.html")
+let tray: Tray | null = null
 
 async function createWindow() {
   win = new BrowserWindow({
@@ -69,6 +70,26 @@ async function createWindow() {
     },
   })
 
+  tray = new Tray(join(process.env.VITE_PUBLIC, "favicon.ico"))
+
+  tray.setContextMenu(
+    Menu.buildFromTemplate([
+      {
+        label: "退出",
+        click: () => {
+          win.webContents.send("close")
+          win.destroy()
+        },
+      },
+    ]),
+  )
+  tray.setToolTip("todo")
+  tray.on("click", () => {
+    win.show()
+    win.focus()
+    win.setSkipTaskbar(false)
+  })
+
   if (process.env.VITE_DEV_SERVER_URL) {
     // electron-vite-vue#298
     win.loadURL(url)
@@ -96,7 +117,11 @@ async function createWindow() {
   })
 }
 
-app.whenReady().then(createWindow)
+app.whenReady().then(async () => {
+  await createWindow()
+  // 移除Electron菜单, 好像没效果
+  // Menu.setApplicationMenu(null)
+})
 
 app.on("window-all-closed", () => {
   win = null
