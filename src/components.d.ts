@@ -22,6 +22,7 @@ declare module "vue" {
     NPopselect: (typeof import("naive-ui"))["NPopselect"]
     NScrollbar: (typeof import("naive-ui"))["NScrollbar"]
     NSpace: (typeof import("naive-ui"))["NSpace"]
+    NSpin: (typeof import("naive-ui"))["NSpin"]
     RouterLink: (typeof import("vue-router"))["RouterLink"]
     RouterView: (typeof import("vue-router"))["RouterView"]
   }

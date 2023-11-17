@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { darkTheme, lightTheme } from "naive-ui"
 import { useGlobalStore } from "@/stores"
+import { loading } from "./api/helper/loading"
+
 const globalStore = useGlobalStore()
 
 const theme = computed(() => (globalStore.isDark ? darkTheme : lightTheme))
@@ -32,7 +34,15 @@ const style = computed(() => {
   <div id="variable" :style="style">
     <n-config-provider :inline-theme-disabled="true" :theme="theme">
       <n-message-provider>
-        <router-view></router-view>
+        <n-spin :show="loading">
+          <router-view></router-view>
+          <!-- <template #icon>
+            自定义icon
+          </template> -->
+          <!-- <template #description>
+            你不知道你有多幸运
+          </template> -->
+        </n-spin>
       </n-message-provider>
       <!-- <n-global-style /> -->
     </n-config-provider>
