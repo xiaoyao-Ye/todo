@@ -113,7 +113,8 @@ async function createWindow() {
 
   // 窗口大小变化
   win.on("resize", () => {
-    win.webContents.send("window.maximized", false)
+    win.webContents.send("window.maximized", win.isMaximized())
+    // win.webContents.send("window.maximized", false)
   })
 }
 
@@ -178,10 +179,10 @@ app.on("activate", () => {
 ipcMain.on("win.changeWinSize", event => {
   if (win.isMaximized()) {
     win.unmaximize()
-    event.reply("window.maximized", false)
+    // event.reply("window.maximized", false)
   } else {
     win.maximize()
-    event.reply("window.maximized", true)
+    // event.reply("window.maximized", true)
   }
 })
 

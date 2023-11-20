@@ -31,28 +31,33 @@ const style = computed(() => {
 </script>
 
 <template>
-  <div id="variable" :style="style">
-    <n-config-provider :inline-theme-disabled="true" :theme="theme">
-      <n-message-provider>
-        <n-spin :show="loading">
-          <router-view></router-view>
-          <!-- <template #icon>
+  <div :class="{ 'app-bg': true, isMax: globalStore.isMax }">
+    <div id="variable" :style="style">
+      <n-config-provider :inline-theme-disabled="true" :theme="theme">
+        <n-message-provider>
+          <n-spin :show="loading">
+            <router-view></router-view>
+            <!-- <template #icon>
             自定义icon
           </template> -->
-          <!-- <template #description>
+            <!-- <template #description>
             你不知道你有多幸运
           </template> -->
-        </n-spin>
-      </n-message-provider>
-      <!-- <n-global-style /> -->
-    </n-config-provider>
+          </n-spin>
+        </n-message-provider>
+        <!-- <n-global-style /> -->
+      </n-config-provider>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.app-bg {
+  padding: 5px;
+}
+
 #variable {
   overflow: hidden;
-  // TODO: 最大化时取消阴影
   height: calc(100vh - 10px);
   text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
@@ -67,5 +72,14 @@ const style = computed(() => {
     background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
   background-color: var(--n-color);
   border-radius: 8px;
+}
+
+.app-bg.isMax {
+  padding: 0;
+
+  #variable {
+    height: 100vh;
+    border-radius: 0;
+  }
 }
 </style>
