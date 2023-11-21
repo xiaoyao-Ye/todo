@@ -12,6 +12,8 @@ declare module "vue" {
     NButton: (typeof import("naive-ui"))["NButton"]
     NConfigProvider: (typeof import("naive-ui"))["NConfigProvider"]
     NDropdown: (typeof import("naive-ui"))["NDropdown"]
+    NForm: (typeof import("naive-ui"))["NForm"]
+    NFormItem: (typeof import("naive-ui"))["NFormItem"]
     NGradientText: (typeof import("naive-ui"))["NGradientText"]
     NInput: (typeof import("naive-ui"))["NInput"]
     NLayout: (typeof import("naive-ui"))["NLayout"]

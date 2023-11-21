@@ -1,11 +1,11 @@
 // import { ElLoading } from 'element-plus'
-const Message = useMessage()
+// const Message = useMessage()
 
 // let loadingInstance: ReturnType<typeof ElLoading.service>
 const loading = ref(false)
 
 const startLoading = () => {
-  Message.loading("加载中...", { duration: 0 })
+  // Message.loading("加载中...", { duration: 0 })
   loading.value = true
   // loadingInstance = ElLoading.service({
   //   fullscreen: true,

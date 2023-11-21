@@ -14,7 +14,20 @@ const routes = [
   { path: "/settings", component: () => import("@/views/settings/index.vue") },
 ]
 
-export const router = createRouter({
+const router = createRouter({
   history: createWebHashHistory(),
   routes, // `routes: routes` 的缩写
 })
+
+router.beforeEach((to, from, next) => {
+  console.log(`( to )===============>`, to)
+  console.log(`( from )===============>`, from)
+  console.log(`( next )===============>`, next)
+  const token = localStorage.getItem("token")
+  if (!token && to.path !== "/login") {
+    return next({ path: "/login" })
+  }
+  next()
+})
+
+export { router }

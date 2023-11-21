@@ -1,7 +1,7 @@
 import { TOKEN } from "@/constant"
-// import { router } from "@/router"
+import { router } from "@/router"
 
-const Message = useMessage()
+// const Message = useMessage()
 
 const statusList: Indexable = {
   // 400: '请求失败！请您稍后重试',
@@ -24,11 +24,11 @@ export const checkStatus = (status: number, message?: string) => {
   // const title = statusList[status] ?? message ?? '请求失败！'
   // const title = message ? `${statusList[status]} ${message}` : statusList[status] ?? '请求失败！'
   const title = message ?? statusList[status] ?? "请求失败！"
-  Message.error(title)
+  // Message.error(title)
+  alert(title)
   if (status === 401) {
     localStorage.removeItem(TOKEN)
-    // router.push({ path: "/pages/login/index" })
-    // router.push({ name: "login" })
+    router.push({ name: "login" })
     throw new Error(title)
   }
   throw new Error(title)
