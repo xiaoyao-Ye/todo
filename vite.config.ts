@@ -95,15 +95,31 @@ export default defineConfig(({ command }) => {
       // Use Node.js API in the Renderer-process
       renderer(),
     ],
-    server:
-      process.env.VSCODE_DEBUG &&
-      (() => {
-        const url = new URL(pkg.debug.env.VITE_DEV_SERVER_URL)
-        return {
-          host: url.hostname,
-          port: +url.port,
-        }
-      })(),
+    // server:
+    //   process.env.VSCODE_DEBUG &&
+    //   (() => {
+    //     // const url = new URL(pkg.debug.env.VITE_DEV_SERVER_URL)
+    //     return {
+    //       // host: url.hostname,
+    //       // port: +url.port,
+    //       proxy: {
+    //         "/api": {
+    //           target: "http://43.136.108.102:1024",
+    //           changeOrigin: true,
+    //           // rewrite: path => path.replace(/^\/api\/v1/, ""),
+    //         },
+    //       },
+    //     }
+    //   })(),
+    server: {
+      proxy: {
+        "/api": {
+          target: "http://43.136.108.102:1024",
+          changeOrigin: true,
+          // rewrite: path => path.replace(/^\/api\/v1/, ""),
+        },
+      },
+    },
     clearScreen: false,
   }
 })

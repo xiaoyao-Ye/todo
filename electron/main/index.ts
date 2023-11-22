@@ -61,6 +61,8 @@ async function createWindow() {
     //   height: 40,
     // },
     webPreferences: {
+      // false 将禁止同源策略
+      // webSecurity: false,
       preload,
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
       // Consider using contextBridge.exposeInMainWorld
@@ -69,6 +71,8 @@ async function createWindow() {
       contextIsolation: false,
     },
   })
+
+  Menu.setApplicationMenu(null)
 
   tray = new Tray(join(process.env.VITE_PUBLIC, "favicon.ico"))
 
