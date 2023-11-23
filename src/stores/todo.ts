@@ -1,15 +1,19 @@
-export type Category = "today" | "important" | "tasks" | "done" | string
-export interface Todo {
-  id: number
-  done: boolean
-  important: boolean
-  title: string
-  category?: Category
-  content?: string
-  createdAt: string
-  updatedAt?: string
-  deadlineAt?: string
-}
+import { Todo } from "@/api/todo/api"
+import { TodoEntity } from "@/api/todo/typings"
+
+export type Category = "today" | "important"
+
+// export interface Todo {
+//   id: number
+//   done: boolean
+//   important: boolean
+//   title: string
+//   category?: Category
+//   content?: string
+//   createdAt: string
+//   updatedAt?: string
+//   deadlineAt?: string
+// }
 
 const setupStore = () => {
   const category = ref<Category>("today")
@@ -41,8 +45,8 @@ const setupStore = () => {
   const sortCategory = ref<keyof typeof sortIcon>("默认排序")
   const sortOptions = Object.keys(sortIcon).map(item => ({ label: item, value: item }))
 
-  const todoList = ref<Todo[]>([])
-  const todoListFiltered = ref<Todo[]>([])
+  const todoList = ref<TodoEntity[]>([])
+  const todoListFiltered = ref<TodoEntity[]>([])
 
   // sort 目前启用这种方式会有引用问题
   // watchEffect(() => {
@@ -66,24 +70,26 @@ const setupStore = () => {
   // })
 
   // 这里可能会调用接口
-  function createTodo(title: string): Todo {
+  async function createTodo(title: string): Promise<TodoEntity> {
+    await Todo.create({ title, [category.value]: category.value })
     return {
       id: Date.now(),
-      done: category.value === "done",
+      // done: category.value === "done",
       important: category.value === "important",
+      today: category.value === "today",
       title,
-      category: category.value,
+      // category: category.value,
       createdAt: new Date().toLocaleString(),
     }
   }
-  function addTodo(title: string) {
+  async function addTodo(title: string) {
     if (title.trim() === "") return
-    const todo = createTodo(title)
+    const todo = await createTodo(title)
     todoList.value.push(todo)
     filterList()
   }
 
-  function updateTodo(todo: Partial<Todo>) {
+  function updateTodo(todo: Partial<TodoEntity>) {
     if (!todo.id) throw new Error("id invalid")
     // 这里可能会调用接口
     // const index = todoList.value.findIndex(f => f.id)

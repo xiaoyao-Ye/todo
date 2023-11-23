@@ -6,8 +6,8 @@
         class="w-sm fixed right-10% top-50% translate-y--50% px-8 pt-8 rd"
         style="box-shadow: var(--n-box-shadow1); background-color: var(--n-color)">
         <n-form ref="formRef" label-placement="left" :model="form" :rules="rules">
-          <n-form-item path="username">
-            <n-input v-model:value="form.username" placeholder="输入邮箱" />
+          <n-form-item path="email">
+            <n-input v-model:value="form.email" placeholder="输入邮箱" />
           </n-form-item>
           <n-form-item path="password">
             <n-input
@@ -35,19 +35,17 @@ const router = useRouter()
 // const isSignIn = ref(true)
 
 const rules = {
-  username: { required: true, message: "输入邮箱", trigger: "blur" },
+  email: { required: true, message: "输入邮箱", trigger: "blur" },
   password: { required: true, message: "输入密码", trigger: "blur" },
 }
 
-const form = ref({ username: "username", password: "password" })
+const form = ref({ email: "yqcyecong@163.com", password: "123456" })
 const formRef = ref<FormInst | null>(null)
 async function handleValidateClick(e: MouseEvent) {
   await formRef.value?.validate()
-  const res = await Sign.signIn(form.value)
-  console.log(`( res )===============>`, res)
-  return
+  const { token } = await Sign.signIn(form.value)
   message.success("welcome!")
-  localStorage.setItem("token", "token")
+  localStorage.setItem("token", token)
   router.push("/")
 }
 </script>

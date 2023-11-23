@@ -51,7 +51,7 @@ service.interceptors.response.use(
     // 2xx以外的status都需要在error拦截里处理
     // 如果后端有自定义code(有些错误可能是http状态不包含的就需要通过自定义code处理了)，可以在这里进行处理
     if (res.code !== 200) {
-      checkStatus(res.code)
+      res.message ? Message(res.message) : checkStatus(res.code)
       return Promise.reject(res)
     }
     return res.data
