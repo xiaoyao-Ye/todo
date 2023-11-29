@@ -25,6 +25,6 @@ export const checkStatus = (status: number, message?: string) => {
   Message(title)
   if (status === 401) {
     localStorage.removeItem(TOKEN)
-    router.push({ name: "login" })
+    router.push({ path: "/login" })
   }
 }

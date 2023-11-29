@@ -1,11 +1,11 @@
 import { Todo } from "@/api/todo/api"
 import { TodoEntity } from "@/api/todo/typings"
 
-export type Category = "today" | "important"
+export type Category = "today" | "important" | "completed" | "tasks" | string
 
 // export interface Todo {
 //   id: number
-//   done: boolean
+//   completed: boolean
 //   important: boolean
 //   title: string
 //   category?: Category
@@ -17,16 +17,26 @@ export type Category = "today" | "important"
 
 const setupStore = () => {
   const category = ref<Category>("today")
+
+  const todoList = ref<TodoEntity[]>([])
+  const pageNum = ref(1)
+  const pageSize = ref(10)
+  async function onGetList() {
+    const query: Record<string, any> = { page: pageNum.value, limit: pageSize.value }
+    if (category.value !== "tasks") query[category.value] = true
+    const { list } = await Todo.page(query)
+    todoList.value = list || []
+  }
+
   function toggleCategory(targetCategory: string) {
     category.value = targetCategory
-    todoListFiltered.value.length = 0
-    filterList()
+    onGetList()
   }
   function filterList() {
     if (category.value === "tasks") {
       todoListFiltered.value = [...todoList.value]
-    } else if (["important", "done"].includes(category.value)) {
-      todoListFiltered.value = [...todoList.value.filter(item => item[category.value as "important" | "done"])]
+    } else if (["important", "completed"].includes(category.value)) {
+      todoListFiltered.value = [...todoList.value.filter(item => item[category.value as "important" | "completed"])]
     } else {
       todoListFiltered.value = [...todoList.value.filter(item => item.category === category.value)]
     }
@@ -45,7 +55,6 @@ const setupStore = () => {
   const sortCategory = ref<keyof typeof sortIcon>("默认排序")
   const sortOptions = Object.keys(sortIcon).map(item => ({ label: item, value: item }))
 
-  const todoList = ref<TodoEntity[]>([])
   const todoListFiltered = ref<TodoEntity[]>([])
 
   // sort 目前启用这种方式会有引用问题
@@ -74,7 +83,7 @@ const setupStore = () => {
     await Todo.create({ title, [category.value]: category.value })
     return {
       id: Date.now(),
-      // done: category.value === "done",
+      // completed: category.value === "completed",
       important: category.value === "important",
       today: category.value === "today",
       title,

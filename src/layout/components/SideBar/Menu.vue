@@ -72,7 +72,7 @@ const menuOptions: MenuMixedOption[] = [
   { icon: renderIcon("i-carbon:task-view"), label: "今天做点什么呢", key: "today", category: "today" },
   { icon: renderIcon("i-carbon:document-multiple-02"), label: "任务列表", key: "tasks", category: "tasks" },
   { icon: renderIcon("i-carbon:task-star"), label: "这些比较重要", key: "important", category: "important" },
-  { icon: renderIcon("i-carbon:task-complete"), label: "已完成", key: "done", category: "done" },
+  { icon: renderIcon("i-carbon:task-complete"), label: "已完成", key: "completed", category: "completed" },
   // { icon: renderIcon("i-carbon:document-multiple-02"), label: "home", key: "home", path: "/home" },
   // {
   //   label: "这些比较重要",

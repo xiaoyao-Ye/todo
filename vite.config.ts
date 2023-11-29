@@ -114,7 +114,8 @@ export default defineConfig(({ command }) => {
     server: {
       proxy: {
         "/api": {
-          target: "http://43.136.108.102:1024",
+          // target: "http://43.136.108.102:1024",
+          target: "http://120.79.135.213:1024",
           changeOrigin: true,
           // rewrite: path => path.replace(/^\/api\/v1/, ""),
         },
