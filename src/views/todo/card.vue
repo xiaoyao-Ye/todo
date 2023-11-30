@@ -9,7 +9,7 @@
       v-if="showEdit"
       ref="inputRef"
       :class="['mx-2 flex-1', todo.completed_at && 'completed']"
-      v-model:value="todo.title"
+      v-model:value="titleValue"
       type="textarea"
       :autosize="{ minRows: 1 }"
       @blur="onCloseEdit"
@@ -24,13 +24,16 @@
 import { Todo } from "@/api/todo/api"
 import { TodoEntity } from "@/api/todo/typings"
 import { useTodoStore } from "@/stores/todo"
+import { formatDate } from "@/utils/date"
 import { InputInst } from "naive-ui/es/input/src/interface"
 const todoStore = useTodoStore()
+const { todoList } = storeToRefs(todoStore)
 
-const props = defineProps<{ todo: TodoEntity }>()
+const props = defineProps<{ todo: TodoEntity; index: number }>()
 
-function toggleComplete() {
-  Todo.update({ id: props.todo.id! }, { completed: !props.todo.completed_at })
+async function toggleComplete() {
+  await Todo.update({ id: props.todo.id! }, { completed: !props.todo.completed_at })
+  todoList.value[props.index].completed_at = formatDate()
   // todoStore.updateTodo({ id: props.todo.id, completed: !props.todo.completed_at })
   // TODO: tips and refresh list
 }
@@ -38,8 +41,10 @@ const isCompleteIcon = computed(() => {
   return props.todo.completed_at ? "i-carbon:checkmark-outline" : "i-carbon:radio-button"
 })
 
-function toggleCollect() {
-  Todo.update({ id: props.todo.id! }, { important: !props.todo.important })
+async function toggleCollect() {
+  const important = !props.todo.important
+  await Todo.update({ id: props.todo.id! }, { important })
+  todoList.value[props.index].important = important
   // todoStore.updateTodo({ id: props.todo.id, important: !props.todo.important })
   // TODO: tips and refresh list
 }
@@ -47,18 +52,23 @@ const isCollectIcon = computed(() => {
   return props.todo.important ? "i-carbon:star-filled" : "i-carbon:star"
 })
 
-function removeTodo() {
-  Todo.remove({ id: props.todo.id! })
+async function removeTodo() {
+  await Todo.remove({ id: props.todo.id! })
+  todoList.value.splice(props.index, 1)
+  // TODO: if the list length < 10, fetch more
   // TODO: tips and refresh list
   // todoStore.removeTodo(props.todo.id)
 }
 
+const titleValue = ref()
 const inputRef = ref<InputInst | null>(null)
 const showEdit = ref(false)
 function onCloseEdit() {
   showEdit.value = false
+  titleValue.value = null
 }
 function onShowEdit() {
+  titleValue.value = props.todo.title
   showEdit.value = true
   nextTick(() => {
     inputRef.value?.focus()
@@ -66,10 +76,11 @@ function onShowEdit() {
 }
 
 function onEdit() {
-  onCloseEdit()
+  // todoList.value[props.index].title = props.todo.title
   // TODO: Update todo and refresh list
-  // TODO: warning: 这里不应该的绑定 props.todo.title, 单向数据流. (直接把循环列表放到当前组件?)
   // Todo.update({ id: props.todo.id! }, { title: props.todo.title })
+  todoList.value[props.index].title = titleValue.value
+  onCloseEdit()
 }
 </script>
 

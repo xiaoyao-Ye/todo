@@ -18,7 +18,7 @@
 
     <n-scrollbar class="flex-1 px-4 pt-4">
       <TransitionGroup name="list" tag="div">
-        <Card v-for="todo in todoList" :key="todo.id" :todo="todo" />
+        <Card v-for="(todo, index) in todoList" :key="todo.id" :todo="todo" :index="index" />
       </TransitionGroup>
     </n-scrollbar>
 
@@ -36,7 +36,6 @@
 import { Todo } from "@/api/todo/api"
 import Card from "./Card.vue"
 import { useTodoStore } from "@/stores/todo"
-import { TodoEntity } from "@/api/todo/typings"
 const todoStore = useTodoStore()
 const { toggleSort, sortIcon, sortOptions } = todoStore
 const { todoList, category, sortStatus, sortCategory } = storeToRefs(todoStore)
