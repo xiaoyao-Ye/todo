@@ -37,15 +37,15 @@ const setupStore = () => {
     pageNum.value = 1
     onGetList()
   }
-  function filterList() {
-    if (category.value === "tasks") {
-      todoListFiltered.value = [...todoList.value]
-    } else if (["important", "completed"].includes(category.value)) {
-      todoListFiltered.value = [...todoList.value.filter(item => item[category.value as "important" | "completed"])]
-    } else {
-      todoListFiltered.value = [...todoList.value.filter(item => item.category === category.value)]
-    }
-  }
+  // function filterList() {
+  //   if (category.value === "tasks") {
+  //     todoListFiltered.value = [...todoList.value]
+  //   } else if (["important", "completed"].includes(category.value)) {
+  //     todoListFiltered.value = [...todoList.value.filter(item => item[category.value as "important" | "completed"])]
+  //   } else {
+  //     todoListFiltered.value = [...todoList.value.filter(item => item.category === category.value)]
+  //   }
+  // }
 
   const sortStatus = ref<"ascending" | "descending">("ascending")
   function toggleSort() {
@@ -84,23 +84,23 @@ const setupStore = () => {
   // })
 
   // 这里可能会调用接口
-  async function createTodo(title: string): Promise<TodoEntity> {
-    await Todo.create({ title, [category.value]: category.value })
-    return {
-      id: Date.now(),
-      // completed: category.value === "completed",
-      important: category.value === "important",
-      today: category.value === "today",
-      title,
-      // category: category.value,
-      createdAt: new Date().toLocaleString(),
-    }
-  }
+  // async function createTodo(title: string): Promise<TodoEntity> {
+  //   await Todo.create({ title, [category.value]: category.value })
+  //   return {
+  //     id: Date.now(),
+  //     // completed: category.value === "completed",
+  //     important: category.value === "important",
+  //     today: category.value === "today",
+  //     title,
+  //     // category: category.value,
+  //     createdAt: new Date().toLocaleString(),
+  //   }
+  // }
   async function addTodo(title: string) {
     if (title.trim() === "") return
-    const todo = await createTodo(title)
-    todoList.value.push(todo)
-    filterList()
+    // const todo = await createTodo(title)
+    // todoList.value.push(todo)
+    // filterList()
   }
 
   function updateTodo(todo: Partial<TodoEntity>) {
@@ -112,12 +112,12 @@ const setupStore = () => {
     // todoList.value[index] = { ...todoList.value[index], ...todo }
 
     todoList.value = todoList.value.map(item => (item.id === todo.id ? { ...item, ...todo } : item))
-    filterList()
+    // filterList()
   }
 
   function removeTodo(id: number) {
     todoList.value = todoList.value.filter(item => item.id !== id)
-    filterList()
+    // filterList()
   }
 
   return {

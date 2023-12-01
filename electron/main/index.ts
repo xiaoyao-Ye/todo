@@ -43,7 +43,7 @@ async function createWindow() {
   win = new BrowserWindow({
     title: "Ghosteye todo",
     fullscreenable: false,
-    icon: join(process.env.VITE_PUBLIC, "favicon.ico"),
+    icon: join(process.env.VITE_PUBLIC, "book.png"),
     width: 1280,
     height: 720,
     minHeight: 400,
@@ -74,7 +74,7 @@ async function createWindow() {
 
   Menu.setApplicationMenu(null)
 
-  tray = new Tray(join(process.env.VITE_PUBLIC, "favicon.ico"))
+  tray = new Tray(join(process.env.VITE_PUBLIC, "book.png"))
 
   tray.setContextMenu(
     Menu.buildFromTemplate([

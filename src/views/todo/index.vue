@@ -55,8 +55,8 @@ async function onAddTodo() {
 }
 
 const loadMore = ref<unknown>(null)
-const onScroll = throttle(async () => {
-  const scrollTop = loadMore.value?.$el?.getBoundingClientRect().top
+const onScroll = throttle(this, async () => {
+  const scrollTop = (loadMore.value as any).$el?.getBoundingClientRect().top
   if (scrollTop < window.innerHeight + 300) {
     pageNum.value += 1
     await todoStore.onGetList()

@@ -4,7 +4,7 @@
       :icon="globalStore.isDark ? 'i-carbon:moon' : 'i-carbon:light'"
       class="font-size-4"
       @click="globalStore.toggleTheme" />
-    <n-avatar round size="small" src="/favicon.ico" />
+    <n-avatar round size="small" src="/book.png" />
   </n-space>
 </template>
 

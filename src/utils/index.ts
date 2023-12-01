@@ -19,11 +19,11 @@ export function isDomain(val: string): boolean {
   return /^(https?|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]$/.test(val)
 }
 
-export function throttle(fn: Function, delay = 500) {
+export function throttle(that: any, fn: Function, delay = 500) {
   let last = 0,
     timer: any = null
   return function (...args: any) {
-    let context = this
+    let context = that
     let now: number = Date.now()
     if (now - last < delay) {
       clearTimeout(timer)
