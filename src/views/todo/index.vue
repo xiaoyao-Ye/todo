@@ -16,9 +16,10 @@
       </n-space>
     </div>
 
-    <n-scrollbar class="flex-1 px-4 pt-4">
+    <n-scrollbar class="flex-1 px-4 pt-4" :onScroll="onScroll">
       <TransitionGroup name="list" tag="div">
         <Card v-for="(todo, index) in todoList" :key="todo.id" :todo="todo" :index="index" />
+        <LoadMore ref="loadMore" />
       </TransitionGroup>
     </n-scrollbar>
 
@@ -33,19 +34,34 @@
 </template>
 
 <script setup lang="ts">
-import { Todo } from "@/api/todo/api"
 import Card from "./Card.vue"
+import LoadMore from "@/components/LoadMore/index.vue"
+import { Todo } from "@/api/todo/api"
 import { useTodoStore } from "@/stores/todo"
+import { CreateTodoDto } from "@/api/todo/typings"
+import { throttle } from "@/utils"
+
 const todoStore = useTodoStore()
 const { toggleSort, sortIcon, sortOptions } = todoStore
-const { todoList, category, sortStatus, sortCategory } = storeToRefs(todoStore)
+const { pageNum, todoList, category, sortStatus, sortCategory } = storeToRefs(todoStore)
 
 const title = ref("")
 async function onAddTodo() {
-  // todoStore.addTodo(title.value)
-  await Todo.create({ title: title.value })
+  const query: CreateTodoDto = { title: title.value }
+  if (["today", "important"].includes(category.value)) [(query[category.value as "today" | "important"] = true)]
+  const todo = await Todo.create(query)
+  todoList.value.unshift(todo)
   title.value = ""
 }
+
+const loadMore = ref<unknown>(null)
+const onScroll = throttle(async () => {
+  const scrollTop = loadMore.value?.$el?.getBoundingClientRect().top
+  if (scrollTop < window.innerHeight + 300) {
+    pageNum.value += 1
+    await todoStore.onGetList()
+  }
+})
 </script>
 
 <style scoped>

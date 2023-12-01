@@ -1,7 +1,7 @@
 import { Todo } from "@/api/todo/api"
 import { TodoEntity } from "@/api/todo/typings"
 
-export type Category = "today" | "important" | "completed" | "tasks" | string
+export type Category = "today" | "important" | "completed" | "tasks"
 
 // export interface Todo {
 //   id: number
@@ -21,15 +21,20 @@ const setupStore = () => {
   const todoList = ref<TodoEntity[]>([])
   const pageNum = ref(1)
   const pageSize = ref(10)
+  const total = ref(100)
   async function onGetList() {
+    if ((pageNum.value - 1) * pageSize.value > total.value) return
     const query: Record<string, any> = { page: pageNum.value, limit: pageSize.value }
     if (category.value !== "tasks") query[category.value] = true
-    const { list } = await Todo.page(query)
-    todoList.value = list || []
+    const { list, pagination } = await Todo.page(query)
+    if (pageNum.value === 1) todoList.value = list
+    else todoList.value.push(...list)
+    total.value = pagination.total
   }
 
-  function toggleCategory(targetCategory: string) {
+  function toggleCategory(targetCategory: Category) {
     category.value = targetCategory
+    pageNum.value = 1
     onGetList()
   }
   function filterList() {
@@ -128,6 +133,8 @@ const setupStore = () => {
     addTodo,
     updateTodo,
     removeTodo,
+    onGetList,
+    pageNum,
   }
 }
 

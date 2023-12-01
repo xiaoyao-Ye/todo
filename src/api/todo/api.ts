@@ -53,7 +53,7 @@ export class Todo {
 
   /** 创建待办 */
   static create(data?: CreateTodoDto) {
-    return request<void>({
+    return request<TodoEntity>({
       url: `/api/v1/todo`,
       method: "POST",
       data,

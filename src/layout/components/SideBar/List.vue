@@ -2,8 +2,8 @@
   <div class="side-footer flex items-center justify-center h-40px">
     <div v-show="!isAddStatus">
       <n-space justify="space-evenly" align="center" :size="30">
-        <ButtonIcon icon="i-carbon:task-add" text="新建列表" @click="toggleStatus('list')" />
-        <ButtonIcon icon="i-carbon:task-add" text="新建分类" @click="toggleStatus('group')" />
+        <ButtonIcon disabled icon="i-carbon:task-add" text="新建列表" @click="toggleStatus('list')" />
+        <ButtonIcon disabled icon="i-carbon:task-add" text="新建分类" @click="toggleStatus('group')" />
       </n-space>
     </div>
 
@@ -66,10 +66,12 @@ function onAdd() {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
 }
+
 .side-footer {
   padding-bottom: 1px;
   border-top: 1px solid var(--n-border-color);

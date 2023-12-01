@@ -8,6 +8,7 @@ export {}
 declare module "vue" {
   export interface GlobalComponents {
     ButtonIcon: (typeof import("./components/ButtonIcon/index.vue"))["default"]
+    LoadMore: (typeof import("./components/LoadMore/index.vue"))["default"]
     NAvatar: (typeof import("naive-ui"))["NAvatar"]
     NButton: (typeof import("naive-ui"))["NButton"]
     NConfigProvider: (typeof import("naive-ui"))["NConfigProvider"]
@@ -21,6 +22,7 @@ declare module "vue" {
     NLayoutSider: (typeof import("naive-ui"))["NLayoutSider"]
     NMenu: (typeof import("naive-ui"))["NMenu"]
     NMessageProvider: (typeof import("naive-ui"))["NMessageProvider"]
+    NPopconfirm: (typeof import("naive-ui"))["NPopconfirm"]
     NPopselect: (typeof import("naive-ui"))["NPopselect"]
     NScrollbar: (typeof import("naive-ui"))["NScrollbar"]
     NSpace: (typeof import("naive-ui"))["NSpace"]

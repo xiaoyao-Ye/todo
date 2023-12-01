@@ -39,6 +39,7 @@ const title = `星期${dayOfWeekMap[week]} ${month}月${day}日. I'm hungry.`
   // 禁用文本选择
   -webkit-user-select: none;
   -webkit-app-region: drag;
+
   // 排除按钮拖动
   &:deep(button, div, img) {
     -webkit-app-region: no-drag;

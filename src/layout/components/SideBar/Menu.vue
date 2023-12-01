@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { MenuGroupOption, MenuMixedOption, MenuOption } from "naive-ui/es/menu/src/interface"
-import { useTodoStore } from "@/stores/todo"
+import { Category, useTodoStore } from "@/stores/todo"
 const todoStore = useTodoStore()
 
 const router = useRouter()
@@ -49,7 +49,7 @@ function handleContextMenu(e: MouseEvent) {
 function handleMenu(option: MenuOption | MenuGroupOption) {
   if (option.path) return router.push(option.path as string)
   if (option.category) {
-    todoStore.toggleCategory(option.category as string)
+    todoStore.toggleCategory(option.category as Category)
     if (!router.currentRoute.value.fullPath.includes("/todo")) {
       router.push("/todo")
     }

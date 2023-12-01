@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { darkTheme, lightTheme } from "naive-ui"
+import { darkTheme, lightTheme, zhCN, dateZhCN } from "naive-ui"
 import { useGlobalStore } from "@/stores"
 import { loading } from "./api/helper/loading"
 
@@ -33,7 +33,7 @@ const style = computed(() => {
 <template>
   <div :class="{ 'app-bg': true, isMax: globalStore.isMax }">
     <div id="variable" :style="style">
-      <n-config-provider :inline-theme-disabled="true" :theme="theme">
+      <n-config-provider :inline-theme-disabled="true" :theme="theme" :locale="zhCN" :date-locale="dateZhCN">
         <n-message-provider>
           <n-spin :show="loading">
             <router-view></router-view>

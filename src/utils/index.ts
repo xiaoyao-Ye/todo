@@ -18,3 +18,23 @@ export function isFunction<T = Function>(val: unknown): val is T {
 export function isDomain(val: string): boolean {
   return /^(https?|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]$/.test(val)
 }
+
+export function throttle(fn: Function, delay = 500) {
+  let last = 0,
+    timer: any = null
+  return function (...args: any) {
+    let context = this
+    let now: number = Date.now()
+    if (now - last < delay) {
+      clearTimeout(timer)
+      timer = setTimeout(function () {
+        last = now
+        fn.apply(context, args)
+      }, delay)
+    } else {
+      // 时间到了必须给响应
+      last = now
+      fn.apply(context, args)
+    }
+  }
+}

@@ -1,7 +1,7 @@
 <template>
   <div class="card w-full flex items-center mb-4 p-4 border rd" @dblclick.self="onShowEdit">
     <ButtonIcon :icon="isCompleteIcon" @click="toggleComplete" />
-    <!-- TODO: 双击编辑内容 -->
+
     <span v-if="!showEdit" :class="['px-2 flex-1 n-input--focus', todo.completed_at && 'completed']" @dblclick.self="onShowEdit">
       {{ todo.title }}
     </span>
@@ -15,8 +15,13 @@
       @blur="onCloseEdit"
       @keyup.enter="onEdit" />
     <ButtonIcon :icon="isCollectIcon" class="justify-self-end" @click="toggleCollect" />
-    <!-- TODO: 提醒是否确认删除 -->
-    <ButtonIcon icon="i-carbon:trash-can" class="justify-self-end ml-2" @click="removeTodo" />
+
+    <n-popconfirm @positive-click="removeTodo">
+      <template #trigger>
+        <ButtonIcon icon="i-carbon:trash-can" class="justify-self-end ml-2" />
+      </template>
+      确认删除该项?
+    </n-popconfirm>
   </div>
 </template>
 
@@ -26,17 +31,18 @@ import { TodoEntity } from "@/api/todo/typings"
 import { useTodoStore } from "@/stores/todo"
 import { formatDate } from "@/utils/date"
 import { InputInst } from "naive-ui/es/input/src/interface"
+const message = useMessage()
 const todoStore = useTodoStore()
 const { todoList } = storeToRefs(todoStore)
 
 const props = defineProps<{ todo: TodoEntity; index: number }>()
 
 async function toggleComplete() {
-  await Todo.update({ id: props.todo.id! }, { completed: !props.todo.completed_at })
-  todoList.value[props.index].completed_at = formatDate()
-  // todoStore.updateTodo({ id: props.todo.id, completed: !props.todo.completed_at })
-  // TODO: tips and refresh list
+  const completed_at = props.todo.completed_at ? "" : formatDate()
+  await Todo.update({ id: props.todo.id! }, { completed_at })
+  todoList.value[props.index].completed_at = completed_at
 }
+
 const isCompleteIcon = computed(() => {
   return props.todo.completed_at ? "i-carbon:checkmark-outline" : "i-carbon:radio-button"
 })
@@ -45,9 +51,8 @@ async function toggleCollect() {
   const important = !props.todo.important
   await Todo.update({ id: props.todo.id! }, { important })
   todoList.value[props.index].important = important
-  // todoStore.updateTodo({ id: props.todo.id, important: !props.todo.important })
-  // TODO: tips and refresh list
 }
+
 const isCollectIcon = computed(() => {
   return props.todo.important ? "i-carbon:star-filled" : "i-carbon:star"
 })
@@ -55,9 +60,10 @@ const isCollectIcon = computed(() => {
 async function removeTodo() {
   await Todo.remove({ id: props.todo.id! })
   todoList.value.splice(props.index, 1)
-  // TODO: if the list length < 10, fetch more
-  // TODO: tips and refresh list
-  // todoStore.removeTodo(props.todo.id)
+  message.success("已删除该事项")
+  if (todoList.value.length < 10) {
+    todoStore.onGetList()
+  }
 }
 
 const titleValue = ref()
@@ -75,11 +81,10 @@ function onShowEdit() {
   })
 }
 
-function onEdit() {
-  // todoList.value[props.index].title = props.todo.title
-  // TODO: Update todo and refresh list
-  // Todo.update({ id: props.todo.id! }, { title: props.todo.title })
-  todoList.value[props.index].title = titleValue.value
+async function onEdit() {
+  const title = titleValue.value.replace(/\n/g, "")
+  await Todo.update({ id: props.todo.id! }, { title })
+  todoList.value[props.index].title = title
   onCloseEdit()
 }
 </script>
