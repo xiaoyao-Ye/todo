@@ -2,39 +2,39 @@
 // 此文件由 initAPI(https://github.com/xiaoyao-Ye/initapi) 自动生成。请不要手动修改此文件！
 
 export interface TodoEntity {
-  createdAt?: string
+  createdAt: string
 
-  updatedAt?: string
+  updatedAt: string
 
-  id?: number
+  id: number
   /** 标题 */
-  title?: string
+  title: string
   /** 备注 */
-  description?: string
+  description: string
   /** 优先级 */
-  priority?: number
+  priority: number
   /** 今天 */
-  today?: boolean
+  today: boolean
   /** 重要 */
-  important?: boolean
+  important: boolean
   /** 截止时间 */
-  deadline_at?: string
+  deadline_at: string
   /** 完成时间 */
-  completed_at?: string
+  completed_at: string
 }
 
 export interface Pagination {
-  total?: number
+  total: number
 
-  page?: number
+  page: number
 
-  size?: number
+  size: number
 }
 
 export interface PageTodoVo {
-  list?: Array<TodoEntity>
+  list: Array<TodoEntity>
 
-  pagination?: Pagination
+  pagination: Pagination
 }
 
 export interface CreateTodoDto {
@@ -43,7 +43,7 @@ export interface CreateTodoDto {
   /** 重要的 */
   important?: boolean
   /** 标题 */
-  title?: string
+  title: string
 }
 
 export interface UpdateTodoDto {
@@ -58,33 +58,47 @@ export interface UpdateTodoDto {
   /** 优先级 */
   priority?: number
   /** 是否已完成 */
-  completed?: boolean
+  completed_at?: string
 }
 
 export interface SendCodeDto {
   /** 邮箱 */
-  email?: string
+  email: string
 }
 
 export interface SignUpDto {
   /** 邮箱 */
-  email?: string
+  email: string
   /** 密码 */
-  password?: string
+  password: string
   /** 验证码 */
-  code?: string
+  code: string
 }
 
 export interface SignInDto {
   /** 邮箱 */
-  email?: string
+  email: string
   /** 密码 */
-  password?: string
+  password: string
+}
+
+export interface UserEntity {
+  createdAt: string
+
+  updatedAt: string
+  /** 昵称 */
+  nick_name: string
+  /** 邮箱 */
+  email: string
+  /** 头像 */
+  avatar: string
 }
 
 export interface SignInVo {
   /** token */
-  token?: string
+  token: string
+  /** 用户信息 */
+  user: UserEntity
 }
 
 export type SortBy = "today" | "important" | "completed"
