@@ -9,6 +9,10 @@ const theme = computed(() => (globalStore.isDark ? darkTheme : lightTheme))
 const style = computed(() => {
   console.log(theme.value)
   return {
+    "--g-is-max": globalStore.isMax ? "0px" : "10px",
+    "--g-radius": globalStore.isMax ? "0px" : "8px",
+    "--g-box-shadow": `0 0 5px 1px ${globalStore.isDark ? "#333" : "#ccc"}`,
+
     // "--n-color": theme.value.common.baseColor,
     "--n-color": theme.value.common.bodyColor,
     "--n-font-size": theme.value.common.fontSize,
@@ -21,7 +25,6 @@ const style = computed(() => {
     "--n-box-shadow3": theme.value.common.boxShadow3,
     "--n-primary": theme.value.common.primaryColor,
     "--n-border-color": theme.value.common.dividerColor,
-    "box-shadow": `0 0 5px 1px ${globalStore.isDark ? "#333" : "#ccc"}`,
     // n-card
     "--n-card-color": theme.value.Card.common?.cardColor,
     "--n-divider-color": theme.value.Card.common?.dividerColor,
@@ -31,8 +34,8 @@ const style = computed(() => {
 </script>
 
 <template>
-  <div :class="{ 'app-bg': true, isMax: globalStore.isMax }">
-    <div id="variable" :style="style">
+  <div class="p-[calc(var(--g-is-max)/2)]" :style="style">
+    <div id="variable" class="h-[calc(100vh-var(--g-is-max))]">
       <n-config-provider :inline-theme-disabled="true" :theme="theme" :locale="zhCN" :date-locale="dateZhCN">
         <n-message-provider>
           <n-spin :show="loading">
@@ -40,9 +43,7 @@ const style = computed(() => {
             <!-- <template #icon>
             自定义icon
           </template> -->
-            <!-- <template #description>
-            你不知道你有多幸运
-          </template> -->
+            <template #description>一大波todo即将来袭</template>
           </n-spin>
         </n-message-provider>
         <!-- <n-global-style /> -->
@@ -52,13 +53,8 @@ const style = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-.app-bg {
-  padding: 5px;
-}
-
 #variable {
   overflow: hidden;
-  height: calc(100vh - 10px);
   text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
   padding: 0px;
@@ -71,15 +67,7 @@ const style = computed(() => {
     color 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s,
     background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
   background-color: var(--n-color);
-  border-radius: 8px;
-}
-
-.app-bg.isMax {
-  padding: 0;
-
-  #variable {
-    height: 100vh;
-    border-radius: 0;
-  }
+  box-shadow: var(--g-box-shadow);
+  border-radius: var(--g-radius);
 }
 </style>

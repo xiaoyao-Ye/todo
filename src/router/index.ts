@@ -20,9 +20,6 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(`( to )===============>`, to)
-  console.log(`( from )===============>`, from)
-  console.log(`( next )===============>`, next)
   const token = localStorage.getItem("token")
   if (!token && to.path !== "/login") {
     return next({ path: "/login" })

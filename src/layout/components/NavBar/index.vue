@@ -34,15 +34,19 @@ const title = `星期${dayOfWeekMap[week]} ${month}月${day}日. I'm hungry.`
 
 <style scoped lang="scss">
 .navBar {
-  // 可以拖动
-  -webkit-app-region: drag;
   // 禁用文本选择
   -webkit-user-select: none;
+  // 可以拖动
   -webkit-app-region: drag;
 
   // 排除按钮拖动
-  &:deep(button, div, img) {
+  :deep(.n-button) {
     -webkit-app-region: no-drag;
+  }
+
+  :deep(.n-avatar) {
+    -webkit-app-region: no-drag;
+    cursor: pointer;
   }
 }
 </style>

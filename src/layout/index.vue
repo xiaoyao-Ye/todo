@@ -13,7 +13,7 @@
           :native-scrollbar="false"
           :collapsed="globalStore.collapsed"
           @update:collapsed="globalStore.toggleCollapse"
-          class="h-[calc(100vh-40px-10px)]">
+          class="h-[calc(100vh-40px-var(--g-is-max))]">
           <SideBar />
         </n-layout-sider>
         <n-layout>

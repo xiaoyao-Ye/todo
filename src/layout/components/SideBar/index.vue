@@ -1,6 +1,6 @@
 <template>
   <div>
-    <n-scrollbar class="h-[calc(100vh-40px-40px-10px)]">
+    <n-scrollbar class="h-[calc(100vh-40px-40px-var(--g-is-max))]">
       <Menu />
     </n-scrollbar>
 

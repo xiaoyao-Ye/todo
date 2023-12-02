@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col p-4 h-[calc(100vh-40px-10px)]">
+  <div class="texture flex flex-col p-4 h-[calc(100vh-40px-var(--g-is-max))]">
     <div class="flex items-center justify-between">
       <div class="p-4 min-w-[200px] border border-dashed rd">{{ category }}</div>
       <n-space>
@@ -19,8 +19,8 @@
     <n-scrollbar class="flex-1 px-4 pt-4" :onScroll="onScroll">
       <TransitionGroup name="list" tag="div">
         <Card v-for="(todo, index) in todoList" :key="todo.id" :todo="todo" :index="index" />
-        <LoadMore ref="loadMore" />
       </TransitionGroup>
+      <LoadMore ref="loadMore" />
     </n-scrollbar>
 
     <div v-show="category !== 'completed'" class="pt-4">
