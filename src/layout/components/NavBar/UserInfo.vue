@@ -5,12 +5,13 @@
       class="font-size-4"
       @click="globalStore.toggleTheme" />
     <n-dropdown trigger="click" :options="options" @select="handleSelect">
-      <n-avatar round size="small" src="/book.png" />
+      <n-avatar round size="small" :src="bookImage" />
     </n-dropdown>
   </n-space>
 </template>
 
 <script setup lang="ts">
+import bookImage from "/book.png"
 import { router } from "@/router"
 import { useGlobalStore } from "@/stores"
 const globalStore = useGlobalStore()

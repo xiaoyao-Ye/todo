@@ -88,11 +88,11 @@ async function createWindow() {
     ]),
   )
   tray.setToolTip("todo")
-  tray.on("click", () => {
-    win.show()
-    win.focus()
-    win.setSkipTaskbar(false)
-  })
+  // tray.on("click", () => {
+  //   win.show()
+  //   win.focus()
+  //   win.setSkipTaskbar(false)
+  // })
 
   if (process.env.VITE_DEV_SERVER_URL) {
     // electron-vite-vue#298
