@@ -33,7 +33,7 @@ import { formatDate } from "@/utils/date"
 import { InputInst } from "naive-ui/es/input/src/interface"
 const message = useMessage()
 const todoStore = useTodoStore()
-const { todoList } = storeToRefs(todoStore)
+const { todoList, category } = storeToRefs(todoStore)
 
 const props = defineProps<{ todo: TodoEntity; index: number }>()
 
@@ -51,6 +51,7 @@ async function toggleCollect() {
   const important = !props.todo.important
   await Todo.update({ id: props.todo.id! }, { important })
   todoList.value[props.index].important = important
+  category.value === "important" && todoStore.onRefresh()
 }
 
 const isCollectIcon = computed(() => {

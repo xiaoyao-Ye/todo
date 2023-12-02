@@ -31,11 +31,15 @@ const setupStore = () => {
     else todoList.value.push(...list)
     total.value = pagination.total
   }
+  async function onRefresh() {
+    pageNum.value = 1
+    onGetList()
+  }
 
   function toggleCategory(targetCategory: Category) {
     category.value = targetCategory
     pageNum.value = 1
-    onGetList()
+    onRefresh()
   }
   // function filterList() {
   //   if (category.value === "tasks") {
@@ -134,6 +138,7 @@ const setupStore = () => {
     updateTodo,
     removeTodo,
     onGetList,
+    onRefresh,
     pageNum,
   }
 }
