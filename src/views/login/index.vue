@@ -16,6 +16,9 @@
 
       <!-- <div class="title">do</div> -->
       <div class="w-sm fixed right-10% top-50% translate-y--50% px-8 pt-8 rd">
+        <div class="my-2 flex justify-center">
+          <Blink :paused="blinkPaused" />
+        </div>
         <n-form ref="formRef" label-placement="left" :model="form" :rules="rules">
           <n-form-item path="email">
             <n-input v-model:value="form.email" placeholder="输入邮箱" />
@@ -27,7 +30,9 @@
               show-password-on="click"
               placeholder="输入密码"
               :minlength="6"
-              :maxlength="16"></n-input>
+              :maxlength="16"
+              @focus="handleFocus"
+              @blur="handleBlur"></n-input>
           </n-form-item>
           <n-form-item path="code" v-if="!isSignIn">
             <n-input v-model:value="form.code" placeholder="输入验证码" />
@@ -47,7 +52,6 @@
 </template>
 
 <script setup lang="ts">
-import StarBg from "@/components/StarBg/index.vue"
 import ToolButton from "../../layout/components/NavBar/ToolButton.vue"
 import { FormInst, useMessage } from "naive-ui"
 import { useGlobalStore } from "@/stores"
@@ -57,6 +61,14 @@ const message = useMessage()
 window.$message = message
 const router = useRouter()
 const isSignIn = ref(true)
+
+const blinkPaused = ref(false)
+function handleFocus() {
+  blinkPaused.value = true
+}
+function handleBlur() {
+  blinkPaused.value = false
+}
 
 const rules = {
   email: { required: true, message: "输入邮箱", trigger: "blur" },

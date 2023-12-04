@@ -35,7 +35,6 @@
 
 <script setup lang="ts">
 import Card from "./Card.vue"
-import LoadMore from "@/components/LoadMore/index.vue"
 import { Todo } from "@/api/todo/api"
 import { useTodoStore } from "@/stores/todo"
 import { CreateTodoDto } from "@/api/todo/typings"
