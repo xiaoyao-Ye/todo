@@ -43,7 +43,9 @@ const props = defineProps({
 }
 
 .eye {
+  transition: all 0.3s;
   width: 4px;
+  max-height: 8px;
   height: 8px;
   border-radius: 2px;
   // background-color: #4d4e50;
