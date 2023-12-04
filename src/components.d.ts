@@ -29,5 +29,6 @@ declare module "vue" {
     NSpin: (typeof import("naive-ui"))["NSpin"]
     RouterLink: (typeof import("vue-router"))["RouterLink"]
     RouterView: (typeof import("vue-router"))["RouterView"]
+    StarBg: (typeof import("./components/StarBg/index.vue"))["default"]
   }
 }

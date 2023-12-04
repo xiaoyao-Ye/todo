@@ -1,8 +1,6 @@
 import { TOKEN } from "@/constant"
 import { router } from "@/router"
 
-// const Message = useMessage()
-
 const statusList: Indexable = {
   400: "请求参数错误!",
   401: "登录失效！请您重新登录",
@@ -18,7 +16,7 @@ const statusList: Indexable = {
 }
 
 export const Message = (message: string) => {
-  window.alert(message)
+  window.$message.error(message)
 }
 
 export const checkStatus = (status: number, message?: string) => {

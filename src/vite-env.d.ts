@@ -9,3 +9,7 @@ declare module "*.vue" {
 interface Indexable {
   [key: string]: any
 }
+
+interface Window {
+  $message: MessageApiInjection
+}
