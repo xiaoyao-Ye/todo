@@ -38,11 +38,11 @@ const style = computed(() => {
     <div id="variable" class="h-[calc(100vh-var(--g-is-max))]">
       <n-config-provider :inline-theme-disabled="true" :theme="theme" :locale="zhCN" :date-locale="dateZhCN">
         <n-message-provider>
-          <n-spin :show="loading">
+          <n-spin :show="loading" :rotate="false">
             <router-view></router-view>
-            <!-- <template #icon>
-            自定义icon
-          </template> -->
+            <template #icon>
+              <Blink />
+            </template>
             <template #description>一大波todo即将来袭</template>
           </n-spin>
         </n-message-provider>
