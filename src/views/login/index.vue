@@ -21,13 +21,19 @@
         </div>
         <n-form ref="formRef" label-placement="left" :model="form" :rules="rules">
           <n-form-item path="email">
-            <n-input v-model:value="form.email" placeholder="输入邮箱" />
+            <n-auto-complete
+              v-model:value="form.email"
+              :input-props="{ autocomplete: 'disabled' }"
+              :options="options"
+              clearable
+              placeholder="输入邮箱" />
           </n-form-item>
           <n-form-item path="password">
             <n-input
               v-model:value="form.password"
               type="password"
               show-password-on="click"
+              clearable
               placeholder="输入密码"
               :minlength="6"
               :maxlength="16"
@@ -70,8 +76,28 @@ function handleBlur() {
   blinkPaused.value = false
 }
 
+const options = computed(() => {
+  const emailSuffix = ["@163.com", "@yeah.net", "@qq.com", "@gmail.com", "@outlook.com", "@126.com"]
+  return emailSuffix.map(suffix => {
+    const prefix = form.value.email.split("@")[0]
+    return {
+      label: prefix + suffix,
+      value: prefix + suffix,
+    }
+  })
+})
 const rules = {
-  email: { required: true, message: "输入邮箱", trigger: "blur" },
+  email: [
+    // { required: true, message: "输入邮箱", trigger: "blur" },
+    {
+      validator: () =>
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+          form.value.email,
+        ),
+      message: "请输入正确的邮箱",
+      trigger: "blur",
+    },
+  ],
   password: { required: true, message: "输入密码", trigger: "blur" },
   code: { required: true, message: "输入验证码", trigger: "blur" },
 }
