@@ -102,7 +102,7 @@ const rules = {
   code: { required: true, message: "输入验证码", trigger: "blur" },
 }
 
-const form = ref({ email: "yqcyecong@163.com", password: "123456", code: "" })
+const form = ref({ email: "Ghosteye@yeah.net", password: "123456", code: "" })
 const formRef = ref<FormInst | null>(null)
 async function handleValidateClick(e: MouseEvent) {
   await formRef.value?.validate()

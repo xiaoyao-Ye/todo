@@ -18,7 +18,9 @@
 
     <n-scrollbar class="flex-1 px-4 pt-4" :onScroll="onScroll">
       <TransitionGroup name="list" tag="div">
-        <Card v-for="(todo, index) in todoList" :key="todo.id" :todo="todo" :index="index" />
+        <div v-for="(todo, index) in todoList" :key="todo.id">
+          <Card :todo="todo" :index="index" @showDetail="onShowDetail" />
+        </div>
       </TransitionGroup>
       <LoadMore ref="loadMore" />
     </n-scrollbar>
@@ -30,11 +32,14 @@
         </template>
       </n-input>
     </div>
+
+    <Drawer v-model="showDetail" :id="detailId" />
   </div>
 </template>
 
 <script setup lang="ts">
 import Card from "./Card.vue"
+import Drawer from "./Drawer.vue"
 import { Todo } from "@/api/todo/api"
 import { useTodoStore } from "@/stores/todo"
 import { CreateTodoDto } from "@/api/todo/typings"
@@ -61,6 +66,13 @@ const onScroll = throttle(this, async () => {
     await todoStore.onGetList()
   }
 })
+
+const detailId = ref()
+const showDetail = ref(false)
+function onShowDetail(id: number) {
+  detailId.value = id
+  showDetail.value = true
+}
 </script>
 
 <style scoped>

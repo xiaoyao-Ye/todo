@@ -1,8 +1,12 @@
 <template>
-  <div class="card w-full flex items-center mb-4 p-4 border rd" @dblclick.self="onShowEdit">
+  <!-- <div class="card w-full flex items-center mb-4 p-4 border rd" @dblclick.self="onShowEdit"
+    @click.self="emits('showDetail', todo.id)"> -->
+  <div class="card w-full flex items-center mb-4 p-4 border rd" @click.self="customClick">
     <ButtonIcon :icon="isCompleteIcon" @click="toggleComplete" />
 
-    <span v-if="!showEdit" :class="['px-2 flex-1 n-input--focus', todo.completed_at && 'completed']" @dblclick.self="onShowEdit">
+    <!-- <span v-if="!showEdit" :class="['px-2 flex-1 n-input--focus', todo.completed_at && 'completed']"
+      @dblclick.self="onShowEdit"> -->
+    <span v-if="!showEdit" :class="['px-2 flex-1 n-input--focus', todo.completed_at && 'completed']" @click.self="customClick">
       {{ todo.title }}
     </span>
     <n-input
@@ -14,6 +18,7 @@
       :autosize="{ minRows: 1 }"
       @blur="onCloseEdit"
       @keyup.enter="onEdit" />
+
     <ButtonIcon :icon="isCollectIcon" class="justify-self-end" @click="toggleCollect" />
 
     <n-popconfirm @positive-click="removeTodo">
@@ -36,6 +41,7 @@ const todoStore = useTodoStore()
 const { todoList, category } = storeToRefs(todoStore)
 
 const props = defineProps<{ todo: TodoEntity; index: number }>()
+const emits = defineEmits(["showDetail"])
 
 async function toggleComplete() {
   const completed_at = props.todo.completed_at ? "" : formatDate()
@@ -73,6 +79,22 @@ const showEdit = ref(false)
 function onCloseEdit() {
   showEdit.value = false
   titleValue.value = null
+}
+
+const timer = ref<NodeJS.Timeout | null>(null)
+// 判断是单击还是双击, 处理对应的逻辑
+function customClick() {
+  if (timer.value) {
+    clearTimeout(timer.value)
+    timer.value = null
+    onShowEdit()
+    return
+  }
+  timer.value = setTimeout(() => {
+    timer.value = null
+    // showDetail.value = true;
+    emits("showDetail", props.todo.id)
+  }, 300)
 }
 function onShowEdit() {
   titleValue.value = props.todo.title
