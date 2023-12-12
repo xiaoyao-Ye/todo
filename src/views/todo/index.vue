@@ -18,7 +18,7 @@
       </n-space>
     </div>
 
-    <n-scrollbar class="flex-1 px-4 pt-4" :onScroll="onScroll">
+    <n-scrollbar ref="scrollbarRef" class="flex-1 px-4 pt-4" :onScroll="onScroll">
       <TransitionGroup name="list" tag="div">
         <div v-for="(todo, index) in todoList" :key="todo.id">
           <Card :todo="todo" :index="index" @showDetail="onShowDetail" />
@@ -55,11 +55,13 @@ const title = ref('')
 async function onAddTodo() {
   const query: CreateTodoDto = { title: title.value }
   if (['today', 'important'].includes(category.value)) [(query[category.value as 'today' | 'important'] = true)]
+  scrollbarRef.value.scrollTo(0)
   const todo = await Todo.create(query)
   todoList.value.unshift(todo)
   title.value = ''
 }
 
+const scrollbarRef = ref<any>(null)
 const loadMore = ref<unknown>(null)
 const onScroll = throttle(this, async () => {
   const scrollTop = (loadMore.value as any).$el?.getBoundingClientRect().top

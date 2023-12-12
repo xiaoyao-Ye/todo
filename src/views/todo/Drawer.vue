@@ -96,11 +96,10 @@ const rules = {
   title: { required: true, trigger: 'blur', message: '请输入标题' },
 }
 const formRef = ref<FormInst | null>(null)
-const form = ref<TodoEntity>() as Ref<TodoEntity>
+const form = ref({ priority: 2 }) as Ref<TodoEntity>
 async function getDetails() {
   const data = await Todo.findOne({ id: props.id })
-  form.value = data
-  form.value.priority = 2
+  Object.assign(form.value, data)
 }
 
 async function onDelete() {
