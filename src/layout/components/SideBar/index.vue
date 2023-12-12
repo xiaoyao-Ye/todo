@@ -9,9 +9,9 @@
 </template>
 
 <script setup lang="ts">
-import Menu from "./Menu.vue"
-import List from "./List.vue"
-import { useGlobalStore } from "@/stores"
+import Menu from './Menu.vue'
+import List from './List.vue'
+import { useGlobalStore } from '@/stores'
 const globalStore = useGlobalStore()
 </script>
 

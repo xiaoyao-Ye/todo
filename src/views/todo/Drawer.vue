@@ -60,20 +60,20 @@
 </template>
 
 <script setup lang="ts">
-import { FormInst } from "naive-ui"
-import { Todo } from "@/api/todo/api"
-import { TodoEntity } from "@/api/todo/typings"
-import { useTodoStore } from "@/stores/todo"
+import { FormInst } from 'naive-ui'
+import { Todo } from '@/api/todo/api'
+import { TodoEntity } from '@/api/todo/typings'
+import { useTodoStore } from '@/stores/todo'
 const todoStore = useTodoStore()
 const { todoList } = storeToRefs(todoStore)
 
 const props = defineProps<{ modelValue: boolean; id: number }>()
-const emits = defineEmits(["update:modelValue"])
+const emits = defineEmits(['update:modelValue'])
 
 const radioOptions = [
-  { label: "低", value: 1 },
-  { label: "中", value: 2 },
-  { label: "高", value: 3 },
+  { label: '低', value: 1 },
+  { label: '中', value: 2 },
+  { label: '高', value: 3 },
 ]
 const autosize = { minRows: 3, maxRows: 5 }
 const drawerStyle = {
@@ -89,11 +89,11 @@ watchEffect(() => {
   if (props.modelValue) getDetails()
 })
 const onChange = (value: boolean) => {
-  emits("update:modelValue", value)
+  emits('update:modelValue', value)
 }
 
 const rules = {
-  title: { required: true, trigger: "blur", message: "请输入标题" },
+  title: { required: true, trigger: 'blur', message: '请输入标题' },
 }
 const formRef = ref<FormInst | null>(null)
 const form = ref<TodoEntity>() as Ref<TodoEntity>
@@ -105,10 +105,10 @@ async function getDetails() {
 
 async function onDelete() {
   await Todo.remove({ id: props.id })
-  window.$message.success("删除成功")
+  window.$message.success('删除成功')
   const index = todoList.value.findIndex(item => item.id === props.id)
   todoList.value.splice(index, 1)
-  emits("update:modelValue", false)
+  emits('update:modelValue', false)
 }
 async function onSubmit() {
   await formRef.value?.validate()
@@ -122,10 +122,10 @@ async function onSubmit() {
     deadline_at: form.value.deadline_at,
   }
   await Todo.update({ id: props.id }, query)
-  window.$message.success("更新成功")
+  window.$message.success('更新成功')
   const index = todoList.value.findIndex(item => item.id === props.id)
   todoList.value[index] = form.value
-  emits("update:modelValue", false)
+  emits('update:modelValue', false)
 }
 </script>
 

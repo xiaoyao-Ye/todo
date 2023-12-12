@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-const boxShadow = ref("")
+const boxShadow = ref('')
 function RandomStars(num) {
   const windowHeight = document.body.clientHeight
   const windowWidth = document.body.clientWidth
 
   if (windowWidth < 1200 || windowHeight < 800) num /= 2
 
-  let stars = ""
-  const colors = ["--n-primary", "--n-primary", "--n-primary", "--n-primary", "--n-primary", "--n-primary"]
+  let stars = ''
+  const colors = ['--n-primary', '--n-primary', '--n-primary', '--n-primary', '--n-primary', '--n-primary']
   for (let i = num; i >= 0; i--) {
     /* X轴坐标 */
     const x = Math.round(Math.random() * windowWidth)
@@ -30,7 +30,7 @@ function RandomStars(num) {
 }
 onMounted(() => {
   RandomStars(240)
-  window.addEventListener("resize", function () {
+  window.addEventListener('resize', function () {
     RandomStars(240)
   })
 })

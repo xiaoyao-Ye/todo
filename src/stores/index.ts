@@ -1,4 +1,4 @@
-import { defineStore } from "pinia"
+import { defineStore } from 'pinia'
 
 // export const useGlobalStore = defineStore("global", {
 //   state: () => {
@@ -34,4 +34,6 @@ const storeSetup = () => {
   return { isDark, toggleTheme, collapsed, toggleCollapse, isMax, toggleIsMax }
 }
 
-export const useGlobalStore = defineStore("global", storeSetup, { persist: true })
+export const useGlobalStore = defineStore('global', storeSetup, {
+  persist: true,
+})

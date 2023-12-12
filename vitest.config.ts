@@ -1,5 +1,5 @@
-import { defineConfig } from "vitest/config"
-import AutoImport from "unplugin-auto-import/vite"
+import { defineConfig } from 'vitest/config'
+import AutoImport from 'unplugin-auto-import/vite'
 
 export default defineConfig({
   test: {
@@ -8,14 +8,14 @@ export default defineConfig({
   plugins: [
     AutoImport({
       imports: [
-        "vue",
+        'vue',
         // "vue-router",
-        "pinia",
+        'pinia',
         // {
         //   "naive-ui": ["useDialog", "useMessage", "useNotification", "useLoadingBar"],
         // },
       ],
-      dts: "./src/auto-imports.d.ts",
+      dts: './src/auto-imports.d.ts',
     }),
   ],
 })

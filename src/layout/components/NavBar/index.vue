@@ -20,15 +20,15 @@
 </template>
 
 <script setup lang="ts">
-import UserInfo from "./UserInfo.vue"
-import ToolButton from "./ToolButton.vue"
+import UserInfo from './UserInfo.vue'
+import ToolButton from './ToolButton.vue'
 
 // const date = new Date().toLocaleDateString()
 const date = new Date()
 const month = date.getMonth() + 1
 const day = date.getDate()
 const week = date.getDay()
-const dayOfWeekMap = ["日", "一", "二", "三", "四", "五", "六"]
+const dayOfWeekMap = ['日', '一', '二', '三', '四', '五', '六']
 const title = `星期${dayOfWeekMap[week]} ${month}月${day}日. I'm hungry.`
 </script>
 

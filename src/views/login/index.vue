@@ -43,25 +43,29 @@
           <n-form-item path="code" v-if="!isSignIn">
             <n-input v-model:value="form.code" placeholder="输入验证码" />
             <n-button class="ml-2" @click="getVerifyCode">
-              {{ countDown === 60 ? "获取验证码" : countDown + "s 后重试" }}
+              {{ countDown === 60 ? '获取验证码' : countDown + 's 后重试' }}
             </n-button>
           </n-form-item>
           <n-form-item>
-            <n-button class="w-full" @click="handleValidateClick">{{ isSignIn ? "登录" : "注册" }}</n-button>
+            <n-button class="w-full" @click="handleValidateClick">
+              {{ isSignIn ? '登录' : '注册' }}
+            </n-button>
           </n-form-item>
         </n-form>
 
-        <div class="cursor-pointer inline-block" @click="isSignIn = !isSignIn">{{ isSignIn ? "去注册" : "去登录" }}</div>
+        <div class="cursor-pointer inline-block" @click="isSignIn = !isSignIn">
+          {{ isSignIn ? '去注册' : '去登录' }}
+        </div>
       </div>
     </div>
   </n-message-provider>
 </template>
 
 <script setup lang="ts">
-import ToolButton from "../../layout/components/NavBar/ToolButton.vue"
-import { FormInst, useMessage } from "naive-ui"
-import { useGlobalStore } from "@/stores"
-import { Sign } from "@/api/todo/api"
+import ToolButton from '../../layout/components/NavBar/ToolButton.vue'
+import { FormInst, useMessage } from 'naive-ui'
+import { useGlobalStore } from '@/stores'
+import { Sign } from '@/api/todo/api'
 const globalStore = useGlobalStore()
 const message = useMessage()
 window.$message = message
@@ -77,9 +81,9 @@ function handleBlur() {
 }
 
 const options = computed(() => {
-  const emailSuffix = ["@163.com", "@yeah.net", "@qq.com", "@gmail.com", "@outlook.com", "@126.com"]
+  const emailSuffix = ['@163.com', '@yeah.net', '@qq.com', '@gmail.com', '@outlook.com', '@126.com']
   return emailSuffix.map(suffix => {
-    const prefix = form.value.email.split("@")[0]
+    const prefix = form.value.email.split('@')[0]
     return {
       label: prefix + suffix,
       value: prefix + suffix,
@@ -94,34 +98,34 @@ const rules = {
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
           form.value.email,
         ),
-      message: "请输入正确的邮箱",
-      trigger: "blur",
+      message: '请输入正确的邮箱',
+      trigger: 'blur',
     },
   ],
-  password: { required: true, message: "输入密码", trigger: "blur" },
-  code: { required: true, message: "输入验证码", trigger: "blur" },
+  password: { required: true, message: '输入密码', trigger: 'blur' },
+  code: { required: true, message: '输入验证码', trigger: 'blur' },
 }
 
-const form = ref({ email: "Ghosteye@yeah.net", password: "123456", code: "" })
+const form = ref({ email: 'Ghosteye@yeah.net', password: '123456', code: '' })
 const formRef = ref<FormInst | null>(null)
 async function handleValidateClick(e: MouseEvent) {
   await formRef.value?.validate()
 
   if (!isSignIn.value) {
     await Sign.signUp(form.value)
-    message.success("注册成功")
+    message.success('注册成功')
     isSignIn.value = true
   }
   const { token } = await Sign.signIn(form.value)
-  message.success("welcome!")
-  localStorage.setItem("token", token)
-  router.push("/")
+  message.success('welcome!')
+  localStorage.setItem('token', token)
+  router.push('/')
 }
 
 async function getVerifyCode() {
   if (countDown.value !== 60) return
   setCountDown()
-  if (!form.value.email) return message.warning("请输入邮箱")
+  if (!form.value.email) return message.warning('请输入邮箱')
   try {
     await Sign.sendVerificationCode({ email: form.value.email })
   } catch (error) {

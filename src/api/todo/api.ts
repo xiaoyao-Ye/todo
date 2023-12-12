@@ -1,7 +1,7 @@
 /* eslint-disable */
 // 此文件由 initAPI(https://github.com/xiaoyao-Ye/initapi) 自动生成。请不要手动修改此文件！
 
-import { request } from "../index"
+import { request } from '../index'
 
 import {
   SortBy,
@@ -14,13 +14,13 @@ import {
   SignUpDto,
   SignInDto,
   SignInVo,
-} from "./typings.d"
+} from './typings.d'
 
 export class Common {
   static getHello() {
     return request<void>({
       url: `/api/v1`,
-      method: "GET",
+      method: 'GET',
     })
   }
 }
@@ -38,7 +38,7 @@ export class Todo {
   }) {
     return request<PageTodoVo>({
       url: `/api/v1/todo/page`,
-      method: "GET",
+      method: 'GET',
       params,
     })
   }
@@ -47,7 +47,7 @@ export class Todo {
   static findAll() {
     return request<Array<TodoEntity>>({
       url: `/api/v1/todo`,
-      method: "GET",
+      method: 'GET',
     })
   }
 
@@ -55,7 +55,7 @@ export class Todo {
   static create(data?: CreateTodoDto) {
     return request<TodoEntity>({
       url: `/api/v1/todo`,
-      method: "POST",
+      method: 'POST',
       data,
     })
   }
@@ -64,7 +64,7 @@ export class Todo {
   static update(path: { id: number }, data?: UpdateTodoDto) {
     return request<void>({
       url: `/api/v1/todo/${path.id}`,
-      method: "PATCH",
+      method: 'PATCH',
       data,
     })
   }
@@ -73,7 +73,7 @@ export class Todo {
   static findOne(path: { id: number }) {
     return request<TodoEntity>({
       url: `/api/v1/todo/${path.id}`,
-      method: "GET",
+      method: 'GET',
     })
   }
 
@@ -81,7 +81,7 @@ export class Todo {
   static remove(path: { id: number }) {
     return request<void>({
       url: `/api/v1/todo/${path.id}`,
-      method: "DELETE",
+      method: 'DELETE',
     })
   }
 }
@@ -91,7 +91,7 @@ export class Sign {
   static sendVerificationCode(data?: SendCodeDto) {
     return request<void>({
       url: `/api/v1/sign/sendVerificationCode`,
-      method: "POST",
+      method: 'POST',
       data,
     })
   }
@@ -100,7 +100,7 @@ export class Sign {
   static signUp(data?: SignUpDto) {
     return request<void>({
       url: `/api/v1/sign/signUp`,
-      method: "POST",
+      method: 'POST',
       data,
     })
   }
@@ -109,7 +109,7 @@ export class Sign {
   static signIn(data?: SignInDto) {
     return request<SignInVo>({
       url: `/api/v1/sign/signIn`,
-      method: "POST",
+      method: 'POST',
       data,
     })
   }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { darkTheme, lightTheme, zhCN, dateZhCN } from "naive-ui"
-import { useGlobalStore } from "@/stores"
-import { loading } from "./api/helper/loading"
+import { darkTheme, lightTheme, zhCN, dateZhCN } from 'naive-ui'
+import { useGlobalStore } from '@/stores'
+import { loading } from './api/helper/loading'
 
 const globalStore = useGlobalStore()
 
@@ -9,26 +9,26 @@ const theme = computed(() => (globalStore.isDark ? darkTheme : lightTheme))
 const style = computed(() => {
   console.log(theme.value)
   return {
-    "--g-is-max": globalStore.isMax ? "0px" : "10px",
-    "--g-radius": globalStore.isMax ? "0px" : "8px",
-    "--g-box-shadow": `0 0 5px 1px ${globalStore.isDark ? "#333" : "#ccc"}`,
+    '--g-is-max': globalStore.isMax ? '0px' : '10px',
+    '--g-radius': globalStore.isMax ? '0px' : '8px',
+    '--g-box-shadow': `0 0 5px 1px ${globalStore.isDark ? '#333' : '#ccc'}`,
 
     // "--n-color": theme.value.common.baseColor,
-    "--n-color": theme.value.common.bodyColor,
-    "--n-font-size": theme.value.common.fontSize,
-    "--n-font-family": theme.value.common.fontFamily,
-    "--n-line-height": theme.value.common.lineHeight,
-    "--n-text-color": theme.value.common.textColor2,
-    "--n-text-color3": theme.value.common.textColor3,
-    "--n-box-shadow1": theme.value.common.boxShadow1,
-    "--n-box-shadow2": theme.value.common.boxShadow2,
-    "--n-box-shadow3": theme.value.common.boxShadow3,
-    "--n-primary": theme.value.common.primaryColor,
-    "--n-border-color": theme.value.common.dividerColor,
+    '--n-color': theme.value.common.bodyColor,
+    '--n-font-size': theme.value.common.fontSize,
+    '--n-font-family': theme.value.common.fontFamily,
+    '--n-line-height': theme.value.common.lineHeight,
+    '--n-text-color': theme.value.common.textColor2,
+    '--n-text-color3': theme.value.common.textColor3,
+    '--n-box-shadow1': theme.value.common.boxShadow1,
+    '--n-box-shadow2': theme.value.common.boxShadow2,
+    '--n-box-shadow3': theme.value.common.boxShadow3,
+    '--n-primary': theme.value.common.primaryColor,
+    '--n-border-color': theme.value.common.dividerColor,
     // n-card
-    "--n-card-color": theme.value.Card.common?.cardColor,
-    "--n-divider-color": theme.value.Card.common?.dividerColor,
-    "--n-bezier": theme.value.Card.common?.cubicBezierEaseInOut,
+    '--n-card-color': theme.value.Card.common?.cardColor,
+    '--n-divider-color': theme.value.Card.common?.dividerColor,
+    '--n-bezier': theme.value.Card.common?.cubicBezierEaseInOut,
   }
 })
 </script>

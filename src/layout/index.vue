@@ -26,9 +26,9 @@
 </template>
 
 <script setup lang="ts">
-import NavBar from "./components/NavBar/index.vue"
-import SideBar from "./components/SideBar/index.vue"
-import { useGlobalStore } from "@/stores"
+import NavBar from './components/NavBar/index.vue'
+import SideBar from './components/SideBar/index.vue'
+import { useGlobalStore } from '@/stores'
 const globalStore = useGlobalStore()
 window.$message = useMessage()
 // 如果一定要解构的话必须要使用 storeToRefs 以保持响应式

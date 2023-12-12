@@ -1,7 +1,9 @@
 <template>
   <div class="texture flex flex-col p-4 h-[calc(100vh-40px-var(--g-is-max))]">
     <div class="flex items-center justify-between">
-      <div class="p-4 min-w-[200px] border border-dashed rd">{{ category }}</div>
+      <div class="p-4 min-w-[200px] border border-dashed rd">
+        {{ category }}
+      </div>
       <n-space>
         <!-- 选择排序 -->
         <n-popselect v-model:value="sortCategory" :options="sortOptions" trigger="click">
@@ -38,24 +40,24 @@
 </template>
 
 <script setup lang="ts">
-import Card from "./Card.vue"
-import Drawer from "./Drawer.vue"
-import { Todo } from "@/api/todo/api"
-import { useTodoStore } from "@/stores/todo"
-import { CreateTodoDto } from "@/api/todo/typings"
-import { throttle } from "@/utils"
+import Card from './Card.vue'
+import Drawer from './Drawer.vue'
+import { Todo } from '@/api/todo/api'
+import { useTodoStore } from '@/stores/todo'
+import { CreateTodoDto } from '@/api/todo/typings'
+import { throttle } from '@/utils'
 
 const todoStore = useTodoStore()
 const { toggleSort, sortIcon, sortOptions } = todoStore
 const { pageNum, todoList, category, sortStatus, sortCategory } = storeToRefs(todoStore)
 
-const title = ref("")
+const title = ref('')
 async function onAddTodo() {
   const query: CreateTodoDto = { title: title.value }
-  if (["today", "important"].includes(category.value)) [(query[category.value as "today" | "important"] = true)]
+  if (['today', 'important'].includes(category.value)) [(query[category.value as 'today' | 'important'] = true)]
   const todo = await Todo.create(query)
   todoList.value.unshift(todo)
-  title.value = ""
+  title.value = ''
 }
 
 const loadMore = ref<unknown>(null)

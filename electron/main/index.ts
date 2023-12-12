@@ -1,6 +1,6 @@
-import { app, BrowserWindow, shell, ipcMain, Menu, Tray } from "electron"
-import { release } from "node:os"
-import { join } from "node:path"
+import { app, BrowserWindow, shell, ipcMain, Menu, Tray } from 'electron'
+import { release } from 'node:os'
+import { join } from 'node:path'
 
 // The built directory structure
 //
@@ -12,15 +12,15 @@ import { join } from "node:path"
 // ├─┬ dist
 // │ └── index.html    > Electron-Renderer
 //
-process.env.DIST_ELECTRON = join(__dirname, "..")
-process.env.DIST = join(process.env.DIST_ELECTRON, "../dist")
-process.env.VITE_PUBLIC = process.env.VITE_DEV_SERVER_URL ? join(process.env.DIST_ELECTRON, "../public") : process.env.DIST
+process.env.DIST_ELECTRON = join(__dirname, '..')
+process.env.DIST = join(process.env.DIST_ELECTRON, '../dist')
+process.env.VITE_PUBLIC = process.env.VITE_DEV_SERVER_URL ? join(process.env.DIST_ELECTRON, '../public') : process.env.DIST
 
 // Disable GPU Acceleration for Windows 7
-if (release().startsWith("6.1")) app.disableHardwareAcceleration()
+if (release().startsWith('6.1')) app.disableHardwareAcceleration()
 
 // Set application name for Windows 10+ notifications
-if (process.platform === "win32") app.setAppUserModelId(app.getName())
+if (process.platform === 'win32') app.setAppUserModelId(app.getName())
 
 if (!app.requestSingleInstanceLock()) {
   app.quit()
@@ -34,16 +34,16 @@ if (!app.requestSingleInstanceLock()) {
 
 let win: BrowserWindow | null = null
 // Here, you can also use other preload
-const preload = join(__dirname, "../preload/index.js")
+const preload = join(__dirname, '../preload/index.js')
 const url = process.env.VITE_DEV_SERVER_URL
-const indexHtml = join(process.env.DIST, "index.html")
+const indexHtml = join(process.env.DIST, 'index.html')
 let tray: Tray | null = null
 
 async function createWindow() {
   win = new BrowserWindow({
-    title: "Ghosteye todo",
+    title: 'Ghosteye todo',
     fullscreenable: false,
-    icon: join(process.env.VITE_PUBLIC, "book.png"),
+    icon: join(process.env.VITE_PUBLIC, 'book.png'),
     width: 1280,
     height: 720,
     minHeight: 400,
@@ -74,20 +74,20 @@ async function createWindow() {
 
   Menu.setApplicationMenu(null)
 
-  tray = new Tray(join(process.env.VITE_PUBLIC, "book.png"))
+  tray = new Tray(join(process.env.VITE_PUBLIC, 'book.png'))
 
   tray.setContextMenu(
     Menu.buildFromTemplate([
       {
-        label: "退出",
+        label: '退出',
         click: () => {
-          win.webContents.send("close")
+          win.webContents.send('close')
           win.destroy()
         },
       },
     ]),
   )
-  tray.setToolTip("todo")
+  tray.setToolTip('todo')
   // tray.on("click", () => {
   //   win.show()
   //   win.focus()
@@ -104,20 +104,20 @@ async function createWindow() {
   }
 
   // Test actively push message to the Electron-Renderer
-  win.webContents.on("did-finish-load", () => {
-    win?.webContents.send("main-process-message", new Date().toLocaleString())
+  win.webContents.on('did-finish-load', () => {
+    win?.webContents.send('main-process-message', new Date().toLocaleString())
   })
 
   // Make all links open with the browser, not with the application
   win.webContents.setWindowOpenHandler(({ url }) => {
-    if (url.startsWith("https:")) shell.openExternal(url)
-    return { action: "deny" }
+    if (url.startsWith('https:')) shell.openExternal(url)
+    return { action: 'deny' }
   })
   // win.webContents.on('will-navigate', (event, url) => { }) #344
 
   // 窗口大小变化
-  win.on("resize", () => {
-    win.webContents.send("window.maximized", win.isMaximized())
+  win.on('resize', () => {
+    win.webContents.send('window.maximized', win.isMaximized())
     // win.webContents.send("window.maximized", false)
   })
 }
@@ -128,12 +128,12 @@ app.whenReady().then(async () => {
   // Menu.setApplicationMenu(null)
 })
 
-app.on("window-all-closed", () => {
+app.on('window-all-closed', () => {
   win = null
-  if (process.platform !== "darwin") app.quit()
+  if (process.platform !== 'darwin') app.quit()
 })
 
-app.on("second-instance", () => {
+app.on('second-instance', () => {
   if (win) {
     // Focus on the main window if the user tried to open another
     if (win.isMinimized()) win.restore()
@@ -141,7 +141,7 @@ app.on("second-instance", () => {
   }
 })
 
-app.on("activate", () => {
+app.on('activate', () => {
   const allWindows = BrowserWindow.getAllWindows()
   if (allWindows.length) {
     allWindows[0].focus()
@@ -180,7 +180,7 @@ app.on("activate", () => {
 // })
 
 // 最大化/恢复正常
-ipcMain.on("win.changeWinSize", event => {
+ipcMain.on('win.changeWinSize', event => {
   if (win.isMaximized()) {
     win.unmaximize()
     // event.reply("window.maximized", false)
@@ -191,12 +191,12 @@ ipcMain.on("win.changeWinSize", event => {
 })
 
 // 最小化
-ipcMain.on("win.minimize", () => {
+ipcMain.on('win.minimize', () => {
   win.minimize()
 })
 
 // 关闭
-ipcMain.on("win.close", () => {
+ipcMain.on('win.close', () => {
   win.close()
   // app.quit()
 })

@@ -1,5 +1,5 @@
-import { isFunction } from "../../utils"
-import axios, { AxiosRequestConfig, Canceler } from "axios"
+import { isFunction } from '../../utils'
+import axios, { AxiosRequestConfig, Canceler } from 'axios'
 
 // 声明一个 Map 用于存储每个请求的标识 和 取消函数
 let pendingMap = new Map<string, Canceler>()
@@ -10,7 +10,7 @@ export const getPendingUrl = (config: AxiosRequestConfig) => {
   try {
     data = JSON.parse(config.data)
   } catch {}
-  return [config.method, config.url, JSON.stringify(data), JSON.stringify(config.params)].join("&")
+  return [config.method, config.url, JSON.stringify(data), JSON.stringify(config.params)].join('&')
 }
 
 export class AxiosCanceler {

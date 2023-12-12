@@ -10,26 +10,26 @@
 </template>
 
 <script setup lang="ts">
-import { useGlobalStore } from "@/stores"
-import { ipcRenderer } from "electron"
+import { useGlobalStore } from '@/stores'
+import { ipcRenderer } from 'electron'
 
 // const isMax = ref(false)
 const { toggleIsMax } = useGlobalStore()
 const globalStore = useGlobalStore()
-ipcRenderer.on("window.maximized", (e: any, arg: boolean) => {
+ipcRenderer.on('window.maximized', (e: any, arg: boolean) => {
   // isMax.value = arg
   toggleIsMax(arg)
 })
 
 const onChangeWinSize = () => {
-  ipcRenderer.send("win.changeWinSize")
+  ipcRenderer.send('win.changeWinSize')
 }
 
 const onMinimize = () => {
-  ipcRenderer.send("win.minimize")
+  ipcRenderer.send('win.minimize')
 }
 const onClose = () => {
-  ipcRenderer.send("win.close")
+  ipcRenderer.send('win.close')
 }
 </script>
 

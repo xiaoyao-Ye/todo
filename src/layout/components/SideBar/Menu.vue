@@ -12,8 +12,8 @@
 </template>
 
 <script setup lang="ts">
-import { MenuGroupOption, MenuMixedOption, MenuOption } from "naive-ui/es/menu/src/interface"
-import { Category, useTodoStore } from "@/stores/todo"
+import { MenuGroupOption, MenuMixedOption, MenuOption } from 'naive-ui/es/menu/src/interface'
+import { Category, useTodoStore } from '@/stores/todo'
 const todoStore = useTodoStore()
 
 const router = useRouter()
@@ -23,8 +23,8 @@ const showDropdown = ref(false)
 const x = ref(0)
 const y = ref(0)
 const options = [
-  { label: "重命名", key: "rename" },
-  { label: "删除", key: "delete" },
+  { label: '重命名', key: 'rename' },
+  { label: '删除', key: 'delete' },
 ]
 
 function onClickoutside() {
@@ -50,8 +50,8 @@ function handleMenu(option: MenuOption | MenuGroupOption) {
   if (option.path) return router.push(option.path as string)
   if (option.category) {
     todoStore.toggleCategory(option.category as Category)
-    if (!router.currentRoute.value.fullPath.includes("/todo")) {
-      router.push("/todo")
+    if (!router.currentRoute.value.fullPath.includes('/todo')) {
+      router.push('/todo')
     }
   }
 }
@@ -65,14 +65,34 @@ const renderNode: any = (option: MenuOption | MenuGroupOption) => {
 }
 
 function renderIcon(icon: string) {
-  return () => h("div", { class: icon })
+  return () => h('div', { class: icon })
 }
 // TODO: 整个菜单都应该放到 store 里面
 const menuOptions: MenuMixedOption[] = [
-  { icon: renderIcon("i-carbon:task-view"), label: "今天做点什么呢", key: "today", category: "today" },
-  { icon: renderIcon("i-carbon:document-multiple-02"), label: "任务列表", key: "tasks", category: "tasks" },
-  { icon: renderIcon("i-carbon:task-star"), label: "这些比较重要", key: "important", category: "important" },
-  { icon: renderIcon("i-carbon:task-complete"), label: "已完成", key: "completed", category: "completed" },
+  {
+    icon: renderIcon('i-carbon:task-view'),
+    label: '今天做点什么呢',
+    key: 'today',
+    category: 'today',
+  },
+  {
+    icon: renderIcon('i-carbon:document-multiple-02'),
+    label: '任务列表',
+    key: 'tasks',
+    category: 'tasks',
+  },
+  {
+    icon: renderIcon('i-carbon:task-star'),
+    label: '这些比较重要',
+    key: 'important',
+    category: 'important',
+  },
+  {
+    icon: renderIcon('i-carbon:task-complete'),
+    label: '已完成',
+    key: 'completed',
+    category: 'completed',
+  },
   // { icon: renderIcon("i-carbon:document-multiple-02"), label: "home", key: "home", path: "/home" },
   // {
   //   label: "这些比较重要",
@@ -84,7 +104,7 @@ const menuOptions: MenuMixedOption[] = [
 ]
 
 onMounted(() => {
-  todoStore.toggleCategory("today")
+  todoStore.toggleCategory('today')
 })
 </script>
 

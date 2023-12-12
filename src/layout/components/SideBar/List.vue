@@ -18,15 +18,15 @@
 </template>
 
 <script setup lang="ts">
-import { InputInst } from "naive-ui/es/input/src/interface"
+import { InputInst } from 'naive-ui/es/input/src/interface'
 
-type ListStatus = "list" | "group"
+type ListStatus = 'list' | 'group'
 
 const isAddStatus = ref<ListStatus>()
-const name = ref<string>("")
+const name = ref<string>('')
 const inputRef = ref<InputInst | null>(null)
 const placeholder = computed(() => {
-  const names = { list: "添加列表", group: "添加分类" }
+  const names = { list: '添加列表', group: '添加分类' }
   return `输入名称按 Enter ${names[isAddStatus.value!]}`
 })
 
@@ -45,19 +45,19 @@ function toggleStatus(type: ListStatus) {
 }
 
 function handleKeyup(e: any) {
-  if (e.key === "Enter") {
+  if (e.key === 'Enter') {
     onAdd()
-  } else if (e.key === "Escape") {
+  } else if (e.key === 'Escape') {
     onClose()
   }
 }
 
 function onAdd() {
-  console.log(isAddStatus.value === "list" ? "list" : "group")
+  console.log(isAddStatus.value === 'list' ? 'list' : 'group')
   // 添加列表/分类
 
   onClose()
-  name.value = ""
+  name.value = ''
 }
 </script>
 

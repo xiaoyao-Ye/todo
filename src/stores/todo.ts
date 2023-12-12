@@ -1,7 +1,7 @@
-import { Todo } from "@/api/todo/api"
-import { TodoEntity } from "@/api/todo/typings"
+import { Todo } from '@/api/todo/api'
+import { TodoEntity } from '@/api/todo/typings'
 
-export type Category = "today" | "important" | "completed" | "tasks"
+export type Category = 'today' | 'important' | 'completed' | 'tasks'
 
 // export interface Todo {
 //   id: number
@@ -16,7 +16,7 @@ export type Category = "today" | "important" | "completed" | "tasks"
 // }
 
 const setupStore = () => {
-  const category = ref<Category>("today")
+  const category = ref<Category>('today')
 
   const todoList = ref<TodoEntity[]>([])
   const pageNum = ref(1)
@@ -24,8 +24,11 @@ const setupStore = () => {
   const total = ref(100)
   async function onGetList() {
     if ((pageNum.value - 1) * pageSize.value > total.value) return
-    const query: Record<string, any> = { page: pageNum.value, limit: pageSize.value }
-    if (category.value !== "tasks") query[category.value] = true
+    const query: Record<string, any> = {
+      page: pageNum.value,
+      limit: pageSize.value,
+    }
+    if (category.value !== 'tasks') query[category.value] = true
     const { list, pagination } = await Todo.page(query)
     if (pageNum.value === 1) todoList.value = list
     else todoList.value.push(...list)
@@ -51,18 +54,21 @@ const setupStore = () => {
   //   }
   // }
 
-  const sortStatus = ref<"ascending" | "descending">("ascending")
+  const sortStatus = ref<'ascending' | 'descending'>('ascending')
   function toggleSort() {
-    sortStatus.value = sortStatus.value === "ascending" ? "descending" : "ascending"
+    sortStatus.value = sortStatus.value === 'ascending' ? 'descending' : 'ascending'
   }
   const sortIcon = {
-    "默认排序": "",
-    "按重要性排序": "i-carbon:star-filled",
-    "按到期时间排序": "i-carbon:hourglass",
-    "按字母排序": "i-carbon:character-sentence-case",
+    默认排序: '',
+    按重要性排序: 'i-carbon:star-filled',
+    按到期时间排序: 'i-carbon:hourglass',
+    按字母排序: 'i-carbon:character-sentence-case',
   }
-  const sortCategory = ref<keyof typeof sortIcon>("默认排序")
-  const sortOptions = Object.keys(sortIcon).map(item => ({ label: item, value: item }))
+  const sortCategory = ref<keyof typeof sortIcon>('默认排序')
+  const sortOptions = Object.keys(sortIcon).map(item => ({
+    label: item,
+    value: item,
+  }))
 
   const todoListFiltered = ref<TodoEntity[]>([])
 
@@ -101,14 +107,14 @@ const setupStore = () => {
   //   }
   // }
   async function addTodo(title: string) {
-    if (title.trim() === "") return
+    if (title.trim() === '') return
     // const todo = await createTodo(title)
     // todoList.value.push(todo)
     // filterList()
   }
 
   function updateTodo(todo: Partial<TodoEntity>) {
-    if (!todo.id) throw new Error("id invalid")
+    if (!todo.id) throw new Error('id invalid')
     // 这里可能会调用接口
     // const index = todoList.value.findIndex(f => f.id)
     // if (index === -1) throw new Error("id invalid")
@@ -143,4 +149,4 @@ const setupStore = () => {
   }
 }
 
-export const useTodoStore = defineStore("todo", setupStore, { persist: true })
+export const useTodoStore = defineStore('todo', setupStore, { persist: true })

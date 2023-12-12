@@ -31,43 +31,43 @@
 </template>
 
 <script setup lang="ts">
-import { Todo } from "@/api/todo/api"
-import { TodoEntity } from "@/api/todo/typings"
-import { useTodoStore } from "@/stores/todo"
-import { formatDate } from "@/utils/date"
-import { InputInst } from "naive-ui/es/input/src/interface"
+import { Todo } from '@/api/todo/api'
+import { TodoEntity } from '@/api/todo/typings'
+import { useTodoStore } from '@/stores/todo'
+import { formatDate } from '@/utils/date'
+import { InputInst } from 'naive-ui/es/input/src/interface'
 const message = useMessage()
 const todoStore = useTodoStore()
 const { todoList, category } = storeToRefs(todoStore)
 
 const props = defineProps<{ todo: TodoEntity; index: number }>()
-const emits = defineEmits(["showDetail"])
+const emits = defineEmits(['showDetail'])
 
 async function toggleComplete() {
-  const completed_at = props.todo.completed_at ? "" : formatDate()
+  const completed_at = props.todo.completed_at ? '' : formatDate()
   await Todo.update({ id: props.todo.id! }, { completed_at })
   todoList.value[props.index].completed_at = completed_at
 }
 
 const isCompleteIcon = computed(() => {
-  return props.todo.completed_at ? "i-carbon:checkmark-outline" : "i-carbon:radio-button"
+  return props.todo.completed_at ? 'i-carbon:checkmark-outline' : 'i-carbon:radio-button'
 })
 
 async function toggleCollect() {
   const important = !props.todo.important
   await Todo.update({ id: props.todo.id! }, { important })
   todoList.value[props.index].important = important
-  category.value === "important" && todoStore.onRefresh()
+  category.value === 'important' && todoStore.onRefresh()
 }
 
 const isCollectIcon = computed(() => {
-  return props.todo.important ? "i-carbon:star-filled" : "i-carbon:star"
+  return props.todo.important ? 'i-carbon:star-filled' : 'i-carbon:star'
 })
 
 async function removeTodo() {
   await Todo.remove({ id: props.todo.id! })
   todoList.value.splice(props.index, 1)
-  message.success("已删除该事项")
+  message.success('已删除该事项')
   if (todoList.value.length < 10) {
     todoStore.onGetList()
   }
@@ -93,7 +93,7 @@ function customClick() {
   timer.value = setTimeout(() => {
     timer.value = null
     // showDetail.value = true;
-    emits("showDetail", props.todo.id)
+    emits('showDetail', props.todo.id)
   }, 300)
 }
 function onShowEdit() {
@@ -105,7 +105,7 @@ function onShowEdit() {
 }
 
 async function onEdit() {
-  const title = titleValue.value.replace(/\n/g, "")
+  const title = titleValue.value.replace(/\n/g, '')
   await Todo.update({ id: props.todo.id! }, { title })
   todoList.value[props.index].title = title
   onCloseEdit()

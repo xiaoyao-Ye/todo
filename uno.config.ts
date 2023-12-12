@@ -1,5 +1,5 @@
 // uno.config.ts
-import { defineConfig, presetWind, presetUno, presetIcons, presetTypography } from "unocss"
+import { defineConfig, presetWind, presetUno, presetIcons, presetTypography } from 'unocss'
 // import presetUno from "@unocss/preset-uno"
 // import presetIcons from "@unocss/preset-icons"
 

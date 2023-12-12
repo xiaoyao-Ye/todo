@@ -11,20 +11,20 @@
 </template>
 
 <script setup lang="ts">
-import bookImage from "/book.png"
-import { router } from "@/router"
-import { useGlobalStore } from "@/stores"
+import bookImage from '/book.png'
+import { router } from '@/router'
+import { useGlobalStore } from '@/stores'
 const globalStore = useGlobalStore()
 
 const options = [
-  { label: "个人资料", key: "profile" },
-  { label: "退出登录", key: "logout" },
+  { label: '个人资料', key: 'profile' },
+  { label: '退出登录', key: 'logout' },
   // {    label: '退出登录', key: 'logout',    // icon: renderIcon(LogoutIcon)  }
 ]
 function handleSelect(key: string | number) {
-  if (key === "logout") {
-    localStorage.removeItem("token")
-    router.replace("/login")
+  if (key === 'logout') {
+    localStorage.removeItem('token')
+    router.replace('/login')
   }
 }
 </script>

@@ -2,9 +2,9 @@
 // 此文件由 initAPI(https://github.com/xiaoyao-Ye/initapi) 自动生成。请不要手动修改此文件！
 
 export interface TodoEntity {
-  createdAt: string
+  created_at: string
 
-  updatedAt: string
+  updated_at: string
 
   id: number
   /** 标题 */
@@ -83,9 +83,9 @@ export interface SignInDto {
 }
 
 export interface UserEntity {
-  createdAt: string
+  created_at: string
 
-  updatedAt: string
+  updated_at: string
   /** 昵称 */
   nick_name: string
   /** 邮箱 */
@@ -101,6 +101,6 @@ export interface SignInVo {
   user: UserEntity
 }
 
-export type SortBy = "today" | "important" | "completed"
+export type SortBy = 'today' | 'important' | 'completed'
 
-export type SortOrder = "ASC" | "DESC"
+export type SortOrder = 'ASC' | 'DESC'

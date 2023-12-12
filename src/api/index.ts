@@ -1,9 +1,9 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios"
-import { router } from "../router/index"
-import { AxiosCanceler } from "./helper/axiosCancel"
-import { Message, checkStatus } from "./helper/checkStatus"
-import { showFullScreenLoading, tryHideFullScreenLoading } from "./helper/loading"
-import { TOKEN } from "@/constant"
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { router } from '../router/index'
+import { AxiosCanceler } from './helper/axiosCancel'
+import { Message, checkStatus } from './helper/checkStatus'
+import { showFullScreenLoading, tryHideFullScreenLoading } from './helper/loading'
+import { TOKEN } from '@/constant'
 
 const axiosCanceler = new AxiosCanceler()
 const config: any = {
@@ -19,9 +19,9 @@ const config: any = {
   withCredentials: true,
 }
 
-const isDev = import.meta.env.MODE === "development"
+const isDev = import.meta.env.MODE === 'development'
 if (!isDev) {
-  config.baseURL = "http://120.79.135.213:1024"
+  config.baseURL = 'http://120.79.135.213:1024'
 }
 
 const service = axios.create(config)
@@ -65,12 +65,12 @@ service.interceptors.response.use(
     tryHideFullScreenLoading()
     const { response, message } = error
 
-    if (message.includes("timeout")) Message("请求超时！请您稍后重试")
-    if (message.includes("Network Error")) Message("网络异常,请检查您的网络连接是否正常")
+    if (message.includes('timeout')) Message('请求超时！请您稍后重试')
+    if (message.includes('Network Error')) Message('网络异常,请检查您的网络连接是否正常')
     // 请求成功发出且服务器也响应了状态码
     // 根据响应的错误状态码, 做不同的处理
     if (response) checkStatus(response.status)
-    if (!window.navigator.onLine) return router.replace({ path: "/500" })
+    if (!window.navigator.onLine) return router.replace({ path: '/500' })
 
     return Promise.reject(error)
   },
