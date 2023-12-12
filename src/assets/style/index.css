@@ -17,6 +17,14 @@
   background: url("/texture.png");
 }
 
+.n-drawer-container .n-drawer-mask {
+  top: calc(var(--g-is-max) / 2);
+  left: calc(var(--g-is-max) / 2);
+  right: calc(var(--g-is-max) / 2);
+  bottom: calc(var(--g-is-max) / 2);
+  border-radius: var(--g-radius);
+}
+
 /* 圣诞彩蛋 */
 .christmas:before {
   content: "";
