@@ -38,6 +38,7 @@
               :minlength="6"
               :maxlength="16"
               @focus="handleFocus"
+              @keyup.enter="handleValidateClick"
               @blur="handleBlur"></n-input>
           </n-form-item>
           <n-form-item path="code" v-if="!isSignIn">
@@ -108,7 +109,7 @@ const rules = {
 
 const form = ref({ email: 'Ghosteye@yeah.net', password: '123456', code: '' })
 const formRef = ref<FormInst | null>(null)
-async function handleValidateClick(e: MouseEvent) {
+async function handleValidateClick() {
   await formRef.value?.validate()
 
   if (!isSignIn.value) {
