@@ -23,6 +23,13 @@ export class Common {
       method: 'GET',
     })
   }
+
+  static sse() {
+    return request<void>({
+      url: `/api/v1/sse`,
+      method: 'GET',
+    })
+  }
 }
 
 export class Todo {

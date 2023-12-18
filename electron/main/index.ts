@@ -74,6 +74,7 @@ async function createWindow() {
 
   Menu.setApplicationMenu(null)
 
+  // 设置任务栏菜单/图标/hover标题
   tray = new Tray(join(process.env.VITE_PUBLIC, 'book.png'))
 
   tray.setContextMenu(

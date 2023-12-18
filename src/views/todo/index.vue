@@ -53,6 +53,7 @@ const { pageNum, todoList, category, sortStatus, sortCategory } = storeToRefs(to
 
 const title = ref('')
 async function onAddTodo() {
+  if (title.value.trim() === '') return
   const query: CreateTodoDto = { title: title.value }
   if (['today', 'important'].includes(category.value)) [(query[category.value as 'today' | 'important'] = true)]
   scrollbarRef.value.scrollTo(0)

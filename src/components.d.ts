@@ -17,7 +17,6 @@ declare module 'vue' {
     NDatePicker: (typeof import('naive-ui'))['NDatePicker']
     NDrawer: (typeof import('naive-ui'))['NDrawer']
     NDrawerContent: (typeof import('naive-ui'))['NDrawerContent']
-    NDrawerHead: (typeof import('naive-ui'))['NDrawerHead']
     NDropdown: (typeof import('naive-ui'))['NDropdown']
     NForm: (typeof import('naive-ui'))['NForm']
     NFormItem: (typeof import('naive-ui'))['NFormItem']

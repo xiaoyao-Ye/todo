@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 const boxShadow = ref('')
-function RandomStars(num) {
+function RandomStars(num: number) {
   const windowHeight = document.body.clientHeight
   const windowWidth = document.body.clientWidth
 
