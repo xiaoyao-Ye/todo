@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { TOKEN } from '@/constant'
+// import { TOKEN } from '@/constant'
 import NavBar from './components/NavBar/index.vue'
 import SideBar from './components/SideBar/index.vue'
 import { useGlobalStore } from '@/stores'
@@ -37,22 +37,23 @@ window.$message = useMessage()
 // actions 可以直接结构使用
 // const { toggleCollapse } = globalStore
 
-const getToken = () => localStorage.getItem(TOKEN)
-// const eventSource = new EventSource('http://120.79.135.213:1024/api/sse')
-const eventSource = ref<EventSource>()
-if (getToken()) {
-  eventSource.value = new EventSource('/api/v1/sse')
-  eventSource.value.onmessage = ({ data }) => {
-    console.log(`( data )===============>${new Date().toLocaleString()}`, data)
-    // const message = document.createElement('li')
-    // message.innerText = 'New message: ' + data
-    // document.body.appendChild(message)
-  }
-}
+// const getToken = () => localStorage.getItem(TOKEN)
+// // const eventSource = new EventSource('http://120.79.135.213:1024/api/sse')
+// const eventSource = ref<EventSource>()
+// if (getToken()) {
+//   // eventSource.value = new EventSource('/api/v1/sse?token=' + getToken())
+//   eventSource.value = new EventSource('/api/v1/sse')
+//   eventSource.value.onmessage = ({ data }) => {
+//     console.log(`( data )===============>${new Date().toLocaleString()}`, data)
+//     // const message = document.createElement('li')
+//     // message.innerText = 'New message: ' + data
+//     // document.body.appendChild(message)
+//   }
+// }
 
-onUnmounted(() => {
-  eventSource.value?.close()
-})
+// onUnmounted(() => {
+//   eventSource.value?.close()
+// })
 </script>
 
 <style scoped></style>
