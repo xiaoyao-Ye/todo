@@ -35,6 +35,7 @@ service.interceptors.request.use(
     // const getToken = () => uni.getStorageSync(TOKEN)
     const getToken = () => localStorage.getItem(TOKEN)
     config.headers.Authorization = `Bearer ${getToken()}`
+    config.headers['ws-key'] = localStorage.getItem('ws-key')
     return config
     // return { ...config, headers: { Authorization: `Bearer ${getToken()}` } }
   },

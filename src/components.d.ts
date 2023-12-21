@@ -35,6 +35,7 @@ declare module 'vue' {
     NSpace: (typeof import('naive-ui'))['NSpace']
     NSpin: (typeof import('naive-ui'))['NSpin']
     NSwitch: (typeof import('naive-ui'))['NSwitch']
+    Provider: (typeof import('./components/Provider/index.vue'))['default']
     RouterLink: (typeof import('vue-router'))['RouterLink']
     RouterView: (typeof import('vue-router'))['RouterView']
     StarBg: (typeof import('./components/StarBg/index.vue'))['default']

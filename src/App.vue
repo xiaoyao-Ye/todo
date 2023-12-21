@@ -39,7 +39,9 @@ const style = computed(() => {
       <n-config-provider :inline-theme-disabled="true" :theme="theme" :locale="zhCN" :date-locale="dateZhCN">
         <n-message-provider>
           <n-spin :show="loading" :rotate="false">
-            <router-view></router-view>
+            <Provider>
+              <router-view></router-view>
+            </Provider>
             <template #icon>
               <Blink />
             </template>

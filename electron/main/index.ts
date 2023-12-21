@@ -32,6 +32,14 @@ if (!app.requestSingleInstanceLock()) {
 // Read more on https://www.electronjs.org/docs/latest/tutorial/security
 // process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
+// export const ROOT_PATH = {
+// 	// /dist
+// 	dist: join(__dirname, "../.."),
+// 	// /dist or /public
+// 	public: join(__dirname, app.isPackaged ? "../.." : "../../../public"),
+// };
+// tray = new Tray(join(ROOT_PATH.public, "icon.ico"));
+
 let win: BrowserWindow | null = null
 // Here, you can also use other preload
 const preload = join(__dirname, '../preload/index.js')
@@ -89,11 +97,11 @@ async function createWindow() {
     ]),
   )
   tray.setToolTip('todo')
-  // tray.on("click", () => {
-  //   win.show()
-  //   win.focus()
-  //   win.setSkipTaskbar(false)
-  // })
+  tray.on('click', () => {
+    win.show()
+    win.focus()
+    win.setSkipTaskbar(false)
+  })
 
   if (process.env.VITE_DEV_SERVER_URL) {
     // electron-vite-vue#298
@@ -120,6 +128,12 @@ async function createWindow() {
   win.on('resize', () => {
     win.webContents.send('window.maximized', win.isMaximized())
     // win.webContents.send("window.maximized", false)
+  })
+
+  win.on('close', event => {
+    win.hide()
+    win.setSkipTaskbar(true)
+    event.preventDefault()
   })
 }
 
@@ -201,3 +215,39 @@ ipcMain.on('win.close', () => {
   win.close()
   // app.quit()
 })
+
+// 设置开机自动启动
+// const ex = process.execPath
+// // 监听设置开机自启动
+// ipcMain.on('set-launch-with-windows', (event, args) => {
+//   // 需要在应用打包后，将可执行文件路径写进注册表里。
+//   if (app.isPackaged) {
+//     //应用是否打包
+//     // log.info('是否开机自启动参数:', args)
+//     app.setLoginItemSettings({
+//       openAtLogin: args,
+//       openAsHidden: false,
+//       path: ex,
+//       args: ['--openAsHidden'],
+//     })
+//   }
+// })
+
+// 将时间戳转化为本地时间
+
+// 接收消息提示 notification
+// ipcMain.on('notification', (event, args) => {
+//   let option = {
+//     title: args.title, // 通知标题
+//     body: new Date(args.time).toLocaleString(), // 内容
+//     icon: join(ROOT_PATH.public, 'icon.ico'), // 图标
+//     // href: "https://www.cnblogs.com/binglicheng/", // 地址
+//   }
+//   let notification = new Notification(option)
+//   notification.show()
+//   notification.on('click', () => {
+//     win.show()
+//     win.focus()
+//     win.setSkipTaskbar(false)
+//   })
+// })
