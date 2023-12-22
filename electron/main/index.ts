@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell, ipcMain, Menu, Tray } from 'electron'
+import { app, BrowserWindow, shell, ipcMain, Menu, Tray, Notification } from 'electron'
 import { release } from 'node:os'
 import { join } from 'node:path'
 
@@ -236,18 +236,21 @@ ipcMain.on('win.close', () => {
 // 将时间戳转化为本地时间
 
 // 接收消息提示 notification
-// ipcMain.on('notification', (event, args) => {
-//   let option = {
-//     title: args.title, // 通知标题
-//     body: new Date(args.time).toLocaleString(), // 内容
-//     icon: join(ROOT_PATH.public, 'icon.ico'), // 图标
-//     // href: "https://www.cnblogs.com/binglicheng/", // 地址
-//   }
-//   let notification = new Notification(option)
-//   notification.show()
-//   notification.on('click', () => {
-//     win.show()
-//     win.focus()
-//     win.setSkipTaskbar(false)
-//   })
-// })
+ipcMain.on('notification', (event, todo) => {
+  console.log(`( event )===============>`, event)
+  console.log(`( todo )===============>`, todo)
+  let option = {
+    title: todo.title, // 通知标题
+    body: new Date(todo.deadline_at).toLocaleString(), // 内容
+    icon: join(process.env.VITE_PUBLIC, 'book.png'), // 图标
+    // icon: join(ROOT_PATH.public, 'icon.ico'), // 图标
+    // href: "https://www.cnblogs.com/binglicheng/", // 地址
+  }
+  let notification = new Notification(option)
+  notification.show()
+  notification.on('click', () => {
+    win.show()
+    win.focus()
+    win.setSkipTaskbar(false)
+  })
+})

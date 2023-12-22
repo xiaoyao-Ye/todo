@@ -4,16 +4,18 @@
 
 <script setup lang="ts">
 import { TOKEN } from '@/constant'
+import { ipcRenderer } from 'electron'
 
 window.$message = useMessage()
 
 const getToken = () => localStorage.getItem(TOKEN)
 
-let socketUrl = 'ws://120.79.135.213:2048'
+// let socketUrl = 'ws://120.79.135.213:2048'
+let socketUrl = 'ws://localhost:2048'
 let socket: WebSocket
 let lockReconnect = false
-let interval = undefined;
-let timeout = undefined;
+let interval: NodeJS.Timeout | undefined = undefined
+let timeout: NodeJS.Timeout | undefined = undefined
 
 const onerror = () => {
   connectSocket()
@@ -25,30 +27,32 @@ const onclose = () => {
   }
 }
 
-const onmessage =  = (e: MessageEvent) => {
-  heartbeat();
-  const data = JSON.parse(e.data);
-  if (data.event === "ws-key") {
-    localStorage.setItem("ws-key", data.data);
-  } else if (data.event === "notification") {
-    ipcRenderer.send("notification", data.data);
+const onmessage = (e: MessageEvent) => {
+  heartbeat()
+  const { event, data } = JSON.parse(e.data)
+  console.log(`( event )===============>`, event)
+  console.log(`( data )===============>`, data)
+  if (event === 'auth-key') {
+    localStorage.setItem('ws-key', data)
+  } else if (event === 'notification') {
+    console.log('notification')
+    ipcRenderer.send('notification', data)
   }
-};
+}
 
 const heartbeat = () => {
-  clearInterval(interval);
-  clearTimeout(timeout);
+  clearInterval(interval)
+  clearTimeout(timeout)
   interval = setInterval(() => {
-    let data = {
-      event: "ping",
-    };
-    socket.send(JSON.stringify(data));
+    const key = localStorage.getItem('ws-key')
+    let data = JSON.stringify({ event: 'ping', data: { key } })
+    socket.send(data)
     timeout = setTimeout(() => {
-      lockReconnect = true;
-      socket.close(3982, localStorage.getItem("ws-key") ?? "");
-    }, 2000);
-  }, 30000);
-};
+      lockReconnect = true
+      socket.close(3982, key ?? '')
+    }, 2000)
+  }, 30000)
+}
 
 const connectSocket = () => {
   socket = new WebSocket(socketUrl)
@@ -61,22 +65,21 @@ if (getToken()) {
   connectSocket()
 }
 
-ipcRenderer.on("close", () => {
-  lockReconnect = false;
+ipcRenderer.on('close', () => {
+  lockReconnect = false
   if (socket.readyState !== 3) {
-    socket.close(3982, localStorage.getItem("ws-key") ?? "");
+    socket.close(3982, localStorage.getItem('ws-key') ?? '')
   }
-});
+})
 
 onUnmounted(() => {
-  lockReconnect = false;
+  lockReconnect = false
   if (socket && socket.readyState !== 3) {
-    socket.close(3982, localStorage.getItem("ws-key") ?? "");
+    socket.close(3982, localStorage.getItem('ws-key') ?? '')
   }
-  clearInterval(interval);
-  clearTimeout(timeout);
-});
-
+  clearInterval(interval)
+  clearTimeout(timeout)
+})
 
 // // const eventSource = new EventSource('http://120.79.135.213:1024/api/sse')
 // const eventSource = ref<EventSource>()
