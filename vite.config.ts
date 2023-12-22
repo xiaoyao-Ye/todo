@@ -116,7 +116,7 @@ export default defineConfig(({ command }) => {
         '/api': {
           // target: "http://43.136.108.102:1024",
           // target: 'http://120.79.135.213:1024',
-          target: 'http://localhost:1024',
+          target: 'http://localhost:2048',
           changeOrigin: true,
           // rewrite: path => path.replace(/^\/api\/v1/, ""),
         },
