@@ -10,8 +10,8 @@ window.$message = useMessage()
 
 const getToken = () => localStorage.getItem(TOKEN)
 
-// let socketUrl = 'ws://120.79.135.213:2048'
-let socketUrl = 'ws://localhost:2048'
+let socketUrl = 'ws://120.79.135.213:1024'
+// let socketUrl = 'ws://localhost:2048'
 let socket: WebSocket
 let lockReconnect = false
 let interval: NodeJS.Timeout | undefined = undefined
