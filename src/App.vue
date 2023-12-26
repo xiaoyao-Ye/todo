@@ -71,5 +71,6 @@ const style = computed(() => {
   background-color: var(--n-color);
   box-shadow: var(--g-box-shadow);
   border-radius: var(--g-radius);
+  user-select: none;
 }
 </style>
