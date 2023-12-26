@@ -14,19 +14,13 @@ import {
   SignUpDto,
   SignInDto,
   SignInVo,
+  TokenVo,
 } from './typings.d'
 
 export class Common {
   static getHello() {
     return request<void>({
       url: `/api/v1`,
-      method: 'GET',
-    })
-  }
-
-  static sse() {
-    return request<void>({
-      url: `/api/v1/sse`,
       method: 'GET',
     })
   }
@@ -118,6 +112,14 @@ export class Sign {
       url: `/api/v1/sign/signIn`,
       method: 'POST',
       data,
+    })
+  }
+
+  /** 刷新token */
+  static refreshToken() {
+    return request<TokenVo>({
+      url: `/api/v1/sign/refreshToken`,
+      method: 'POST',
     })
   }
 }

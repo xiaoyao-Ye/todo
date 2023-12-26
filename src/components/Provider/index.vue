@@ -3,10 +3,18 @@
 </template>
 
 <script setup lang="ts">
+import { Sign } from '@/api/todo/api'
 import { TOKEN } from '@/constant'
 import { ipcRenderer } from 'electron'
 
 window.$message = useMessage()
+
+async function refreshToken() {
+  const { token } = await Sign.refreshToken()
+  localStorage.setItem(TOKEN, token)
+}
+
+refreshToken()
 
 const getToken = () => localStorage.getItem(TOKEN)
 

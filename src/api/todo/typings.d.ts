@@ -57,8 +57,10 @@ export interface UpdateTodoDto {
   description?: string
   /** 优先级 */
   priority?: number
-  /** 是否已完成 */
+  /** 完成时间 */
   completed_at?: string
+  /** 提醒时间 */
+  deadline_at?: string
 }
 
 export interface SendCodeDto {
@@ -99,6 +101,11 @@ export interface SignInVo {
   token: string
   /** 用户信息 */
   user: UserEntity
+}
+
+export interface TokenVo {
+  /** token */
+  token: string
 }
 
 export type SortBy = 'today' | 'important' | 'completed'
