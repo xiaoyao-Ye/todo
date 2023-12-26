@@ -19,6 +19,7 @@ const setupStore = () => {
       sortBy: sortCategory.value,
     }
     if (category.value !== 'tasks') query[category.value] = true
+    if (showComplete.value) query.completed = true
     const { list, pagination } = await Todo.page(query)
     if (pageNum.value === 1) todoList.value = list
     else todoList.value.push(...list)
@@ -51,6 +52,12 @@ const setupStore = () => {
     value: key,
   }))
 
+  const showComplete = ref(false)
+  function toggleComplete() {
+    showComplete.value = !showComplete.value
+    onRefresh()
+  }
+
   return {
     category,
     toggleCategory,
@@ -63,8 +70,10 @@ const setupStore = () => {
     onGetList,
     onRefresh,
     pageNum,
+    showComplete,
+    toggleComplete,
   }
 }
 
-// export const useTodoStore = defineStore('todo', setupStore, { persist: true })
-export const useTodoStore = defineStore('todo', setupStore)
+export const useTodoStore = defineStore('todo', setupStore, { persist: true })
+// export const useTodoStore = defineStore('todo', setupStore)

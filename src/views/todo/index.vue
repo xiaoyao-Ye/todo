@@ -5,6 +5,12 @@
         {{ category }}
       </div>
       <n-space>
+        <n-popover trigger="hover">
+          <template #trigger>
+            <ButtonIcon :icon="showComplete ? 'i-carbon:ai-status-complete' : 'i-carbon:ai-status'" @click="toggleComplete" />
+          </template>
+          <span>{{ showComplete ? '点击隐藏已完成' : '点击显示已完成' }}</span>
+        </n-popover>
         <!-- 选择排序 -->
         <n-popselect v-model:value="sortCategory" :options="sortOptions" trigger="click" @update:value="onUpdate">
           <ButtonIcon :icon="sortIcon[sortCategory].icon" :text="sortIcon[sortCategory].label" />
@@ -29,7 +35,7 @@
     <div v-show="category !== 'completed'" class="pt-4">
       <n-input v-model:value="title" round placeholder="输入内容按 Enter 添加代办事项" @keyup.enter="onAddTodo">
         <template #prefix>
-          <ButtonIcon icon="i-carbon:task-add" />
+          <ButtonIcon icon="i-carbon:document-add" />
         </template>
       </n-input>
     </div>
@@ -47,8 +53,8 @@ import { CreateTodoDto } from '@/api/todo/typings'
 import { throttle } from '@/utils'
 
 const todoStore = useTodoStore()
-const { toggleSort, sortIcon, sortOptions } = todoStore
-const { pageNum, todoList, category, sortStatus, sortCategory } = storeToRefs(todoStore)
+const { toggleSort, sortIcon, sortOptions, toggleComplete } = todoStore
+const { pageNum, todoList, category, sortStatus, sortCategory, showComplete } = storeToRefs(todoStore)
 
 function onUpdate() {
   todoStore.onGetList()
