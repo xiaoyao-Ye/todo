@@ -18,6 +18,7 @@ export default defineConfig({
     // ...other presets
     presetTypography(),
   ],
+  safelist: ['i-carbon:text-line-spacing', 'i-carbon:hourglass', 'i-carbon:increase-level'],
   shortcuts: {
     // ..
   },

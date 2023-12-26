@@ -6,14 +6,13 @@
       </div>
       <n-space>
         <!-- 选择排序 -->
-        <n-popselect v-model:value="sortCategory" :options="sortOptions" trigger="click">
-          <ButtonIcon :icon="sortIcon[sortCategory]" disabled :text="sortCategory || '选择排序'" />
+        <n-popselect v-model:value="sortCategory" :options="sortOptions" trigger="click" @update:value="onUpdate">
+          <ButtonIcon :icon="sortIcon[sortCategory].icon" :text="sortIcon[sortCategory].label" />
         </n-popselect>
         <!-- 正序/倒序 -->
         <ButtonIcon
-          disabled
-          :icon="sortStatus === 'ascending' ? 'i-carbon:sort-ascending' : 'i-carbon:sort-descending'"
-          :text="sortStatus === 'ascending' ? '正序' : '倒序'"
+          :icon="sortStatus === 'ASC' ? 'i-carbon:sort-ascending' : 'i-carbon:sort-descending'"
+          :text="sortStatus === 'ASC' ? '正序' : '倒序'"
           @click="toggleSort" />
       </n-space>
     </div>
@@ -24,7 +23,7 @@
           <Card :todo="todo" :index="index" @showDetail="onShowDetail" />
         </div>
       </TransitionGroup>
-      <LoadMore ref="loadMore" />
+      <LoadMore ref="loadMore" :isNull="todoList.length === 0" />
     </n-scrollbar>
 
     <div v-show="category !== 'completed'" class="pt-4">
@@ -50,6 +49,10 @@ import { throttle } from '@/utils'
 const todoStore = useTodoStore()
 const { toggleSort, sortIcon, sortOptions } = todoStore
 const { pageNum, todoList, category, sortStatus, sortCategory } = storeToRefs(todoStore)
+
+function onUpdate() {
+  todoStore.onGetList()
+}
 
 const title = ref('')
 async function onAddTodo() {

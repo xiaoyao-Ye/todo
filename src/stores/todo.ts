@@ -8,13 +8,15 @@ const setupStore = () => {
 
   const todoList = ref<TodoEntity[]>([])
   const pageNum = ref(1)
-  const pageSize = ref(10)
+  const pageSize = ref(20)
   const total = ref(100)
   async function onGetList() {
     if ((pageNum.value - 1) * pageSize.value > total.value) return
     const query: Record<string, any> = {
       page: pageNum.value,
       limit: pageSize.value,
+      sortOrder: sortStatus.value,
+      sortBy: sortCategory.value,
     }
     if (category.value !== 'tasks') query[category.value] = true
     const { list, pagination } = await Todo.page(query)
@@ -33,20 +35,20 @@ const setupStore = () => {
     onRefresh()
   }
 
-  const sortStatus = ref<'ascending' | 'descending'>('ascending')
+  const sortStatus = ref<'ASC' | 'DESC'>('DESC')
   function toggleSort() {
-    sortStatus.value = sortStatus.value === 'ascending' ? 'descending' : 'ascending'
+    sortStatus.value = sortStatus.value === 'ASC' ? 'DESC' : 'ASC'
+    onRefresh()
   }
-  const sortIcon = {
-    默认排序: '',
-    按重要性排序: 'i-carbon:star-filled',
-    按到期时间排序: 'i-carbon:hourglass',
-    按字母排序: 'i-carbon:character-sentence-case',
+  const sortIcon: Record<string, Record<string, string>> = {
+    created_at: { label: '创建日期', icon: 'i-carbon:text-line-spacing' },
+    deadline_at: { label: '截止日期', icon: 'i-carbon:hourglass' },
+    priority: { label: '优先等级', icon: 'i-carbon:increase-level' },
   }
-  const sortCategory = ref<keyof typeof sortIcon>('默认排序')
-  const sortOptions = Object.keys(sortIcon).map(item => ({
-    label: item,
-    value: item,
+  const sortCategory = ref<keyof typeof sortIcon>('created_at')
+  const sortOptions = Object.keys(sortIcon).map(key => ({
+    label: sortIcon[key].label,
+    value: key,
   }))
 
   return {
@@ -64,4 +66,5 @@ const setupStore = () => {
   }
 }
 
-export const useTodoStore = defineStore('todo', setupStore, { persist: true })
+// export const useTodoStore = defineStore('todo', setupStore, { persist: true })
+export const useTodoStore = defineStore('todo', setupStore)
