@@ -65,30 +65,30 @@ const renderNode: any = (option: MenuOption | MenuGroupOption) => {
 }
 
 function renderIcon(icon: string) {
-  return () => h('div', { class: icon })
+  return () => h('div', { class: icon + ' text-base' })
 }
 // TODO: 整个菜单都应该放到 store 里面
 const menuOptions: MenuMixedOption[] = [
   {
-    icon: renderIcon('i-carbon:task-view'),
+    icon: renderIcon('i-carbon:ai-status-in-progress'),
     label: '今天做点什么呢',
     key: 'today',
     category: 'today',
   },
   {
-    icon: renderIcon('i-carbon:document-multiple-02'),
+    icon: renderIcon('i-carbon:report'),
     label: '任务列表',
     key: 'tasks',
     category: 'tasks',
   },
   {
-    icon: renderIcon('i-carbon:task-star'),
+    icon: renderIcon('i-carbon:star-review'),
     label: '这些比较重要',
     key: 'important',
     category: 'important',
   },
   {
-    icon: renderIcon('i-carbon:task-complete'),
+    icon: renderIcon('i-carbon:status-acknowledge'),
     label: '已完成',
     key: 'completed',
     category: 'completed',

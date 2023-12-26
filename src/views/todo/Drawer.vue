@@ -67,7 +67,7 @@ import { useTodoStore } from '@/stores/todo'
 const todoStore = useTodoStore()
 const { todoList } = storeToRefs(todoStore)
 
-const props = defineProps<{ modelValue: boolean; id: number }>()
+const props = defineProps<{ modelValue: boolean; id: number | undefined }>()
 const emits = defineEmits(['update:modelValue'])
 
 const radioOptions = [
@@ -98,12 +98,12 @@ const rules = {
 const formRef = ref<FormInst | null>(null)
 const form = ref({ priority: 2 }) as Ref<TodoEntity>
 async function getDetails() {
-  const data = await Todo.findOne({ id: props.id })
+  const data = await Todo.findOne({ id: props.id! })
   Object.assign(form.value, data)
 }
 
 async function onDelete() {
-  await Todo.remove({ id: props.id })
+  await Todo.remove({ id: props.id! })
   window.$message.success('删除成功')
   const index = todoList.value.findIndex(item => item.id === props.id)
   todoList.value.splice(index, 1)
@@ -120,7 +120,7 @@ async function onSubmit() {
     completed_at: form.value.completed_at,
     deadline_at: form.value.deadline_at,
   }
-  await Todo.update({ id: props.id }, query)
+  await Todo.update({ id: props.id! }, query)
   window.$message.success('更新成功')
   const index = todoList.value.findIndex(item => item.id === props.id)
   todoList.value[index] = form.value

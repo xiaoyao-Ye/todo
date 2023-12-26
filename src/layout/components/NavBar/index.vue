@@ -2,7 +2,8 @@
   <div class="navBar flex items-center justify-between px-4 h-full">
     <div class="flex-1 flex">
       <!-- <n-avatar round size="small" src="/book.png" /> -->
-      <span class="i-carbon:crop-growth text-xl text-orange-300"></span>
+      <span class="i-carbon:cafe text-xl"></span>
+      <!-- <span class="i-carbon:crop-growth text-xl text-orange-300"></span> -->
       <!-- <span class="i-carbon:humidity text-xl"></span> -->
       <!-- <span class="i-carbon:logo-keybase text-xl"></span> -->
       <!-- <span class="i-carbon:palm-tree text-xl"></span> -->
