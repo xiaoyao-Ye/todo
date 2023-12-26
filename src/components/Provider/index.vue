@@ -30,12 +30,9 @@ const onclose = () => {
 const onmessage = (e: MessageEvent) => {
   heartbeat()
   const { event, data } = JSON.parse(e.data)
-  console.log(`( event )===============>`, event)
-  console.log(`( data )===============>`, data)
   if (event === 'auth-key') {
     localStorage.setItem('ws-key', data)
   } else if (event === 'notification') {
-    console.log('notification')
     ipcRenderer.send('notification', data)
   }
 }
@@ -80,21 +77,6 @@ onUnmounted(() => {
   clearInterval(interval)
   clearTimeout(timeout)
 })
-
-// // const eventSource = new EventSource('http://120.79.135.213:1024/api/sse')
-// const eventSource = ref<EventSource>()
-//   // eventSource.value = new EventSource('/api/v1/sse?token=' + getToken())
-//   eventSource.value = new EventSource('/api/v1/sse')
-//   eventSource.value.onmessage = ({ data }) => {
-//     console.log(`( data )===============>${new Date().toLocaleString()}`, data)
-//     // const message = document.createElement('li')
-//     // message.innerText = 'New message: ' + data
-//     // document.body.appendChild(message)
-//   }
-
-// onUnmounted(() => {
-//   eventSource.value?.close()
-// })
 </script>
 
 <style scoped></style>

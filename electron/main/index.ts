@@ -237,8 +237,6 @@ ipcMain.on('win.close', () => {
 
 // 接收消息提示 notification
 ipcMain.on('notification', (event, todo) => {
-  console.log(`( event )===============>`, event)
-  console.log(`( todo )===============>`, todo)
   let option = {
     title: todo.title, // 通知标题
     // body: new Date(todo.deadline_at).toLocaleString(), // 内容

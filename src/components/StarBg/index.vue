@@ -56,7 +56,7 @@ onMounted(() => {
   // 反转播放(向下移动 下雪一样)
   // animation: toTop 36s infinite linear reverse;
   // 正常播放(向上移动)
-  animation: toTop 36s infinite linear;
+  animation: toTop 60s infinite linear;
 }
 
 @keyframes toTop {
