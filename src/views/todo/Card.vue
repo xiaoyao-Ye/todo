@@ -47,6 +47,9 @@ async function toggleComplete() {
   const completed_at = props.todo.completed_at ? '' : formatDate()
   await Todo.update({ id: props.todo.id! }, { completed_at })
   todoList.value[props.index].completed_at = completed_at
+  if ((completed_at && category.value !== 'completed') || (!completed_at && category.value === 'completed')) {
+    todoList.value.splice(props.index, 1)
+  }
 }
 
 const isCompleteIcon = computed(() => {
