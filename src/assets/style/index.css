@@ -25,6 +25,20 @@
   border-radius: var(--g-radius);
 }
 
+/* 路由过渡 */
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(30px);
+  opacity: 0;
+}
+
+
 /* 圣诞彩蛋 */
 .christmas:before {
   content: "";
@@ -67,7 +81,9 @@
     transform: scale(1);
   }
 }
-
+.happy-work {
+  animation: WaveTarget 0.45s ease-in-out backwards;
+}
 /* animationName: WaveTarget,
 animationDuration: `0.45s`,
 animationTimingFunction: 'ease-in-out',

@@ -31,7 +31,9 @@ const storeSetup = () => {
     isMax.value = e
   }
 
-  return { isDark, toggleTheme, collapsed, toggleCollapse, isMax, toggleIsMax }
+  const isHappyWork = ref(false)
+
+  return { isDark, toggleTheme, collapsed, toggleCollapse, isMax, toggleIsMax, isHappyWork }
 }
 
 export const useGlobalStore = defineStore('global', storeSetup, {

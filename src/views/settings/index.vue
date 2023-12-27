@@ -1,16 +1,28 @@
 <template>
-  <div>
-    settings
-    <n-button @click="back">back</n-button>
+  <div class="p-4">
+    <div class="pb-4 mb-4 border-b border-[var(--n-divider-color)]">
+      <n-page-header subtitle="让你的听觉更懂视觉" @back="$router.back"></n-page-header>
+    </div>
+    <div class="w-xl m-auto">
+      <n-space align="center">
+        <span>是否开启 HappyWork 模式</span>
+        <n-switch :round="false" v-model:value="globalStore.isHappyWork" />
+      </n-space>
+      <n-space align="center">
+        <span>是否开启黑暗模式</span>
+        <n-switch :round="false" v-model:value="globalStore.isDark" />
+      </n-space>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const router = useRouter()
-
-const back = () => {
-  router.back()
-}
+import { useGlobalStore } from '@/stores'
+const globalStore = useGlobalStore()
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.n-space {
+  margin-bottom: 8px;
+}
+</style>

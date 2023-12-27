@@ -40,7 +40,11 @@ const style = computed(() => {
         <n-message-provider>
           <n-spin :show="loading" :rotate="false">
             <Provider>
-              <router-view></router-view>
+              <router-view v-slot="{ Component }">
+                <transition name="slide-fade" mode="out-in">
+                  <component :is="Component" />
+                </transition>
+              </router-view>
             </Provider>
             <template #icon>
               <Blink />
@@ -50,6 +54,7 @@ const style = computed(() => {
         </n-message-provider>
         <!-- <n-global-style /> -->
       </n-config-provider>
+      <Firework v-if="globalStore.isHappyWork" />
     </div>
   </div>
 </template>
@@ -66,7 +71,7 @@ const style = computed(() => {
   font-family: var(--n-font-family);
   line-height: var(--n-line-height);
   transition:
-    color 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+    all 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s,
     background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
   background-color: var(--n-color);
   box-shadow: var(--g-box-shadow);

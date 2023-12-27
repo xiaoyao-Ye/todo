@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     Blink: (typeof import('./components/Blink/index.vue'))['default']
     ButtonIcon: (typeof import('./components/ButtonIcon/index.vue'))['default']
+    Firework: (typeof import('./components/Firework/index.vue'))['default']
     LoadMore: (typeof import('./components/LoadMore/index.vue'))['default']
     NAutoComplete: (typeof import('naive-ui'))['NAutoComplete']
     NAvatar: (typeof import('naive-ui'))['NAvatar']
@@ -27,6 +28,7 @@ declare module 'vue' {
     NLayoutSider: (typeof import('naive-ui'))['NLayoutSider']
     NMenu: (typeof import('naive-ui'))['NMenu']
     NMessageProvider: (typeof import('naive-ui'))['NMessageProvider']
+    NPageHeader: (typeof import('naive-ui'))['NPageHeader']
     NPopconfirm: (typeof import('naive-ui'))['NPopconfirm']
     NPopover: (typeof import('naive-ui'))['NPopover']
     NPopselect: (typeof import('naive-ui'))['NPopselect']

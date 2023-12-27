@@ -18,7 +18,29 @@ export default defineConfig({
     // ...other presets
     presetTypography(),
   ],
-  safelist: ['i-carbon:text-line-spacing', 'i-carbon:hourglass', 'i-carbon:increase-level'],
+  safelist: [
+    'text-base',
+    // 创建日期
+    'i-carbon:text-line-spacing',
+    // 截止日期
+    'i-carbon:hourglass',
+    // 优先级别
+    'i-carbon:increase-level',
+    // 个人资料
+    'i-carbon:identification',
+    // 退出登录
+    'i-carbon:ibm-cloud-privileged-access-gateway',
+    // 设置
+    'i-carbon:settings',
+    // 今天做点什么呢
+    'i-carbon:ai-status-in-progress',
+    // 任务列表
+    'i-carbon:report',
+    // 这些比较重要
+    'i-carbon:star-review',
+    // 已完成
+    'i-carbon:status-acknowledge',
+  ],
   shortcuts: {
     // ..
   },

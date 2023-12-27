@@ -4,14 +4,18 @@ const routes = [
   {
     path: '/',
     component: () => import('@/layout/index.vue'),
-    redirect: '/todo',
+    redirect: '/todo/list',
     children: [
+      { path: '/settings', component: () => import('@/views/settings/index.vue') },
       { path: '/home', component: () => import('@/views/home/index.vue') },
-      { path: '/todo', component: () => import('@/views/todo/index.vue') },
+      {
+        path: '/todo',
+        component: () => import('@/views/todo/Layout.vue'),
+        children: [{ path: 'list', component: () => import('@/views/todo/index.vue') }],
+      },
     ],
   },
   { path: '/login', component: () => import('@/views/login/index.vue') },
-  { path: '/settings', component: () => import('@/views/settings/index.vue') },
 ]
 
 const router = createRouter({
