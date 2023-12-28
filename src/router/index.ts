@@ -7,6 +7,7 @@ const routes = [
     redirect: '/todo/list',
     children: [
       { path: '/settings', component: () => import('@/views/settings/index.vue') },
+      { path: '/profile', component: () => import('@/views/profile/index.vue') },
       { path: '/home', component: () => import('@/views/home/index.vue') },
       {
         path: '/todo',
