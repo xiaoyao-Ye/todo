@@ -120,7 +120,7 @@ async function handleValidateClick() {
   const { token } = await Sign.signIn(form.value)
   message.success('welcome!')
   localStorage.setItem('token', token)
-  router.push('/')
+  router.replace('/')
 }
 
 async function getVerifyCode() {

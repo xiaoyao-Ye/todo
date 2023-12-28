@@ -1,7 +1,7 @@
 <template>
   <div class="p-4">
     <div class="pb-4 mb-4 border-b border-[var(--n-divider-color)]">
-      <n-page-header subtitle="back" @back="$router.back"></n-page-header>
+      <n-page-header subtitle="back" @back="$router.replace('/')"></n-page-header>
     </div>
     <div class="w-xl m-auto">
       <div>开发中</div>

@@ -1,7 +1,7 @@
 <template>
   <div class="p-4">
     <div class="pb-4 mb-4 border-b border-[var(--n-divider-color)]">
-      <n-page-header subtitle="让你的听觉更懂视觉" @back="$router.back"></n-page-header>
+      <n-page-header subtitle="让你的听觉更懂视觉" @back="$router.replace('/')"></n-page-header>
     </div>
     <div class="w-xl m-auto">
       <n-space align="center">

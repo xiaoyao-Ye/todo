@@ -40,11 +40,14 @@ const style = computed(() => {
         <n-message-provider>
           <n-spin :show="loading" :rotate="false">
             <Provider>
-              <router-view v-slot="{ Component }">
+              <transition name="slide-fade" mode="out-in">
+                <router-view></router-view>
+              </transition>
+              <!-- <router-view v-slot="{ Component }">
                 <transition name="slide-fade" mode="out-in">
                   <component :is="Component" />
                 </transition>
-              </router-view>
+              </router-view> -->
             </Provider>
             <template #icon>
               <Blink />

@@ -6,11 +6,14 @@
       </n-layout-header>
 
       <n-layout>
-        <router-view v-slot="{ Component }">
+        <transition name="slide-fade" mode="out-in">
+          <router-view></router-view>
+        </transition>
+        <!-- <router-view v-slot="{ Component }">
           <transition name="slide-fade" mode="out-in">
             <component :is="Component" />
           </transition>
-        </router-view>
+        </router-view> -->
       </n-layout>
       <!-- <n-layout-footer bordered>Footer Footer Footer</n-layout-footer> -->
     </n-layout>
