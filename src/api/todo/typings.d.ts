@@ -108,6 +108,6 @@ export interface TokenVo {
   token: string
 }
 
-export type SortBy = 'today' | 'important' | 'completed'
+export type SortByTodo = 'created_at' | 'deadline_at' | 'priority'
 
 export type SortOrder = 'ASC' | 'DESC'

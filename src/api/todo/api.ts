@@ -4,7 +4,7 @@
 import { request } from '../index'
 
 import {
-  SortBy,
+  SortByTodo,
   SortOrder,
   PageTodoVo,
   TodoEntity,
@@ -34,7 +34,7 @@ export class Todo {
     today?: boolean
     important?: boolean
     completed?: boolean
-    sortBy?: SortBy
+    sortBy?: SortByTodo
     sortOrder?: SortOrder
   }) {
     return request<PageTodoVo>({

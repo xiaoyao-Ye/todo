@@ -8,7 +8,7 @@ export default defineConfig({
   multipleFiles: false,
   service: {
     todo: {
-      url: 'http://localhost:2048/api-json',
+      url: 'http://120.79.135.213:1024/api-json',
       commonPrefix: '/api/v1',
     },
   },
