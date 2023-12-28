@@ -5,6 +5,8 @@
 </template>
 
 <script setup lang="ts">
+import { useGlobalStore } from '@/stores'
+
 let balls: Ball[] = []
 let longPressed = false
 let longPress: NodeJS.Timeout
@@ -55,6 +57,54 @@ class Ball {
   }
 }
 
+let ripples: Ripple[] = []
+class Ripple {
+  x: number
+  y: number
+  radius: number
+  maxRadius: number
+  color: string
+  lifespan: number
+  maxLifespan: number
+  speed: number = 4
+
+  constructor(x: number, y: number) {
+    this.x = x
+    this.y = y
+    this.radius = 0
+    this.maxRadius = Math.max(window.innerWidth, window.innerHeight)
+    this.color = useGlobalStore().isDark ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.4)'
+    this.lifespan = 0
+    this.maxLifespan = 50 // 设置波纹的生命周期为60帧
+  }
+
+  update() {
+    this.radius += this.speed
+    this.lifespan++
+    this.speed *= 0.98 // 每帧将速度增加5%
+  }
+
+  shouldRemove() {
+    return this.radius >= this.maxRadius || this.lifespan >= this.maxLifespan
+  }
+
+  draw(ctx: CanvasRenderingContext2D) {
+    ctx.save()
+    const str = useGlobalStore().isDark ? 'rgba(255, 255, 255' : 'rgba(0, 0, 0'
+    ctx.strokeStyle = `${str}, ${1 - this.lifespan / this.maxLifespan})`
+    ctx.lineWidth = 1
+    ctx.beginPath()
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
+    ctx.stroke()
+    ctx.restore()
+  }
+}
+
+function addRipple(x: number, y: number) {
+  const ripple = new Ripple(x, y)
+  ripples.push(ripple)
+}
+
 function updateSize() {
   canvas.width = window.innerWidth * 2
   canvas.height = window.innerHeight * 2
@@ -81,6 +131,7 @@ function pushBalls(count = 1, x = origin.x, y = origin.y) {
 
 function onMouseDown(e: MouseEvent) {
   pushBalls(randBetween(10, 20), e.clientX, e.clientY)
+  addRipple(e.clientX, e.clientY)
   // document.body.classList.add('is-pressed')
   longPress = setTimeout(() => {
     // document.body.classList.add('is-longpress')
@@ -95,6 +146,7 @@ function onMouseUp(e: MouseEvent) {
   if (longPressed == true) {
     // document.body.classList.remove('is-longpress')
     pushBalls(randBetween(50 + Math.ceil(multiplier), 100 + Math.ceil(multiplier)), e.clientX, e.clientY)
+    addRipple(e.clientX, e.clientY)
     longPressed = false
   }
   // document.body.classList.remove('is-pressed')
@@ -117,6 +169,16 @@ function loop() {
     ctx.fill()
     b.update()
   }
+  for (let i = 0; i < ripples.length; i++) {
+    const ripple = ripples[i]
+    ripple.update()
+    if (ripple.shouldRemove()) {
+      ripples.splice(i, 1)
+      i--
+    } else {
+      ripple.draw(ctx!)
+    }
+  }
   if (longPressed == true) {
     multiplier += 0.2
   } else if (!longPressed && multiplier >= 0) {
@@ -124,7 +186,7 @@ function loop() {
   }
   removeBall()
   // requestAnimationFrame(loop)
-  if (balls.length > 0) animationFrameId = requestAnimationFrame(loop)
+  if (balls.length > 0 || ripples.length > 0) animationFrameId = requestAnimationFrame(loop)
 }
 
 function removeBall() {
