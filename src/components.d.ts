@@ -38,6 +38,8 @@ declare module 'vue' {
     NSpace: (typeof import('naive-ui'))['NSpace']
     NSpin: (typeof import('naive-ui'))['NSpin']
     NSwitch: (typeof import('naive-ui'))['NSwitch']
+    NTimeline: (typeof import('naive-ui'))['NTimeline']
+    NTimelineItem: (typeof import('naive-ui'))['NTimelineItem']
     Provider: (typeof import('./components/Provider/index.vue'))['default']
     RouterLink: (typeof import('vue-router'))['RouterLink']
     RouterView: (typeof import('vue-router'))['RouterView']

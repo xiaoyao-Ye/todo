@@ -13,7 +13,10 @@ const routes = [
         path: '/todo',
         redirect: '/todo/list',
         component: () => import('@/views/todo/Layout.vue'),
-        children: [{ path: 'list', component: () => import('@/views/todo/index.vue') }],
+        children: [
+          { path: 'list', component: () => import('@/views/todo/index.vue') },
+          { path: 'completed', component: () => import('@/views/todo/completed.vue') },
+        ],
       },
     ],
   },

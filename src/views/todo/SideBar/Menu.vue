@@ -48,12 +48,16 @@ function handleContextMenu(e: MouseEvent) {
 }
 
 function handleMenu(option: MenuOption | MenuGroupOption) {
-  if (option.path) return router.push(option.path as string)
+  if (option.path) return router.replace(option.path as string)
   if (option.category) {
     todoStore.toggleCategory(option.category as Category)
-    if (!router.currentRoute.value.fullPath.includes('/todo')) {
-      router.push('/todo')
+    // if (!router.currentRoute.value.fullPath.includes('/todo')) {
+    if (option.category === 'completed') {
+      router.replace('/todo/completed')
+    } else {
+      router.replace('/todo/list')
     }
+    // }
   }
 }
 

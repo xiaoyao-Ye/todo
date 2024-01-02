@@ -23,7 +23,7 @@
       </n-space>
     </div>
 
-    <n-scrollbar ref="scrollbarRef" class="flex-1 px-4 pt-4" :onScroll="onScroll">
+    <n-scrollbar ref="scrollbarRef" class="flex-1 px-2 pt-4" :onScroll="onScroll">
       <TransitionGroup name="list" tag="div">
         <div v-for="(todo, index) in todoList" :key="todo.id">
           <Card :todo="todo" :index="index" @showDetail="onShowDetail" />
@@ -32,7 +32,7 @@
       <LoadMore ref="loadMore" :isNull="todoList.length === 0" />
     </n-scrollbar>
 
-    <div v-show="category !== 'completed'" class="pt-4">
+    <div class="pt-4">
       <n-input v-model:value="title" round placeholder="输入内容按 Enter 添加代办事项" @keyup.enter="onAddTodo">
         <template #prefix>
           <ButtonIcon icon="i-carbon:document-add" />
@@ -89,24 +89,4 @@ function onShowDetail(id: number) {
 }
 </script>
 
-<style scoped>
-.list-move,
-/* 对移动中的元素应用的过渡 */
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.5s ease;
-}
-
-.list-enter-from,
-.list-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
-}
-
-/* 确保将离开的元素从布局流中删除
-  以便能够正确地计算移动的动画。 */
-.list-leave-active {
-  position: absolute;
-  /* display: none; */
-}
-</style>
+<style scoped></style>

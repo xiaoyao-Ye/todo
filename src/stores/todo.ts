@@ -15,8 +15,8 @@ const setupStore = () => {
     const query: Record<string, any> = {
       page: pageNum.value,
       limit: pageSize.value,
-      sortOrder: sortStatus.value,
-      sortBy: sortCategory.value,
+      sortOrder: category.value === 'completed' ? 'DESC' : sortStatus.value,
+      sortBy: category.value === 'completed' ? 'completed_at' : sortCategory.value,
     }
     if (category.value !== 'tasks') query[category.value] = true
     if (showComplete.value) query.completed = true
