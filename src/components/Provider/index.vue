@@ -42,6 +42,8 @@ const onmessage = (e: MessageEvent) => {
     localStorage.setItem('ws-key', data)
   } else if (event === 'notification') {
     ipcRenderer.send('notification', data)
+  } else if (event === 'auth-fail') {
+    console.log('401')
   }
 }
 
@@ -60,7 +62,7 @@ const heartbeat = () => {
 }
 
 const connectSocket = () => {
-  socket = new WebSocket(socketUrl)
+  socket = new WebSocket(socketUrl + '?token=' + getToken())
   socket.onerror = onerror
   socket.onclose = onclose
   socket.onmessage = onmessage
