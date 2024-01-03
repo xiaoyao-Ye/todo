@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4">
+  <div class="p-4 h-[calc(100vh-40px-var(--g-is-max))] page-bg">
     <div class="pb-4 mb-4 border-b border-[var(--n-divider-color)]">
       <n-page-header subtitle="back" @back="$router.replace('/')"></n-page-header>
     </div>

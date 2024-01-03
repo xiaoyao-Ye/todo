@@ -51,7 +51,7 @@ async function createWindow() {
   win = new BrowserWindow({
     title: 'Ghosteye todo',
     fullscreenable: false,
-    icon: join(process.env.VITE_PUBLIC, 'book.png'),
+    icon: join(process.env.VITE_PUBLIC, 'favicon.ico'),
     width: 1024,
     height: 638,
     // 4:3
@@ -84,7 +84,7 @@ async function createWindow() {
   Menu.setApplicationMenu(null)
 
   // 设置任务栏菜单/图标/hover标题
-  tray = new Tray(join(process.env.VITE_PUBLIC, 'book.png'))
+  tray = new Tray(join(process.env.VITE_PUBLIC, 'favicon.ico'))
 
   tray.setContextMenu(
     Menu.buildFromTemplate([
@@ -170,11 +170,11 @@ app.on('activate', () => {
 // app.setUserTasks([
 //   {
 //     program: process.execPath,
-//     arguments: "--new-window",
-//     iconPath: process.execPath,
+//     arguments: '--new-window',
+//     iconPath: join(process.env.VITE_PUBLIC, 'favicon.ico'),
 //     iconIndex: 0,
-//     title: "New Window",
-//     description: "Create a new window",
+//     title: 'test',
+//     description: 'Create a new window',
 //   },
 // ])
 
@@ -242,7 +242,7 @@ ipcMain.on('notification', (event, todo) => {
     title: todo.title, // 通知标题
     // body: new Date(todo.deadline_at).toLocaleString(), // 内容
     body: todo.deadline_at, // 内容
-    icon: join(process.env.VITE_PUBLIC, 'book.png'), // 图标
+    icon: join(process.env.VITE_PUBLIC, 'favicon.ico'), // 图标
     // icon: join(ROOT_PATH.public, 'icon.ico'), // 图标
     // href: "https://www.cnblogs.com/binglicheng/", // 地址
   }

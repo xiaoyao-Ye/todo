@@ -74,7 +74,7 @@ const style = computed(() => {
   font-family: var(--n-font-family);
   line-height: var(--n-line-height);
   transition:
-    all 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+    color 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s,
     background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
   background-color: var(--n-color);
   box-shadow: var(--g-box-shadow);

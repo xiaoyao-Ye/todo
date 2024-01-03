@@ -17,6 +17,11 @@
   background: url("/texture.png");
 }
 
+.page-bg {
+  background: url('/public/bg.png') no-repeat;
+  background-size: contain;
+}
+
 .n-drawer-container .n-drawer-mask {
   top: calc(var(--g-is-max) / 2);
   left: calc(var(--g-is-max) / 2);

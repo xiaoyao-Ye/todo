@@ -2,7 +2,7 @@
   <n-message-provider>
     <StarBg />
 
-    <div class="login">
+    <div class="login page-bg">
       <div class="nav flex items-center justify-between px-4 h-40px">
         <span class="i-carbon:crop-growth text-xl text-orange-300"></span>
         <n-space justify="end" align="center">
