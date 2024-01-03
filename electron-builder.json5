@@ -2,25 +2,28 @@
  * @see https://www.electron.build/configuration/configuration
  */
 {
-  $schema: "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
-  appId: "YourAppID",
+  $schema: 'https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json',
+  appId: 'Ghosteye.todo',
+  productName: 'todo',
   asar: true,
   directories: {
-    output: "release/${version}",
+    output: 'release/${version}',
   },
-  files: ["dist-electron", "dist"],
+  files: ['dist-electron', 'dist'],
   mac: {
-    artifactName: "${productName}_${version}.${ext}",
-    target: ["dmg"],
+    artifactName: '${productName}_${version}.${ext}',
+    target: ['dmg'],
+    icon: './public/favicon.ico',
   },
   win: {
     target: [
       {
-        target: "nsis",
-        arch: ["x64"],
+        target: 'nsis',
+        arch: ['x64'],
       },
     ],
-    artifactName: "${productName}_${version}.${ext}",
+    artifactName: '${productName}_${version}.${ext}',
+    icon: './public/favicon.ico',
   },
   nsis: {
     oneClick: false,
