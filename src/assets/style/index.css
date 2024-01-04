@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lilita+One&family=Pacifico&display=swap");
+
 /* 一个设置了 display: inline-flex; 的标签（通常是一个容器元素）包裹在 img 标签中， */
 /* 而且外面的标签也设置了 display: inline-flex; 或者其他垂直对齐属性时，可能会出现额外的高度。 */
 /* 这是因为内部的 img 元素被视为基线元素，而 display: inline-flex; 的容器会在基线元素的基础上创建弹性容器。 */
@@ -18,7 +21,7 @@
 }
 
 .page-bg {
-  background: url('/public/bg.png') no-repeat;
+  background: url('/bg.png') no-repeat;
   background-size: contain;
 }
 

@@ -15,6 +15,13 @@ import { defineStore } from 'pinia'
 // })
 
 const storeSetup = () => {
+  const familyOptions = [
+    { label: '默认', value: 'default' },
+    { label: 'Pacifico', value: 'Pacifico' },
+    { label: 'Lilita One', value: 'Lilita One' },
+  ]
+  const family = ref('Pacifico')
+
   const isDark = ref(true)
 
   const toggleTheme = () => {
@@ -33,7 +40,7 @@ const storeSetup = () => {
 
   const isHappyWork = ref(false)
 
-  return { isDark, toggleTheme, collapsed, toggleCollapse, isMax, toggleIsMax, isHappyWork }
+  return { isDark, toggleTheme, collapsed, toggleCollapse, isMax, toggleIsMax, isHappyWork, familyOptions, family }
 }
 
 export const useGlobalStore = defineStore('global', storeSetup, {

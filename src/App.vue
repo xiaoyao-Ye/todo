@@ -7,28 +7,32 @@ const globalStore = useGlobalStore()
 
 const theme = computed(() => (globalStore.isDark ? darkTheme : lightTheme))
 const style = computed(() => {
-  console.log(theme.value)
-  return {
-    '--g-is-max': globalStore.isMax ? '0px' : '10px',
-    '--g-radius': globalStore.isMax ? '0px' : '8px',
-    '--g-box-shadow': `0 0 5px 1px ${globalStore.isDark ? '#333' : '#ccc'}`,
+  const { family, isMax, isDark } = globalStore
+  const { common, Card } = theme.value
 
-    // "--n-color": theme.value.common.baseColor,
-    '--n-color': theme.value.common.bodyColor,
-    '--n-font-size': theme.value.common.fontSize,
-    '--n-font-family': theme.value.common.fontFamily,
-    '--n-line-height': theme.value.common.lineHeight,
-    '--n-text-color': theme.value.common.textColor2,
-    '--n-text-color3': theme.value.common.textColor3,
-    '--n-box-shadow1': theme.value.common.boxShadow1,
-    '--n-box-shadow2': theme.value.common.boxShadow2,
-    '--n-box-shadow3': theme.value.common.boxShadow3,
-    '--n-primary': theme.value.common.primaryColor,
-    '--n-border-color': theme.value.common.dividerColor,
+  const fontFamily = `${family === 'default' ? '' : family + ','}${common.fontFamily}`
+
+  return {
+    '--g-is-max': isMax ? '0px' : '10px',
+    '--g-radius': isMax ? '0px' : '8px',
+    '--g-box-shadow': `0 0 5px 1px ${isDark ? '#333' : '#ccc'}`,
+
+    // "--n-color": common.baseColor,
+    '--n-color': common.bodyColor,
+    '--n-font-size': common.fontSize,
+    '--n-font-family': fontFamily,
+    '--n-line-height': common.lineHeight,
+    '--n-text-color': common.textColor2,
+    '--n-text-color3': common.textColor3,
+    '--n-box-shadow1': common.boxShadow1,
+    '--n-box-shadow2': common.boxShadow2,
+    '--n-box-shadow3': common.boxShadow3,
+    '--n-primary': common.primaryColor,
+    '--n-border-color': common.dividerColor,
     // n-card
-    '--n-card-color': theme.value.Card.common?.cardColor,
-    '--n-divider-color': theme.value.Card.common?.dividerColor,
-    '--n-bezier': theme.value.Card.common?.cubicBezierEaseInOut,
+    '--n-card-color': Card.common?.cardColor,
+    '--n-divider-color': Card.common?.dividerColor,
+    '--n-bezier': Card.common?.cubicBezierEaseInOut,
   }
 })
 </script>

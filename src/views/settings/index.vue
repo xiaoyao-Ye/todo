@@ -12,6 +12,12 @@
         <span>是否开启黑暗模式</span>
         <n-switch :round="false" v-model:value="globalStore.isDark" />
       </n-space>
+      <n-space align="center">
+        <span>选择字体(英文,数字)</span>
+        <n-popselect v-model:value="globalStore.family" :options="globalStore.familyOptions" trigger="click">
+          <n-button text>{{ globalStore.family }}</n-button>
+        </n-popselect>
+      </n-space>
     </div>
   </div>
 </template>

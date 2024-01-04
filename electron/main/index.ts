@@ -32,14 +32,6 @@ if (!app.requestSingleInstanceLock()) {
 // Read more on https://www.electronjs.org/docs/latest/tutorial/security
 // process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
-// export const ROOT_PATH = {
-// 	// /dist
-// 	dist: join(__dirname, "../.."),
-// 	// /dist or /public
-// 	public: join(__dirname, app.isPackaged ? "../.." : "../../../public"),
-// };
-// tray = new Tray(join(ROOT_PATH.public, "icon.ico"));
-
 let win: BrowserWindow | null = null
 // Here, you can also use other preload
 const preload = join(__dirname, '../preload/index.js')
@@ -243,7 +235,6 @@ ipcMain.on('notification', (event, todo) => {
     // body: new Date(todo.deadline_at).toLocaleString(), // 内容
     body: todo.deadline_at, // 内容
     icon: join(process.env.VITE_PUBLIC, 'favicon.ico'), // 图标
-    // icon: join(ROOT_PATH.public, 'icon.ico'), // 图标
     // href: "https://www.cnblogs.com/binglicheng/", // 地址
   }
   let notification = new Notification(option)
