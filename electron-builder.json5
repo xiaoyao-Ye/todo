@@ -1,8 +1,8 @@
 /**
  * @see https://www.electron.build/configuration/configuration
+ * $schema: 'https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json',
  */
 {
-  $schema: 'https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json',
   appId: 'Ghosteye.todo',
   productName: 'todo',
   asar: true,
@@ -13,7 +13,7 @@
   mac: {
     artifactName: '${productName}_${version}.${ext}',
     target: ['dmg'],
-    icon: './public/favicon.ico',
+    icon: './public/book.png',
   },
   win: {
     target: [
@@ -30,5 +30,6 @@
     perMachine: false,
     allowToChangeInstallationDirectory: true,
     deleteAppDataOnUninstall: false,
+    'runAfterFinish': false,
   },
 }

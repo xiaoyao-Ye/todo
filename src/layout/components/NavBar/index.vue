@@ -31,6 +31,9 @@ const day = date.getDate()
 const week = date.getDay()
 const dayOfWeekMap = ['日', '一', '二', '三', '四', '五', '六']
 const title = `星期${dayOfWeekMap[week]} ${month}月${day}日. I'm hungry.`
+
+const isMac = process.platform === 'darwin'
+console.log(`( isMac )===============>`, isMac)
 </script>
 
 <style scoped lang="scss">
