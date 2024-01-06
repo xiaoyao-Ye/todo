@@ -17,9 +17,10 @@ const setupStore = () => {
       limit: pageSize.value,
       sortOrder: category.value === 'completed' ? 'DESC' : sortStatus.value,
       sortBy: category.value === 'completed' ? 'completed_at' : sortCategory.value,
+      completed: false,
     }
     if (category.value !== 'tasks') query[category.value] = true
-    if (showComplete.value) query.completed = true
+    if (category.value !== 'completed' && showComplete.value) query.completed = null
     const { list, pagination } = await Todo.page(query)
     if (pageNum.value === 1) todoList.value = list
     else todoList.value.push(...list)
