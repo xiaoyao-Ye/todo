@@ -123,6 +123,10 @@ async function createWindow() {
     // win.webContents.send("window.maximized", false)
   })
 
+  win.on('focus', () => {
+    win.webContents.send('focus')
+  })
+
   win.on('close', event => {
     win.hide()
     win.setSkipTaskbar(true)
