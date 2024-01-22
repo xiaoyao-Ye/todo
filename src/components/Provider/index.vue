@@ -14,8 +14,6 @@ async function refreshToken() {
   localStorage.setItem(TOKEN, token)
 }
 
-refreshToken()
-
 const getToken = () => localStorage.getItem(TOKEN)
 
 let socketUrl = 'ws://120.79.135.213:1024'
@@ -70,6 +68,7 @@ const connectSocket = () => {
 
 if (getToken()) {
   connectSocket()
+  refreshToken()
 }
 
 ipcRenderer.on('close', () => {
