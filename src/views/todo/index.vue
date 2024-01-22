@@ -33,7 +33,7 @@
     </n-scrollbar>
 
     <div class="pt-4">
-      <n-input v-model:value="title" round placeholder="输入内容按 Enter 添加代办事项" @keyup.enter="onAddTodo">
+      <n-input ref="inputRef" v-model:value="title" round placeholder="输入内容按 Enter 添加代办事项" @keyup.enter="onAddTodo">
         <template #prefix>
           <ButtonIcon icon="i-carbon:document-add" />
         </template>
@@ -51,6 +51,7 @@ import { Todo } from '@/api/todo/api'
 import { useTodoStore } from '@/stores/todo'
 import { CreateTodoDto } from '@/api/todo/typings'
 import { throttle } from '@/utils'
+import { InputInst } from 'naive-ui'
 
 const todoStore = useTodoStore()
 const { toggleSort, sortIcon, sortOptions, toggleComplete } = todoStore
@@ -87,6 +88,18 @@ function onShowDetail(id: number) {
   detailId.value = id
   showDetail.value = true
 }
+
+const inputRef = ref<InputInst | null>(null)
+function focus(event: KeyboardEvent) {
+  if (event.key !== 'Tab') return
+  inputRef.value?.focus()
+}
+onMounted(() => {
+  document.addEventListener('keyup', focus)
+})
+onUnmounted(() => {
+  document.removeEventListener('keyup', focus)
+})
 </script>
 
 <style scoped></style>
