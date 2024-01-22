@@ -5,7 +5,15 @@
     </div>
     <div class="w-xl m-auto">
       <n-space align="center">
-        <span>是否开启 HappyWork 模式</span>
+        <span class="flex items-center">
+          是否开启 HappyWork 模式
+          <n-popover trigger="hover">
+            <template #trigger>
+              <div class="i-carbon:help ml-1"></div>
+            </template>
+            <span>开启后鼠标点击将会出现烟花效果</span>
+          </n-popover>
+        </span>
         <n-switch :round="false" v-model:value="globalStore.isHappyWork" />
       </n-space>
       <n-space align="center">
