@@ -1,9 +1,10 @@
 <template>
   <div class="texture flex flex-col p-4 h-[calc(100vh-40px-var(--g-is-max))]">
     <div class="flex items-center justify-between">
-      <div class="p-4 min-w-[200px] border border-dashed rd">
+      <div v-if="!globalStore.isPin" class="p-4 min-w-[200px] border border-dashed rd">
         {{ category }}
       </div>
+      <ButtonIcon v-else icon="i-carbon:menu" @click="toggleMenu" />
       <n-space>
         <!-- 选择排序 -->
         <ButtonIcon icon="i-carbon:ai-status-complete" text="完成时间" />
@@ -35,11 +36,17 @@
 import { TodoEntity } from '@/api/todo/typings'
 import Card from './Card.vue'
 import { useTodoStore } from '@/stores/todo'
+import { useGlobalStore } from '@/stores/index'
 import { throttle } from '@/utils'
 import { formatDate } from '@/utils/date'
 
 const todoStore = useTodoStore()
+const globalStore = useGlobalStore()
 const { pageNum, todoList, category } = storeToRefs(todoStore)
+
+function toggleMenu() {
+  globalStore.toggleCollapse()
+}
 
 const timeLineObj = ref<Record<string, TodoEntity[]>>({})
 watchEffect(() => {

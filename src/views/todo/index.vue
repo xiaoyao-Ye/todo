@@ -1,9 +1,10 @@
 <template>
   <div class="texture flex flex-col p-4 h-[calc(100vh-40px-var(--g-is-max))]">
     <div class="flex items-center justify-between">
-      <div class="p-4 min-w-[200px] border border-dashed rd">
+      <div v-if="!globalStore.isPin" class="p-4 min-w-[200px] border border-dashed rd">
         {{ category }}
       </div>
+      <ButtonIcon v-else icon="i-carbon:menu" @click="toggleMenu" />
       <n-space>
         <n-popover trigger="hover">
           <template #trigger>
@@ -49,13 +50,19 @@ import Card from './Card.vue'
 import Drawer from './Drawer.vue'
 import { Todo } from '@/api/todo/api'
 import { useTodoStore } from '@/stores/todo'
+import { useGlobalStore } from '@/stores/index'
 import { CreateTodoDto } from '@/api/todo/typings'
 import { throttle } from '@/utils'
 import { InputInst } from 'naive-ui'
 
 const todoStore = useTodoStore()
+const globalStore = useGlobalStore()
 const { toggleSort, sortIcon, sortOptions, toggleComplete } = todoStore
 const { pageNum, todoList, category, sortStatus, sortCategory, showComplete } = storeToRefs(todoStore)
+
+function toggleMenu() {
+  globalStore.toggleCollapse()
+}
 
 function onUpdate() {
   todoStore.onGetList()

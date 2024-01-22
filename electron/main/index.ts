@@ -49,10 +49,12 @@ async function createWindow() {
     // 4:3
     minWidth: 768,
     minHeight: 576,
+    // minWidth: 430,
+    // minHeight: 600,
     // backgroundColor: "#00000000",
     transparent: true,
     frame: false,
-    // opacity: 0.9,
+    opacity: 1,
     // titleBarStyle: "hidden",
     // fullscreen: true,
     // titleBarOverlay: true,
@@ -190,6 +192,29 @@ app.on('activate', () => {
 //     childWindow.loadFile(indexHtml, { hash: arg })
 //   }
 // })
+let currentSize = [0, 0]
+ipcMain.on('window.pin', event => {
+  if (win.isMaximized()) {
+    win.unmaximize()
+  }
+  currentSize = win.getSize()
+  win.setAlwaysOnTop(true)
+  win.setMinimumSize(430, 600)
+  win.setSize(430, 600)
+  win.setResizable(false)
+  // event.reply('window.pin')
+})
+
+ipcMain.on('window.unpin', event => {
+  if (win.isMaximized()) {
+    win.unmaximize()
+  }
+  win.setAlwaysOnTop(false)
+  win.setSize(currentSize[0], currentSize[1])
+  win.setMinimumSize(768, 576)
+  // event.reply('window.unpin')
+  win.setResizable(true)
+})
 
 // 最大化/恢复正常
 ipcMain.on('win.changeWinSize', event => {

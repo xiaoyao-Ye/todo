@@ -29,8 +29,8 @@ const storeSetup = () => {
   }
 
   const collapsed = ref(false)
-  function toggleCollapse(e: boolean) {
-    collapsed.value = e
+  function toggleCollapse(e?: boolean) {
+    collapsed.value = typeof e === 'boolean' ? e : !collapsed.value
   }
 
   const isMax = ref(false)
@@ -39,8 +39,9 @@ const storeSetup = () => {
   }
 
   const isHappyWork = ref(false)
+  const isPin = ref(false)
 
-  return { isDark, toggleTheme, collapsed, toggleCollapse, isMax, toggleIsMax, isHappyWork, familyOptions, family }
+  return { isPin, isDark, toggleTheme, collapsed, toggleCollapse, isMax, toggleIsMax, isHappyWork, familyOptions, family }
 }
 
 export const useGlobalStore = defineStore('global', storeSetup, {

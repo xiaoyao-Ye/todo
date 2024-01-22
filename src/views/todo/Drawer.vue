@@ -3,7 +3,7 @@
     v-model:show="active"
     @update:show="onChange"
     display-directive="show"
-    width="502"
+    :width="width"
     placement="right"
     to="#variable"
     :style="drawerStyle">
@@ -64,11 +64,13 @@ import { FormInst } from 'naive-ui'
 import { Todo } from '@/api/todo/api'
 import { TodoEntity } from '@/api/todo/typings'
 import { useTodoStore } from '@/stores/todo'
+import { useGlobalStore } from '@/stores'
 const todoStore = useTodoStore()
 const { todoList } = storeToRefs(todoStore)
 
 const props = defineProps<{ modelValue: boolean; id: number | undefined }>()
 const emits = defineEmits(['update:modelValue'])
+const width = computed(() => (useGlobalStore().isPin ? 280 : 502))
 
 const radioOptions = [
   { label: '低', value: 1 },

@@ -1,5 +1,5 @@
 <template>
-  <n-space justify="end" align="center">
+  <n-space v-if="!globalStore.isPin" justify="end" align="center">
     <ButtonIcon
       :icon="globalStore.isDark ? 'i-carbon:moon' : 'i-carbon:light'"
       class="font-size-4"
