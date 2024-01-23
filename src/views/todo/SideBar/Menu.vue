@@ -1,5 +1,10 @@
 <template>
-  <n-menu :collapsed-width="64" :collapsed-icon-size="22" :options="menuOptions" :node-props="renderNode" default-value="today" />
+  <n-menu
+    :collapsed-width="64"
+    :collapsed-icon-size="22"
+    :options="menuOptions"
+    :node-props="renderNode"
+    :default-value="todoStore.category" />
   <n-dropdown
     placement="bottom-start"
     trigger="manual"
@@ -106,7 +111,7 @@ const menuOptions: MenuMixedOption[] = [
 ]
 
 onMounted(() => {
-  todoStore.toggleCategory('today')
+  // todoStore.toggleCategory(todoStore.category)
 })
 </script>
 
