@@ -5,6 +5,10 @@
     </div>
     <div class="w-xl m-auto">
       <n-space align="center">
+        <span>设置应用透明度</span>
+        <n-slider style="width: 200px" v-model:value="globalStore.opacity" :min="10" :step="5" />
+      </n-space>
+      <n-space align="center">
         <span class="flex items-center">
           是否开启 HappyWork 模式
           <n-popover trigger="hover">

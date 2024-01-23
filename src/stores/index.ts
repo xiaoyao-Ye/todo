@@ -1,3 +1,4 @@
+import { ipcRenderer } from 'electron'
 import { defineStore } from 'pinia'
 
 // export const useGlobalStore = defineStore("global", {
@@ -40,8 +41,24 @@ const storeSetup = () => {
 
   const isHappyWork = ref(false)
   const isPin = ref(false)
+  const opacity = ref(100)
+  watchEffect(() => {
+    ipcRenderer.send('win.opacity', opacity.value)
+  })
 
-  return { isPin, isDark, toggleTheme, collapsed, toggleCollapse, isMax, toggleIsMax, isHappyWork, familyOptions, family }
+  return {
+    isPin,
+    isDark,
+    opacity,
+    toggleTheme,
+    collapsed,
+    toggleCollapse,
+    isMax,
+    toggleIsMax,
+    isHappyWork,
+    familyOptions,
+    family,
+  }
 }
 
 export const useGlobalStore = defineStore('global', storeSetup, {

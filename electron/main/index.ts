@@ -235,6 +235,9 @@ ipcMain.on('win.close', () => {
   // app.quit()
 })
 
+ipcMain.on('win.opacity', (event, val) => {
+  win.setOpacity(val / 100)
+})
 // 设置开机自动启动
 // const ex = process.execPath
 // // 监听设置开机自启动
