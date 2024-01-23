@@ -107,6 +107,9 @@ async function getDetails() {
 async function onDelete() {
   await Todo.remove({ id: props.id! })
   window.$message.success('删除成功')
+  removeTodo()
+}
+function removeTodo() {
   const index = todoList.value.findIndex(item => item.id === props.id)
   todoList.value.splice(index, 1)
   emits('update:modelValue', false)
@@ -124,9 +127,13 @@ async function onSubmit() {
   }
   await Todo.update({ id: props.id! }, query)
   window.$message.success('更新成功')
-  const index = todoList.value.findIndex(item => item.id === props.id)
-  todoList.value[index] = form.value
-  emits('update:modelValue', false)
+  if (query.completed_at) {
+    removeTodo()
+  } else {
+    const index = todoList.value.findIndex(item => item.id === props.id)
+    todoList.value[index] = form.value
+    emits('update:modelValue', false)
+  }
 }
 </script>
 
