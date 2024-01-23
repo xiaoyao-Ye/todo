@@ -21,6 +21,10 @@
         <n-switch :round="false" v-model:value="globalStore.isHappyWork" />
       </n-space>
       <n-space align="center">
+        <span>是否开启星空背景(todo 页面)</span>
+        <n-switch :round="false" v-model:value="globalStore.isStar" />
+      </n-space>
+      <n-space align="center">
         <span>是否开启黑暗模式</span>
         <n-switch :round="false" v-model:value="globalStore.isDark" />
       </n-space>

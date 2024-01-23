@@ -40,6 +40,7 @@ const storeSetup = () => {
   }
 
   const isHappyWork = ref(false)
+  const isStar = ref(false)
   const isPin = ref(false)
   const opacity = ref(100)
   watchEffect(() => {
@@ -48,6 +49,7 @@ const storeSetup = () => {
 
   return {
     isPin,
+    isStar,
     isDark,
     opacity,
     toggleTheme,

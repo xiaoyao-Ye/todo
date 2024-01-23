@@ -17,6 +17,8 @@
     </n-layout>
   </n-layout>
 
+  <StarBg v-if="globalStore.isStar" />
+
   <n-drawer
     v-if="globalStore.isPin"
     v-model:show="globalStore.collapsed"
