@@ -199,21 +199,18 @@ ipcMain.on('window.pin', event => {
   }
   currentSize = win.getSize()
   win.setAlwaysOnTop(true)
+  win.setResizable(false)
   win.setMinimumSize(430, 600)
   win.setSize(430, 600)
-  win.setResizable(false)
   // event.reply('window.pin')
 })
 
 ipcMain.on('window.unpin', event => {
-  if (win.isMaximized()) {
-    win.unmaximize()
-  }
   win.setAlwaysOnTop(false)
+  win.setResizable(true)
   win.setSize(currentSize[0], currentSize[1])
   win.setMinimumSize(768, 576)
   // event.reply('window.unpin')
-  win.setResizable(true)
 })
 
 // 最大化/恢复正常
