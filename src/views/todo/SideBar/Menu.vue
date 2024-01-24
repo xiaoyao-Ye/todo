@@ -20,7 +20,9 @@
 import { MenuGroupOption, MenuMixedOption, MenuOption } from 'naive-ui/es/menu/src/interface'
 import { Category, useTodoStore } from '@/stores/todo'
 import { renderIcon } from '@/hooks'
+import { useGlobalStore } from '@/stores'
 const todoStore = useTodoStore()
+const globalStore = useGlobalStore()
 
 const router = useRouter()
 const message = useMessage()
@@ -62,6 +64,7 @@ function handleMenu(option: MenuOption | MenuGroupOption) {
     } else {
       router.replace('/todo/list')
     }
+    globalStore.isPin && globalStore.toggleCollapse()
     // }
   }
 }
