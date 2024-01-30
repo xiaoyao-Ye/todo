@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { throttle } from '@/utils'
+
 const boxShadow = ref('')
 function RandomStars(num: number) {
   const windowHeight = document.body.clientHeight
@@ -30,9 +32,9 @@ function RandomStars(num: number) {
 }
 onMounted(() => {
   RandomStars(240)
-  window.addEventListener('resize', function () {
-    RandomStars(240)
-  })
+
+  const fn = throttle(this, () => RandomStars(240), 1000)
+  window.addEventListener('resize', fn)
 })
 </script>
 
