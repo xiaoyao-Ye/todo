@@ -15,6 +15,9 @@ import {
   SignInDto,
   SignInVo,
   TokenVo,
+  ListEntity,
+  CreateListDto,
+  ListDto,
 } from './typings.d'
 
 export class Common {
@@ -31,6 +34,7 @@ export class Todo {
   static page(params?: {
     limit?: number
     page?: number
+    list_id?: number
     today?: boolean
     important?: boolean
     completed?: boolean
@@ -120,6 +124,42 @@ export class Sign {
     return request<TokenVo>({
       url: `/api/v1/sign/refreshToken`,
       method: 'POST',
+    })
+  }
+}
+
+export class List {
+  /** 获取所有列表 */
+  static findAll() {
+    return request<Array<ListEntity>>({
+      url: `/api/v1/list`,
+      method: 'GET',
+    })
+  }
+
+  /** 创建列表 */
+  static create(data?: CreateListDto) {
+    return request<ListEntity>({
+      url: `/api/v1/list`,
+      method: 'POST',
+      data,
+    })
+  }
+
+  /** 更新列表 */
+  static update(path: { id: number }, data?: ListDto) {
+    return request<void>({
+      url: `/api/v1/list/${path.id}`,
+      method: 'PATCH',
+      data,
+    })
+  }
+
+  /** 删除列表 */
+  static remove(path: { id: number }) {
+    return request<void>({
+      url: `/api/v1/list/${path.id}`,
+      method: 'DELETE',
     })
   }
 }

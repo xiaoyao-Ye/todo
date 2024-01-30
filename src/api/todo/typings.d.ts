@@ -42,6 +42,8 @@ export interface CreateTodoDto {
   today?: boolean
   /** 重要的 */
   important?: boolean
+  /** 列表ID */
+  list_id?: number
   /** 标题 */
   title: string
 }
@@ -51,6 +53,8 @@ export interface UpdateTodoDto {
   today?: boolean
   /** 重要的 */
   important?: boolean
+  /** 列表ID */
+  list_id?: number
   /** 标题 */
   title?: string
   /** 描述 */
@@ -106,6 +110,44 @@ export interface SignInVo {
 export interface TokenVo {
   /** token */
   token: string
+}
+
+export interface ListEntity {
+  created_at: string
+
+  updated_at: string
+
+  id: number
+  /** 列表或分组名称 */
+  name: string
+  /** 是否分组 */
+  isGroup: boolean
+  /** 父级id */
+  pid: number
+  /** 排序 */
+  sort: number
+}
+
+export interface CreateListDto {
+  /** 列表或分组名称 */
+  name: string
+  /** 是否分组 */
+  isGroup?: boolean
+  /** 父级id */
+  pid?: number
+  /** 排序 */
+  sort?: number
+}
+
+export interface ListDto {
+  /** 列表或分组名称 */
+  name: string
+  /** 是否分组 */
+  isGroup?: boolean
+  /** 父级id */
+  pid?: number
+  /** 排序 */
+  sort?: number
 }
 
 export type SortByTodo = 'created_at' | 'deadline_at' | 'completed_at' | 'priority'

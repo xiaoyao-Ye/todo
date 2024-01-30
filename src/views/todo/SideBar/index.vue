@@ -4,7 +4,7 @@
       <Menu />
     </n-scrollbar>
 
-    <List v-show="!globalStore.collapsed" />
+    <List v-show="!globalStore.collapsed || globalStore.isPin" />
   </div>
 </template>
 

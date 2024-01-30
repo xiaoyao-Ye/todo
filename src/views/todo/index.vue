@@ -73,6 +73,7 @@ async function onAddTodo() {
   if (title.value.trim() === '') return
   const query: CreateTodoDto = { title: title.value }
   if (['today', 'important'].includes(category.value)) [(query[category.value as 'today' | 'important'] = true)]
+  if (!['today', 'important', 'completed', 'tasks'].includes(category.value)) query.list_id = +category.value
   scrollbarRef.value.scrollTo(0)
   const todo = await Todo.create(query)
   todoList.value.unshift(todo)
