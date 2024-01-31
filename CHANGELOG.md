@@ -1,5 +1,13 @@
 # changelog
 
+## 0.0.4
+
+- feat: Group and list
+- feat: Add a list to the group
+- style: Display login form in the center
+- perf: Update star background when adjusting window size
+- fix: Refresh list when deleting menu
+
 ## 0.0.3
 
 - 新增 pin 功能可将应用固定至顶部
