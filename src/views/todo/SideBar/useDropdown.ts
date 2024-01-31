@@ -5,19 +5,22 @@ import { useList } from './useList'
 
 const showDropdown = ref(false)
 const position = reactive({ x: 0, y: 0 })
-const options = [
-  // TODO: 分组可以添加分组和添加列表
-  // { label: '添加分组', key: 'group' },
-  // { label: '添加列表', key: 'list' },
-  { label: '重命名', key: 'rename' },
-  { label: '删除', key: 'delete' },
-]
+const options = computed(() => {
+  const defaultOptions = [
+    { label: '重命名', key: 'rename' },
+    { label: '删除', key: 'delete' },
+  ]
+  if (currentMenu.value?.isGroup) {
+    defaultOptions.unshift({ label: '添加列表', key: 'list' })
+  }
+  return defaultOptions
+})
 
 const currentMenu = ref<MenuOption>()
 async function onSelect(key: string | number) {
   showDropdown.value = false
-  if (key === 'rename') {
-    useList().onRename(currentMenu.value!)
+  if (['rename', 'list'].includes(key)) {
+    useList().toggleStatus(key, currentMenu.value!)
   } else if (key === 'delete') {
     const id = currentMenu.value!.key as number
     await List.remove({ id })

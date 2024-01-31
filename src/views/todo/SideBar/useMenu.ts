@@ -24,16 +24,27 @@ async function getMenus() {
   menuOptions.push(...fixed, ...menuList)
 }
 
+function createMenu(menu: ListEntity) {
+  const { name, id, isGroup } = menu
+  const icon = renderIcon('carbon:report')
+  return { icon, label: name, key: id, isGroup }
+}
+
 function convertToTree(list: ListEntity[]) {
   let menuList: MenuOption[] = []
-  list.forEach(ele => {
-    const parent: any = list.find(item => item.id === ele.pid)
-    if (parent) {
-      parent.children = parent.children || []
-      parent.children.push(ele)
-    } else {
-      const menu = { icon: renderIcon('carbon:report'), label: ele.name, key: ele.id }
-      if (ele.isGroup) menu.children = [] // 渲染为分组
+  list.forEach(item => {
+    if (item.isGroup || item.pid === 0) {
+      const menu: any = createMenu(item)
+      // 渲染为分组
+      if (item.isGroup) {
+        menu.children = []
+        list.forEach(child => {
+          if (child.pid === item.id) {
+            const menuS = createMenu(child)
+            menu.children.push(menuS)
+          }
+        })
+      }
       menuList.push(menu)
     }
   })
@@ -52,7 +63,6 @@ function removeNode(list: MenuOption[], id: number) {
 
 function handleMenu(option: MenuOption) {
   if (option.children) return // 分组不需要获取数据
-  const listId = option.key
   const url = option.key === 'completed' ? '/todo/completed' : `/todo/list`
   router.value.replace(url)
   useTodoStore().toggleCategory(option.key as Category)
@@ -69,9 +79,6 @@ function renderNode(option: MenuOption): any {
 function removeMenu(id: number) {
   removeNode(menuOptions, id)
 }
-function addMenu(menu: MenuOption) {
-  menuOptions.push(menu)
-}
 
 const router = ref()
 export function useMenu() {
@@ -81,6 +88,5 @@ export function useMenu() {
     getMenus,
     renderNode,
     removeMenu,
-    addMenu,
   }
 }

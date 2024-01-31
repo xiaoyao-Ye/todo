@@ -1,7 +1,6 @@
 import { InputInst, MenuOption } from 'naive-ui'
 import { List } from '@/api/todo/api'
 import { useMenu } from './useMenu'
-import { renderIcon } from '@/hooks'
 
 type ListStatus = 'list' | 'group' | 'rename'
 
@@ -16,9 +15,11 @@ const placeholder = computed(() => {
   return '输入名称按 Enter 确认'
 })
 
-function toggleStatus(type: ListStatus) {
+function toggleStatus(type: ListStatus, menu: MenuOption = {}) {
   inputStatus.value = type
   nextTick(() => inputRef.value?.focus())
+  if (menu) currentMenu.value = menu // 给分组添加子列表会用到
+  if (type === 'rename') inputVal.value = menu.label as string
 }
 
 function onCancel() {
@@ -26,6 +27,7 @@ function onCancel() {
   inputVal.value = ''
 }
 
+const currentMenu = ref()
 async function onConfirm() {
   const name = inputVal.value.trim()
   if (!name) return
@@ -33,25 +35,16 @@ async function onConfirm() {
     await List.update({ id: currentMenu.value.key }, { name })
     currentMenu.value!.label = name
   } else {
-    onAdd(name)
+    onAdd(name, currentMenu.value?.key)
   }
   onCancel()
 }
 
-const currentMenu = ref()
-function onRename(menu: MenuOption) {
-  toggleStatus('rename')
-  inputVal.value = menu.label as string
-  currentMenu.value = menu
-}
-
-async function onAdd(name: string) {
+async function onAdd(name: string, pid?: number) {
   // 添加列表/分类
   const isGroup = inputStatus.value === 'group'
-  const { id } = await List.create({ name, isGroup })
-  const menu: MenuOption = { icon: renderIcon('carbon:report'), key: id, label: name }
-  if (isGroup) menu.children = []
-  useMenu().addMenu(menu)
+  await List.create({ name, isGroup, pid })
+  useMenu().getMenus()
 }
 
 function onKeyup(e: KeyboardEvent) {
@@ -74,6 +67,5 @@ export function useList() {
     onKeyup,
     onCancel,
     toggleStatus,
-    onRename,
   }
 }
