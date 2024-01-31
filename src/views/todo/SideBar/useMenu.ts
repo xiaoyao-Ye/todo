@@ -62,7 +62,7 @@ function removeNode(list: MenuOption[], id: number) {
 }
 
 function handleMenu(option: MenuOption) {
-  if (option.children) return // 分组不需要获取数据
+  if (option.children || useTodoStore().category == option.key) return // 分组不需要获取数据
   const url = option.key === 'completed' ? '/todo/completed' : `/todo/list`
   router.value.replace(url)
   useTodoStore().toggleCategory(option.key as Category)
@@ -78,6 +78,9 @@ function renderNode(option: MenuOption): any {
 
 function removeMenu(id: number) {
   removeNode(menuOptions, id)
+  if (useTodoStore().category == id.toString()) {
+    useTodoStore().toggleCategory('tasks')
+  }
 }
 
 const router = ref()

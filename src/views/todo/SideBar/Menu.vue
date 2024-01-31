@@ -1,5 +1,6 @@
 <template>
   <n-menu
+    :value="todoStore.category"
     :collapsed-width="64"
     :collapsed-icon-size="22"
     :options="menuOptions"

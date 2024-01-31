@@ -17,10 +17,10 @@ const options = computed(() => {
 })
 
 const currentMenu = ref<MenuOption>()
-async function onSelect(key: string | number) {
+async function onSelect(key: string) {
   showDropdown.value = false
   if (['rename', 'list'].includes(key)) {
-    useList().toggleStatus(key, currentMenu.value!)
+    useList().toggleStatus(key as 'rename' | 'list', currentMenu.value!)
   } else if (key === 'delete') {
     const id = currentMenu.value!.key as number
     await List.remove({ id })
@@ -33,6 +33,7 @@ async function onSelect(key: string | number) {
 function onShowDropdown(e: MouseEvent, option: MenuOption) {
   e.preventDefault()
   showDropdown.value = false
+  if (['today', 'important', 'completed', 'tasks'].includes(option.key as string)) return
   nextTick().then(() => {
     currentMenu.value = option
     position.x = e.clientX
