@@ -31,4 +31,16 @@ onMounted(() => {
 })
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.n-menu :deep(.n-menu-item:nth-child(4)) {
+  margin-bottom: 13px; // height + 12px
+  &::after {
+    display: block;
+    content: '';
+    margin: 6px 8px 0;
+    width: calc(100% - 16px);
+    height: 1px;
+    background-color: var(--n-border-color);
+  }
+}
+</style>
