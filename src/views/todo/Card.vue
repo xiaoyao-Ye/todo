@@ -44,10 +44,12 @@ const props = defineProps<{ todo: TodoEntity; index: number }>()
 const emits = defineEmits(['showDetail'])
 
 async function toggleComplete() {
-  const completed_at = props.todo.completed_at ? '' : formatDate()
+  const completed_at: any = props.todo.completed_at ? null : formatDate()
   await Todo.update({ id: props.todo.id! }, { completed_at })
   todoList.value[props.index].completed_at = completed_at
-  if ((completed_at && category.value !== 'completed') || (!completed_at && category.value === 'completed')) {
+  const completeListRemoveTodo = !completed_at && category.value === 'completed'
+  const otherListRemoveTodo = !todoStore.showComplete && completed_at && category.value !== 'completed'
+  if (otherListRemoveTodo || completeListRemoveTodo) {
     todoList.value.splice(props.index, 1)
   }
 }
