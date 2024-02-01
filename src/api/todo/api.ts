@@ -65,6 +65,14 @@ export class Todo {
     })
   }
 
+  /** 重新注册定时提醒 */
+  static reRegisterTask() {
+    return request<void>({
+      url: `/api/v1/todo/reRegisterTask`,
+      method: 'GET',
+    })
+  }
+
   /** 更新待办 */
   static update(path: { id: number }, data?: UpdateTodoDto) {
     return request<void>({

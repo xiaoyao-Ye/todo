@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { Sign } from '@/api/todo/api'
+import { Sign, Todo } from '@/api/todo/api'
 import { TOKEN } from '@/constant'
 import { ipcRenderer } from 'electron'
 import { TodoEntity } from '@/api/todo/typings'
@@ -38,8 +38,8 @@ async function refreshToken() {
 
 const getToken = () => localStorage.getItem(TOKEN)
 
-let socketUrl = 'ws://120.79.135.213:1024'
-// let socketUrl = 'ws://localhost:2048'
+const isDev = import.meta.env.MODE === 'development'
+let socketUrl = isDev ? 'ws://localhost:2048' : 'ws://120.79.135.213:1024'
 let socket: WebSocket
 let lockReconnect = false
 let interval: NodeJS.Timeout | undefined = undefined
@@ -60,6 +60,7 @@ const onmessage = (e: MessageEvent) => {
   const { event, data } = JSON.parse(e.data)
   if (event === 'auth-key') {
     localStorage.setItem('ws-key', data)
+    Todo.reRegisterTask()
   } else if (event === 'notification') {
     ipcRenderer.send('notification', data)
     createNotification(data)
@@ -75,6 +76,7 @@ const heartbeat = () => {
     const key = localStorage.getItem('ws-key')
     let data = JSON.stringify({ event: 'ping', data: { key } })
     socket.send(data)
+    if (socket.readyState === 3) connectSocket()
     timeout = setTimeout(() => {
       lockReconnect = true
       socket.close(3982, key ?? '')
