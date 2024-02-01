@@ -28,6 +28,7 @@ declare module 'vue' {
     NLayoutSider: (typeof import('naive-ui'))['NLayoutSider']
     NMenu: (typeof import('naive-ui'))['NMenu']
     NMessageProvider: (typeof import('naive-ui'))['NMessageProvider']
+    NNotificationProvider: (typeof import('naive-ui'))['NNotificationProvider']
     NPageHeader: (typeof import('naive-ui'))['NPageHeader']
     NPopconfirm: (typeof import('naive-ui'))['NPopconfirm']
     NPopover: (typeof import('naive-ui'))['NPopover']

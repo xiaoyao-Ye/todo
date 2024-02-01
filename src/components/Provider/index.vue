@@ -6,8 +6,30 @@
 import { Sign } from '@/api/todo/api'
 import { TOKEN } from '@/constant'
 import { ipcRenderer } from 'electron'
+import { TodoEntity } from '@/api/todo/typings'
+import { NButton } from 'naive-ui'
 
 window.$message = useMessage()
+const notification = useNotification()
+
+function createNotification(todo: TodoEntity) {
+  const n = notification.warning({
+    title: todo.title,
+    content: todo.description,
+    meta: `截止时间: ${todo.deadline_at}`,
+    closable: false,
+    action: () =>
+      h(
+        NButton,
+        {
+          text: true,
+          type: 'primary',
+          onClick: () => n.destroy(),
+        },
+        { default: () => '已读' },
+      ),
+  })
+}
 
 async function refreshToken() {
   const { token } = await Sign.refreshToken()
@@ -40,6 +62,7 @@ const onmessage = (e: MessageEvent) => {
     localStorage.setItem('ws-key', data)
   } else if (event === 'notification') {
     ipcRenderer.send('notification', data)
+    createNotification(data)
   } else if (event === 'auth-fail') {
     console.log('401')
   }

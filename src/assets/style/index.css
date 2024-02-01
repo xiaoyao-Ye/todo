@@ -15,6 +15,10 @@
   vertical-align: middle;
 }
 
+.n-button {
+  background-color: var(--n-color);
+}
+
 /* 纹理背景 */
 .texture {
   background: url("/texture.png");

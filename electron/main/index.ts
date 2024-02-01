@@ -262,7 +262,7 @@ ipcMain.on('notification', (event, todo) => {
   let option = {
     title: todo.title, // 通知标题
     // body: new Date(todo.deadline_at).toLocaleString(), // 内容
-    body: todo.deadline_at, // 内容
+    body: todo.description, // 内容
     icon: join(process.env.VITE_PUBLIC, 'book.png'), // 图标
     // href: "https://www.cnblogs.com/binglicheng/", // 地址
   }

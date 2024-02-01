@@ -43,16 +43,18 @@ const style = computed(() => {
       <n-config-provider :inline-theme-disabled="true" :theme="theme" :locale="zhCN" :date-locale="dateZhCN">
         <n-message-provider>
           <n-spin :show="loading" :rotate="false">
-            <Provider>
-              <transition name="slide-fade" mode="out-in">
-                <router-view></router-view>
-              </transition>
-              <!-- <router-view v-slot="{ Component }">
+            <n-notification-provider to="#variable">
+              <Provider>
+                <transition name="slide-fade" mode="out-in">
+                  <router-view></router-view>
+                </transition>
+                <!-- <router-view v-slot="{ Component }">
                 <transition name="slide-fade" mode="out-in">
                   <component :is="Component" />
                 </transition>
               </router-view> -->
-            </Provider>
+              </Provider>
+            </n-notification-provider>
             <template #icon>
               <Blink />
             </template>

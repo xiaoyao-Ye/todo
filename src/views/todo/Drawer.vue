@@ -7,7 +7,7 @@
     placement="right"
     to="#variable"
     :style="drawerStyle">
-    <n-drawer-content title="详情">
+    <n-drawer-content :title="title">
       <n-scrollbar class="px-8">
         <n-form class="pt-4" ref="formRef" label-placement="top" :model="form" :rules="rules" :label-width="80">
           <n-form-item path="title" label="标题">
@@ -104,6 +104,10 @@ async function getDetails() {
   Object.assign(form.value, data)
 }
 
+const title = computed(() => {
+  return '创建于' + form.value?.created_at?.split('.')[0]
+})
+
 async function onDelete() {
   await Todo.remove({ id: props.id! })
   window.$message.success('删除成功')
@@ -128,6 +132,8 @@ async function onSubmit() {
   await Todo.update({ id: props.id! }, query)
   window.$message.success('更新成功')
   if (query.completed_at) {
+    removeTodo()
+  } else if (todoStore.category === 'today' && !query.today) {
     removeTodo()
   } else {
     const index = todoList.value.findIndex(item => item.id === props.id)
