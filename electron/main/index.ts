@@ -41,9 +41,9 @@ let tray: Tray | null = null
 
 async function createWindow() {
   win = new BrowserWindow({
-    title: 'Ghosteye todo',
+    title: 'todo',
     fullscreenable: false,
-    icon: join(process.env.VITE_PUBLIC, 'book.png'),
+    icon: join(process.env.VITE_PUBLIC, 'bookTodo.png'),
     width: 1024,
     height: 638,
     // 4:3
@@ -78,7 +78,7 @@ async function createWindow() {
   Menu.setApplicationMenu(null)
 
   // 设置任务栏菜单/图标/hover标题
-  tray = new Tray(join(process.env.VITE_PUBLIC, 'book.png'))
+  tray = new Tray(join(process.env.VITE_PUBLIC, 'bookTodo.png'))
 
   tray.setContextMenu(
     Menu.buildFromTemplate([
@@ -265,7 +265,7 @@ ipcMain.on('notification', (event, todo) => {
     title: todo.title, // 通知标题
     // body: new Date(todo.deadline_at).toLocaleString(), // 内容
     body: todo.description, // 内容
-    icon: join(process.env.VITE_PUBLIC, 'book.png'), // 图标
+    icon: join(process.env.VITE_PUBLIC, 'bookTodo.png'), // 图标
     // href: "https://www.cnblogs.com/binglicheng/", // 地址
   }
   let notification = new Notification(option)

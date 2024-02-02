@@ -3,7 +3,7 @@
  * $schema: 'https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json',
  */
 {
-  appId: 'Ghosteye.todo',
+  appId: 'todo',
   productName: 'todo',
   asar: true,
   directories: {
@@ -13,7 +13,7 @@
   mac: {
     artifactName: '${productName}_${version}.${ext}',
     target: ['dmg'],
-    icon: './public/book.png',
+    icon: './public/bookTodo.png',
   },
   win: {
     target: [
@@ -23,7 +23,7 @@
       },
     ],
     artifactName: '${productName}_${version}.${ext}',
-    icon: './public/favicon.ico',
+    icon: './public/bookTodo.ico',
   },
   nsis: {
     oneClick: false,

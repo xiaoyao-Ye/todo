@@ -2,8 +2,8 @@
   "name": "todo",
   "version": "0.0.4",
   "main": "dist-electron/main/index.js",
-  "description": "Ghosteye todo.",
-  "author": "Ghosteye <yqcyecong@163.com>",
+  "description": "todo list",
+  "author": "_Ghosteye <yqcyecong@163.com>",
   "license": "MIT",
   "private": true,
   "keywords": [
