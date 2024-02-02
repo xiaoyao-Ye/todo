@@ -27,7 +27,7 @@
     <n-scrollbar ref="scrollbarRef" class="flex-1 px-2 pt-4" :onScroll="onScroll">
       <TransitionGroup name="list" tag="div">
         <div v-for="(todo, index) in todoList" :key="todo.id">
-          <Card :todo="todo" :index="index" @showDetail="onShowDetail" />
+          <Card :todo="todo" :index="index" :isPin="globalStore.isPin" @showDetail="onShowDetail" />
         </div>
       </TransitionGroup>
       <LoadMore ref="loadMore" :isNull="todoList.length === 0" />

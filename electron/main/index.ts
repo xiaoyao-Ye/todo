@@ -200,8 +200,10 @@ ipcMain.on('window.pin', event => {
   currentSize = win.getSize()
   win.setAlwaysOnTop(true)
   win.setResizable(false)
-  win.setMinimumSize(430, 600)
-  win.setSize(430, 600)
+  // win.setMinimumSize(430, 600)
+  // win.setSize(430, 600)
+  win.setMinimumSize(360, 500)
+  win.setSize(360, 500)
   // event.reply('window.pin')
 })
 

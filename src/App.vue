@@ -87,4 +87,7 @@ const style = computed(() => {
   border-radius: var(--g-radius);
   user-select: none;
 }
+:deep(.n-notification) {
+  width: 300px;
+}
 </style>

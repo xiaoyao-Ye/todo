@@ -8,12 +8,13 @@ import { TOKEN } from '@/constant'
 import { ipcRenderer } from 'electron'
 import { TodoEntity } from '@/api/todo/typings'
 import { NButton } from 'naive-ui'
+import { useTodoStore } from '@/stores/todo'
 
 window.$message = useMessage()
 const notification = useNotification()
 
 function createNotification(todo: TodoEntity) {
-  const n = notification.warning({
+  const n = notification.create({
     title: todo.title,
     content: todo.description,
     meta: `截止时间: ${todo.deadline_at}`,
@@ -94,6 +95,9 @@ const connectSocket = () => {
 if (getToken()) {
   connectSocket()
   refreshToken()
+  // 首次进入应用刷新列表
+  const todoStore = useTodoStore()
+  todoStore.toggleCategory('today')
 }
 
 ipcRenderer.on('close', () => {

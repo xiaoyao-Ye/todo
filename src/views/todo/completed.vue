@@ -18,7 +18,7 @@
         <n-timeline-item v-for="(list, key) in timeLineObj" :key="key">
           <!-- <TransitionGroup name="list" tag="div"> -->
           <div v-for="(todo, index) in list" :key="todo.id">
-            <Card :todo="todo" :index="index" />
+            <Card :todo="todo" :isPin="globalStore.isPin" :index="index" />
             <!-- @showDetail="onShowDetail" -->
           </div>
           <!-- </TransitionGroup> -->

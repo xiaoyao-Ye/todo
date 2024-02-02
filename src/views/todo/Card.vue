@@ -19,9 +19,9 @@
       @blur="onCloseEdit"
       @keyup.enter="onEdit" />
 
-    <ButtonIcon :icon="isCollectIcon" class="justify-self-end" @click="toggleCollect" />
+    <ButtonIcon v-if="!isPin" :icon="isCollectIcon" class="justify-self-end" @click="toggleCollect" />
 
-    <n-popconfirm @positive-click="removeTodo">
+    <n-popconfirm v-if="!isPin" @positive-click="removeTodo">
       <template #trigger>
         <ButtonIcon icon="i-carbon:trash-can" class="justify-self-end ml-2" />
       </template>
@@ -40,7 +40,7 @@ const message = useMessage()
 const todoStore = useTodoStore()
 const { todoList, category } = storeToRefs(todoStore)
 
-const props = defineProps<{ todo: TodoEntity; index: number }>()
+const props = defineProps<{ todo: TodoEntity; index: number; isPin: boolean }>()
 const emits = defineEmits(['showDetail'])
 
 async function toggleComplete() {

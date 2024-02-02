@@ -27,7 +27,7 @@ const { showDropdown, position, options, onSelect } = useDropdown()
 const { getMenus, renderNode, menuOptions } = useMenu()
 
 onMounted(() => {
-  getMenus()
+  !menuOptions.length && getMenus()
   // todoStore.toggleCategory(todoStore.category)
 })
 </script>
