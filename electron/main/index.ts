@@ -65,7 +65,7 @@ async function createWindow() {
     // },
     webPreferences: {
       // false 将禁止同源策略
-      // webSecurity: false,
+      webSecurity: false,
       preload,
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
       // Consider using contextBridge.exposeInMainWorld
