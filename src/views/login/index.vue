@@ -15,7 +15,9 @@
       </div>
 
       <!-- <div class="title">do</div> -->
-      <div class="w-sm fixed right-5.4% top-50% translate-y--50% px-8 pt-8 rd">
+      <div
+        class="w-sm fixed right-10% top-50% translate-y--50% px-8 pt-8 rd"
+        :class="globalStore.isPin ? 'right-50% translate-x-50%' : ''">
         <div class="my-2 flex justify-center">
           <Blink :paused="blinkPaused" />
         </div>
