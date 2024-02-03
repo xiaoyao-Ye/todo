@@ -13,7 +13,7 @@
   mac: {
     artifactName: '${productName}_${version}.${ext}',
     target: ['dmg'],
-    icon: './public/bookTodo.png',
+    icon: './public/CarbonCookie.1024.png',
   },
   win: {
     target: [
@@ -23,7 +23,7 @@
       },
     ],
     artifactName: '${productName}_${version}.${ext}',
-    icon: './public/bookTodo.ico',
+    icon: './public/CarbonCookie.1024.ico',
   },
   nsis: {
     oneClick: false,

@@ -1,7 +1,7 @@
 <template>
   <div class="navBar flex items-center justify-between px-4 h-full">
     <div class="flex-1 flex">
-      <!-- <n-avatar round size="small" src="/bookTodo.png" /> -->
+      <!-- <n-avatar round size="small" src="/CarbonCookie.1024.png" /> -->
       <span class="i-carbon:cafe text-xl"></span>
       <!-- <span class="i-carbon:crop-growth text-xl text-orange-300"></span> -->
       <!-- <span class="i-carbon:humidity text-xl"></span> -->
