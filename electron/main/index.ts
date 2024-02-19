@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell, ipcMain, Menu, Tray, Notification } from 'electron'
+import { app, BrowserWindow, shell, ipcMain, Menu, Tray, Notification, dialog } from 'electron'
 import { release } from 'node:os'
 import { join } from 'node:path'
 
@@ -276,3 +276,15 @@ ipcMain.on('notification', (event, todo) => {
     win.setSkipTaskbar(false)
   })
 })
+
+// ipcMain.on('open-directory-dialog', function (event, p) {
+//   dialog
+//     .showOpenDialog({
+//       properties: [p],
+//       title: '请选择目录',
+//       buttonLabel: '确认',
+//     })
+//     .then(result => {
+//       event.sender.send('selectedItem', result.filePaths[0])
+//     })
+// })

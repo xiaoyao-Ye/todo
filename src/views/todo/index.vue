@@ -6,6 +6,12 @@
       </div>
       <ButtonIcon v-else icon="i-carbon:menu" @click="toggleMenu" />
       <n-space>
+        <!-- <n-popover trigger="hover">
+          <template #trigger>
+            <ButtonIcon icon="i-carbon:drill-down" @click="onExport" />
+          </template>
+          <span>点击导出当前列表</span>
+        </n-popover> -->
         <n-popover trigger="hover">
           <template #trigger>
             <ButtonIcon :icon="showComplete ? 'i-carbon:ai-status-complete' : 'i-carbon:ai-status'" @click="toggleComplete" />
@@ -54,11 +60,31 @@ import { useGlobalStore } from '@/stores/index'
 import { CreateTodoDto } from '@/api/todo/typings'
 import { throttle } from '@/utils'
 import { InputInst } from 'naive-ui'
+// import fs from 'fs'
+// import { ipcRenderer } from 'electron'
 
 const todoStore = useTodoStore()
 const globalStore = useGlobalStore()
 const { toggleSort, sortIcon, sortOptions, toggleComplete } = todoStore
 const { pageNum, todoList, category, sortStatus, sortCategory, showComplete } = storeToRefs(todoStore)
+
+// function onExport() {
+//   ipcRenderer.send('open-directory-dialog', 'openDirectory')
+//   ipcRenderer.on('selectedItem', (_, path) => {
+//     //
+//     const content = todoList.value
+//       .map(todo => {
+//         const description = todo.description ? `(${todo.description})` : ''
+//         const template = `- [${todo.completed_at ? 'x' : ' '}] ${todo.title}${description}`
+//         return template
+//       })
+//       .join('\n')
+//     const title = `# ${category.value}\n\n`
+//     const md = title + content
+//     let filePath = `${path}\\${category.value}.md`
+//     fs.writeFileSync(filePath, md)
+//   })
+// }
 
 function toggleMenu() {
   globalStore.toggleCollapse()
