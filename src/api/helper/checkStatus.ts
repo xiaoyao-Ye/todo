@@ -19,11 +19,15 @@ export const Message = (message: string) => {
   window.$message.error(message)
 }
 
+let flag = false
 export const checkStatus = (status: number, message?: string) => {
   const title = message ?? statusList[status] ?? '请求失败！'
-  Message(title)
   if (status === 401) {
+    if (flag) return
     localStorage.removeItem(TOKEN)
     router.replace({ path: '/login' })
+    flag = true
+    setTimeout(() => (flag = false), 2000)
   }
+  Message(title)
 }
