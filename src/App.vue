@@ -38,7 +38,7 @@ const style = computed(() => {
 </script>
 
 <template>
-  <div class="p-[calc(var(--g-is-max)/2)]" :style="style">
+  <div class="p-[calc(var(--g-is-max)/2)]" :class="globalStore.isDark ? 'dark' : 'light'" :style="style">
     <div id="variable" class="h-[calc(100vh-var(--g-is-max))]">
       <n-config-provider :inline-theme-disabled="true" :theme="theme" :locale="zhCN" :date-locale="dateZhCN">
         <n-message-provider>
