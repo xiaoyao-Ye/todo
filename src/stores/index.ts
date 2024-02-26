@@ -21,7 +21,7 @@ const storeSetup = () => {
     { label: 'Pacifico', value: 'Pacifico' },
     { label: 'Lilita One', value: 'Lilita One' },
   ]
-  const family = ref('Pacifico')
+  const family = ref('Lilita One')
 
   const isDark = ref(true)
 
