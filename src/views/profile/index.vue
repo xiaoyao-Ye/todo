@@ -9,7 +9,7 @@
           <thead>
             <th></th>
             <th :colspan="colspan" v-for="({ colspan, month }, i) in thead">
-              {{ months[month] }}
+              {{ months[month].slice(0, 3) }}
             </th>
           </thead>
           <tbody>
@@ -17,23 +17,36 @@
               <td class="week">
                 <span>{{ i % 2 !== 0 ? weeks[i] : '' }}</span>
               </td>
-              <td :class="item ? 'box' : ''" v-for="(item, j) in row" :key="j">
-                <!-- {{ item }} -->
+              <td v-for="(item, j) in row" :key="j">
+                <n-popover trigger="hover" to="#variable" style="padding: 4px 8px; font-size: 12px">
+                  <template #trigger>
+                    <div :class="[item?.level, item ? 'box' : '']"></div>
+                  </template>
+                  <span>{{ item?.tips }}</span>
+                </n-popover>
               </td>
             </tr>
           </tbody>
         </table>
 
-        <div class="level">
-          <div>Less</div>
-          <div class="box"></div>
-          <div class="box low"></div>
-          <div class="box moderate"></div>
-          <div class="box high"></div>
-          <div class="box veryhigh"></div>
-          <div>More</div>
+        <div class="flex items-center justify-between px-8">
+          <n-popselect v-model:value="year" :options="options" size="medium" scrollable @update:value="getCountByDate">
+            <ButtonIcon icon="i-carbon:calendar-heat-map" :text="year || options[0].label" />
+          </n-popselect>
+
+          <div class="flex items-center gap-1">
+            <div>Less</div>
+            <div class="box"></div>
+            <div class="box low"></div>
+            <div class="box moderate"></div>
+            <div class="box high"></div>
+            <div class="box veryhigh"></div>
+            <div>More</div>
+          </div>
         </div>
       </div>
+
+      <n-divider />
 
       <div>开发中</div>
       <div>头像</div>
@@ -46,50 +59,59 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import { Todo } from '@/api/todo/api'
+import { CountTodoVo } from '@/api/todo/typings'
 
 const weeks: { [key: number]: string } = { 0: 'Sun', 1: 'Mon', 2: 'Tue', 3: 'Wed', 4: 'Thu', 5: 'Fri', 6: 'Sat' }
 const months: { [key: number]: string } = {
-  0: 'Jan',
-  1: 'Feb',
-  2: 'Mar',
-  3: 'Apr',
+  0: 'January',
+  1: 'February',
+  2: 'March',
+  3: 'April',
   4: 'May',
-  5: 'Jun',
-  6: 'Jul',
-  7: 'Aug',
-  8: 'Sep',
-  9: 'Oct',
-  10: 'Nov',
-  11: 'Dec',
+  5: 'June',
+  6: 'July',
+  7: 'August',
+  8: 'September',
+  9: 'October',
+  10: 'November',
+  11: 'December',
 }
-const tbody = ref<(null | number)[][]>([])
+const tbody = ref<(null | { tips: string; level: string })[][]>([])
 const thead = ref<{ colspan: number; month: number }[]>([])
+const year = ref(undefined)
+const options = ref<{ label: string; value: number }[]>([])
+getOptions()
+function getOptions() {
+  for (let i = 2018; i <= new Date().getFullYear(); i++) {
+    options.value.unshift({ label: i.toString(), value: i })
+  }
+}
 
 onMounted(() => {
-  // getCountByDate()
-
-  const data = everydayBy()
-  // const data = everydayBy(2023)
-  // const data = everydayBy(2022)
-  tbody.value = data.tbody
-  thead.value = data.months.map((item, i) => {
-    const nextItem = data.months[i + 1] || { offset: 53 }
-    return { colspan: nextItem.offset - item.offset, month: item.month }
-  })
+  getCountByDate()
 })
 
-// async function getCountByDate() {
-//   const res = await Todo.countTodo()
-//   console.log(`( index.vue: res )===============>`, res)
-// }
+async function getCountByDate() {
+  const query = {
+    startDate: year.value ? `${year.value}-01-01` : undefined,
+    endDate: year.value ? `${year.value}-12-31` : undefined,
+  }
+  const list = await Todo.countTodo(query)
+  const data = everydayBy(list, year.value)
+  tbody.value = data.tbody
+  thead.value = data.thead.map((item, i) => {
+    const nextItem = data.thead[i + 1] || { offset: 53 }
+    return { colspan: nextItem.offset - item.offset, month: item.month }
+  })
+}
 
-function everydayBy(year?: number) {
+// TODO: REFACTOR
+function everydayBy(list: CountTodoVo[], year?: number) {
   let startDate = year ? dayjs(`${year}-01-01`) : dayjs().subtract(52, 'week').startOf('week')
   const endDate = year ? dayjs(`${year}-12-31`) : dayjs()
-  const tbody: (null | number)[][] = [[], [], [], [], [], [], []]
-  const months = []
+  const tbody: (null | { tips: string; level: string })[][] = [[], [], [], [], [], [], []]
+  const thead = []
 
-  // 打印日期
   let isFirst = true
   while (!startDate.isAfter(endDate)) {
     const week = startDate.day()
@@ -103,82 +125,64 @@ function everydayBy(year?: number) {
       }
     }
 
-    if (day === 1 && months.length < 12) {
-      console.log(months.length)
-
+    if (day === 1 && thead.length < 12) {
       let len = tbody[week].length
       len = week === 0 ? len : len + 1
-      len = months.length === 0 && month === 0 ? 0 : len
-      console.log(`( index.vue: len )===============>`, len)
+      len = thead.length === 0 && month === 0 ? 0 : len
 
-      months.push({ offset: len, month })
+      thead.push({ offset: len, month })
     }
 
-    tbody[week].push(day)
+    const date = startDate.format('YYYY-MM-DD')
+    const item = list.find(item => item.date === date)
+    const tips = `${item?.count || 'No'} contributions on ${months[month]} ${day}${getDaySuffix(day)}.`
+    tbody[week].push({ tips, level: classifyNumbers(item?.count) })
 
     startDate = startDate.add(1, 'day')
   }
 
-  // TODO: tbody
-  // { month, day, contributions, ... }
+  return { thead, tbody }
+}
 
-  return { months, tbody }
+// TODO: 完善规则
+function classifyNumbers(count?: number) {
+  if (!count) return ''
+  if (count < 3) return 'low'
+  if (count < 5) return 'moderate'
+  if (count < 10) return 'high'
+  return 'veryhigh'
 }
 
 // 计算活跃度
-function classifyNumbers(arr: any[]) {
-  const sortedArr = arr.sort((a, b) => a - b)
-  const index80 = Math.floor(arr.length * 0.8)
-  const index60 = Math.floor(arr.length * 0.6)
-  const index30 = Math.floor(arr.length * 0.3)
+// function classifyNumbers(arr: any[]) {
+//   const sortedArr = arr.sort((a, b) => a - b)
+//   const index80 = Math.floor(arr.length * 0.8)
+//   const index60 = Math.floor(arr.length * 0.6)
+//   const index30 = Math.floor(arr.length * 0.3)
 
-  const activeNumbers = sortedArr.slice(index80)
-  const secondaryActiveNumbers = sortedArr.slice(index60, index80)
-  const mediumActiveNumbers = sortedArr.slice(index30, index60)
+//   const activeNumbers = sortedArr.slice(index80)
+//   const secondaryActiveNumbers = sortedArr.slice(index60, index80)
+//   const mediumActiveNumbers = sortedArr.slice(index30, index60)
 
-  return {
-    activeNumbers,
-    secondaryActiveNumbers,
-    mediumActiveNumbers,
-  }
-}
+//   return {
+//     activeNumbers,
+//     secondaryActiveNumbers,
+//     mediumActiveNumbers,
+//   }
+// }
 
 // 获取天数后缀
 function getDaySuffix(day: number) {
   const lastTwoDigits = day % 100
-
-  if (lastTwoDigits >= 11 && lastTwoDigits <= 13) return 'th'
-
+  if ([11, 12, 13].includes(lastTwoDigits)) return 'th'
   const lastDigit = day % 10
-
-  switch (lastDigit) {
-    case 1:
-      return 'st'
-    case 2:
-      return 'nd'
-    case 3:
-      return 'rd'
-    default:
-      return 'th'
-  }
+  if ([1, 2, 3].includes(lastDigit)) return { 1: 'st', 2: 'nd', 3: 'rd' }[lastDigit]
+  return 'th'
 }
-
-// service format
-// const tasksByDay = tasks.reduce((result, task) => {
-//   const taskDate = new Date(task.createdAt); // 假设任务对象中有一个 createdAt 属性表示创建日期
-//   const dateString = taskDate.toISOString().slice(0, 10); // 将日期转换为字符串格式 "YYYY-MM-DD"
-
-//   if (!result[dateString]) {
-//     result[dateString] = 0; // 初始化日期对应的任务数量为 0
-//   }
-
-//   result[dateString]++; // 增加该日期对应的任务数量
-
-//   return result;
-// }, {});
 </script>
 
 <style lang="scss" scoped>
+// TODO: 转为原子类
 table {
   font-size: 12px;
   border-spacing: 2px; /* 设置表格边框间距 */
@@ -186,6 +190,9 @@ table {
   th {
     text-align: left;
     font-weight: normal;
+  }
+  td {
+    padding: 0;
   }
   .week {
     position: relative;
@@ -210,41 +217,33 @@ table {
   transition: background-color 0.3s ease-out;
 }
 
-.level {
-  padding: 4px 40px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 3px;
-  font-size: 12px;
-  .low {
-    background-color: #ddd;
-  }
-  .moderate {
-    background-color: #bbb;
-  }
-  .high {
-    background-color: #999;
-  }
-  .veryhigh {
-    background-color: #666;
-  }
+.box.low {
+  background-color: #ddd;
+}
+.box.moderate {
+  background-color: #bbb;
+}
+.box.high {
+  background-color: #999;
+}
+.box.veryhigh {
+  background-color: #666;
 }
 
 .dark {
   .box {
     background-color: #333;
   }
-  .low {
+  .box.low {
     background-color: #666;
   }
-  .moderate {
+  .box.moderate {
     background-color: #999;
   }
-  .high {
+  .box.high {
     background-color: #ddd;
   }
-  .veryhigh {
+  .box.veryhigh {
     background-color: #fff;
   }
 }

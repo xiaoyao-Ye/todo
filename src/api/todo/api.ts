@@ -9,6 +9,7 @@ import {
   PageTodoVo,
   TodoEntity,
   CreateTodoDto,
+  CountTodoVo,
   UpdateTodoDto,
   SendCodeDto,
   SignUpDto,
@@ -70,6 +71,15 @@ export class Todo {
     return request<void>({
       url: `/api/v1/todo/reRegisterTask`,
       method: 'GET',
+    })
+  }
+
+  /** 获取活跃度 */
+  static countTodo(params?: { startDate?: string; endDate?: string }) {
+    return request<Array<CountTodoVo>>({
+      url: `/api/v1/todo/countTodo`,
+      method: 'GET',
+      params,
     })
   }
 

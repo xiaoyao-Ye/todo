@@ -37,6 +37,13 @@ export interface PageTodoVo {
   pagination: Pagination
 }
 
+export interface CountTodoVo {
+  /** 数量 */
+  count: number
+  /** 日期 */
+  date: string
+}
+
 export interface CreateTodoDto {
   /** 今天 */
   today?: boolean
