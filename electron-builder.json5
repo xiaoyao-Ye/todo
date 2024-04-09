@@ -1,31 +1,35 @@
 /**
  * @see https://www.electron.build/configuration/configuration
+ * $schema: 'https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json',
  */
 {
-  "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
-  "appId": "YourAppID",
-  "asar": true,
-  "directories": {
-    "output": "release/${version}",
+  appId: 'todo',
+  productName: 'todo',
+  asar: true,
+  directories: {
+    output: 'release/${version}',
   },
-  "files": ["dist-electron", "dist"],
-  "mac": {
-    "artifactName": "${productName}_${version}.${ext}",
-    "target": ["dmg"],
+  files: ['dist-electron', 'dist'],
+  mac: {
+    artifactName: '${productName}_${version}.${ext}',
+    target: ['dmg'],
+    icon: './public/CarbonCookie.1024.png',
   },
-  "win": {
-    "target": [
+  win: {
+    target: [
       {
-        "target": "nsis",
-        "arch": ["x64"],
+        target: 'nsis',
+        arch: ['x64'],
       },
     ],
-    "artifactName": "${productName}_${version}.${ext}",
+    artifactName: '${productName}_${version}.${ext}',
+    icon: './public/CarbonCookie.1024.ico',
   },
-  "nsis": {
-    "oneClick": false,
-    "perMachine": false,
-    "allowToChangeInstallationDirectory": true,
-    "deleteAppDataOnUninstall": false,
+  nsis: {
+    oneClick: false,
+    perMachine: false,
+    allowToChangeInstallationDirectory: true,
+    deleteAppDataOnUninstall: false,
+    'runAfterFinish': false,
   },
 }

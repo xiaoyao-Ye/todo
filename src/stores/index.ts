@@ -1,11 +1,68 @@
-// import { darkTheme, lightTheme } from "naive-ui"
+import { ipcRenderer } from 'electron'
+import { defineStore } from 'pinia'
 
-// const theme = ref(darkTheme)
-// const isDark = ref(true)
+// export const useGlobalStore = defineStore("global", {
+//   state: () => {
+//     return { isDark: false, collapsed: false }
+//   },
+//   actions: {
+//     toggleTheme() {
+//       this.isDark = !this.isDark
+//     },
+//     toggleCollapse(e: boolean) {
+//       this.collapsed = e
+//     },
+//   },
+// })
 
-// const changeTheme = () => {
-//   isDark.value = !isDark.value
-//   theme.value = isDark.value ? darkTheme : lightTheme
-// }
+const storeSetup = () => {
+  const familyOptions = [
+    { label: '默认', value: 'default' },
+    { label: 'Pacifico', value: 'Pacifico' },
+    { label: 'Lilita One', value: 'Lilita One' },
+  ]
+  const family = ref('Lilita One')
 
-// export { changeTheme, theme }
+  const isDark = ref(true)
+
+  const toggleTheme = () => {
+    isDark.value = !isDark.value
+  }
+
+  const collapsed = ref(false)
+  function toggleCollapse(e?: boolean) {
+    collapsed.value = typeof e === 'boolean' ? e : !collapsed.value
+  }
+
+  const isMax = ref(false)
+  function toggleIsMax(e: boolean) {
+    isMax.value = e
+  }
+
+  const isHappyWork = ref(false)
+  const isStar = ref(false)
+  const isPin = ref(false)
+  const opacity = ref(100)
+  watchEffect(() => {
+    ipcRenderer.send('win.opacity', opacity.value)
+  })
+
+  return {
+    isPin,
+    isStar,
+    isDark,
+    opacity,
+    toggleTheme,
+    collapsed,
+    toggleCollapse,
+    isMax,
+    toggleIsMax,
+    isHappyWork,
+    familyOptions,
+    family,
+  }
+}
+
+export const useGlobalStore = defineStore('global', storeSetup, {
+  persist: true,
+})
