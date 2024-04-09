@@ -37,11 +37,18 @@ export interface PageTodoVo {
   pagination: Pagination
 }
 
-export interface CountTodoVo {
+export interface CountList {
   /** 数量 */
   count: number
   /** 日期 */
   date: string
+}
+
+export interface CountTodoVo {
+  /** 总数量 */
+  totalCount: number
+  /** 列表 */
+  list: Array<CountList>
 }
 
 export interface CreateTodoDto {

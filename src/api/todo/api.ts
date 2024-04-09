@@ -76,7 +76,7 @@ export class Todo {
 
   /** 获取活跃度 */
   static countTodo(params?: { startDate?: string; endDate?: string }) {
-    return request<Array<CountTodoVo>>({
+    return request<CountTodoVo>({
       url: `/api/v1/todo/countTodo`,
       method: 'GET',
       params,
